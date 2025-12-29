@@ -5,8 +5,9 @@ import { ErrorBoundary } from './components/ui/ErrorBoundary';
 import { Spinner } from './components/ui/Spinner';
 import { DashboardLayout } from './components/layout/DashboardLayout';
 
+
 // Public Pages
-import { Landing } from './pages/Landing';
+import { Home } from './pages/public/Home';
 import { Login } from './pages/auth/Login';
 import { Register } from './pages/auth/Register';
 import { ForgotPassword } from './pages/auth/ForgotPassword';
@@ -17,6 +18,9 @@ import { Contact } from './pages/Contact';
 import { Gallery } from './pages/Gallery';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { NotFound } from './pages/NotFound';
+import { MediaCenter } from './pages/public/MediaCenter';
+import { ManageMedia } from './pages/admin/ManageMedia';
+
 
 // Lazy-loaded Admin Pages
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard').then(m => ({ default: m.AdminDashboard })));
@@ -40,6 +44,7 @@ const NotificationManagement = lazy(() => import('./pages/admin/NotificationMana
 const ContentModeration = lazy(() => import('./pages/admin/ContentModeration').then(m => ({ default: m.ContentModeration })));
 const AdsManagement = lazy(() => import('./pages/admin/AdsManagement').then(m => ({ default: m.AdsManagement })));
 
+
 // Lazy-loaded Ambassador Pages
 const AmbassadorDashboard = lazy(() => import('./pages/ambassador/AmbassadorDashboard').then(m => ({ default: m.AmbassadorDashboard })));
 const MyExams = lazy(() => import('./pages/ambassador/MyExams').then(m => ({ default: m.MyExams })));
@@ -50,6 +55,7 @@ const LiveExamEnhanced = lazy(() => import('./pages/ambassador/LiveExamEnhanced'
 const AmbassadorProfileSettings = lazy(() => import('./pages/ambassador/ProfileSettings').then(m => ({ default: m.ProfileSettings })));
 const SubmitExam = lazy(() => import('./pages/ambassador/SubmitExam').then(m => ({ default: m.SubmitExam })));
 
+
 // Lazy-loaded President Pages
 const PresidentDashboard = lazy(() => import('./pages/president/PresidentDashboard').then(m => ({ default: m.PresidentDashboard })));
 const ManageAmbassadors = lazy(() => import('./pages/president/ManageAmbassadors').then(m => ({ default: m.ManageAmbassadors })));
@@ -58,6 +64,7 @@ const CampRegistrations = lazy(() => import('./pages/president/CampRegistrations
 const PaymentUpload = lazy(() => import('./pages/president/PaymentUpload').then(m => ({ default: m.PaymentUpload })));
 const PresidentNotifications = lazy(() => import('./pages/president/Notifications').then(m => ({ default: m.Notifications })));
 const PresidentProfileSettings = lazy(() => import('./pages/president/ProfileSettings').then(m => ({ default: m.ProfileSettings })));
+
 
 // A layout component for protected routes that includes the dashboard shell
 const ProtectedLayout = ({ role }: { role: 'admin' | 'ambassador' | 'president' }) => (
@@ -69,6 +76,8 @@ const ProtectedLayout = ({ role }: { role: 'admin' | 'ambassador' | 'president' 
 );
 
 
+
+
 function App() {
     return (
         <ErrorBoundary>
@@ -76,7 +85,7 @@ function App() {
                 <Router>
                     <Routes>
                         {/* ==================== PUBLIC ROUTES ==================== */}
-                        <Route path="/" element={<Landing />} />
+                        <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -86,6 +95,8 @@ function App() {
                         <Route path="/blog" element={<Blog />} />
                         <Route path="/blog/:slug" element={<BlogSingle />} />
                         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                        <Route path="/media" element={<MediaCenter />} />
+
 
                         {/* ==================== ADMIN ROUTES ==================== */}
                         <Route path="/admin" element={<ProtectedLayout role="admin" />}>
@@ -109,7 +120,9 @@ function App() {
                             <Route path="notifications/manage" element={<NotificationManagement />} />
                             <Route path="moderation" element={<ContentModeration />} />
                             <Route path="ads" element={<AdsManagement />} />
+                            <Route path="media" element={<ManageMedia />} />
                         </Route>
+
 
                         {/* ==================== AMBASSADOR ROUTES ==================== */}
                         <Route path="/ambassador" element={<ProtectedLayout role="ambassador" />}>
@@ -123,6 +136,7 @@ function App() {
                             <Route path="exam/submit/:id" element={<SubmitExam />} />
                         </Route>
 
+
                         {/* ==================== PRESIDENT ROUTES ==================== */}
                         <Route path="/president" element={<ProtectedLayout role="president" />}>
                             <Route path="dashboard" element={<PresidentDashboard />} />
@@ -134,6 +148,7 @@ function App() {
                             <Route path="profile" element={<PresidentProfileSettings />} />
                         </Route>
 
+
                         {/* 404 Catch-All */}
                         <Route path="*" element={<NotFound />} />
                     </Routes>
@@ -142,5 +157,6 @@ function App() {
         </ErrorBoundary>
     );
 }
+
 
 export default App;
