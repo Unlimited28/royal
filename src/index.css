@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-900: #0A1535;
+  --color-navy-800: #112240;
+  --color-gold-500: #D4AF37;
+  --color-card-bg: rgba(17, 34, 64, 0.7);
+  
+  --animate-gold-pulse: goldPulse 2s infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes goldPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-navy-900 via-[#060d1f] to-navy-800 text-white min-h-screen relative overflow-x-hidden;
+  }
+}
+
+
+/* Floating Particles Animation (Animation A) */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(rgba(212, 175, 55, 0.15) 1px, transparent 1px),
+    radial-gradient(rgba(212, 175, 55, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px, 30px 30px;
+  background-position: 0 0, 25px 25px;
+  animation: floatParticles 20s linear infinite;
+  z-index: 0;
+}
+
+@keyframes floatParticles {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50px); }
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-navy-900;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-navy-800 rounded-full hover:bg-gold-500/50 transition-colors;
+}
+
+/* Utility to ensure content is above background particles */
+.relative-z {
+  position: relative;
+  z-index: 1;
+}

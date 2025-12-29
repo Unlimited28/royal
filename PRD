@@ -1,0 +1,1415 @@
+PRD — Royal Ambassadors of Nigeria Digital Portal
+
+Version 1.0 — Enterprise Edition
+
+Prepared for: React + TypeScript Migration (Frontend) & PHP API (Backend)
+
+Prepared by: Ajibola (Founder/CEO)
+
+Technical Lead Advisor: ChatGPT
+
+
+---
+
+✅ SECTION 1 — Executive Summary
+
+1.1 Overview
+
+The Royal Ambassadors of Nigeria Portal (Ogun Baptist Conference) is a digital platform designed to manage and streamline the operations of the Royal Ambassadors organization. It supports:
+
+Ambassador management
+
+Administrative supervision by Association Presidents
+
+Complete oversight by the Super Admin
+
+Exam systems
+
+Camp registrations
+
+Payments
+
+Blogs
+
+Gallery
+
+Notifications
+
+Rank promotion
+
+Result tracking
+
+
+The existing system is a PHP monolithic structure with frontend HTML/CSS/JS embedded directly in .php templates.
+
+This PRD establishes the requirements and specifications for rebuilding the entire frontend in React + TypeScript, while retaining a clean PHP API backend.
+
+
+---
+
+1.2 Problem Statement
+
+The current monolithic PHP application presents several challenges:
+
+UI is not modern or scalable
+
+Frontend and backend tightly coupled
+
+Hard to maintain and extend
+
+Limited interactivity
+
+No component reusability
+
+No API-driven architecture
+
+Styling inconsistencies
+
+Organization cannot grow the platform efficiently
+
+
+
+---
+
+1.3 Proposed Solution
+
+A complete decoupling:
+
+Frontend → React + TypeScript + Vite + Tailwind
+Backend → PHP (REST API) + MySQL
+
+This structure enables:
+
+Modern UI/UX
+
+Faster user interaction
+
+Easier maintenance
+
+API-based architecture
+
+Better role-based experience
+
+Reusable components
+
+Scalability for future features
+
+Integration with mobile apps (future phase)
+
+
+
+---
+
+1.4 Target Users
+
+1. Ambassadors (Users)
+
+
+2. Association Presidents (Admins)
+
+
+3. Super Admin (Conference-wide control)
+
+
+4. Future system: Central Baptist authority
+
+
+
+
+---
+
+1.5 PRD Purpose
+
+This PRD defines:
+
+Functional requirements
+
+Non-functional requirements
+
+Backend API expectations
+
+UI/UX rules
+
+Theming guidelines
+
+Component hierarchy
+
+Role permissions
+
+Navigation structure
+
+Data workflows
+
+Background animation rules
+
+Future planning
+
+
+This PRD will act as the source of truth for:
+
+Antigravity (React refactor)
+
+Backend API restructuring
+
+QA testing
+
+Documentation
+
+Long-term roadmap
+
+
+
+---
+
+🚀 SECTION 2 — Platform Architecture Overview
+
+2.1 High-Level System Architecture
+
++------------------------------------------------------+
+|                    React Frontend                    |
+|    (TypeScript, Vite, Tailwind, Context API/Zustand) |
++---------------------------+--------------------------+
+                            |
+                            v
++------------------------------------------------------+
+|                    PHP API Backend                   |
+|      (REST Endpoints, PHP 8+, MySQL, JWT Auth)       |
++---------------------------+--------------------------+
+                            |
+                            v
++------------------------------------------------------+
+|            MySQL Database (Structured Schema)        |
++------------------------------------------------------+
+
+
+---
+
+2.2 Module Breakdown
+
+Frontend (New Architecture)
+
+Authentication Module
+
+User Dashboard Module
+
+Admin Dashboard Module
+
+Super Admin Dashboard Module
+
+Exam Module
+
+Result Module
+
+Payment Module
+
+Notification System
+
+Gallery Module
+
+Blog Module
+
+Camp Registration Module
+
+User Profile Module
+
+Settings Module
+
+
+
+---
+
+2.3 Backend (Existing PHP → API)
+
+Modules:
+
+Auth
+
+User Management
+
+Admin Management
+
+Super Admin Controls
+
+Exams
+
+Questions
+
+Results
+
+Payments
+
+Associations
+
+Notifications
+
+Gallery & Blog
+
+
+
+---
+
+2.4 Technology Stack
+
+Frontend
+
+React 18+
+
+TypeScript
+
+Vite
+
+Tailwind CSS
+
+React Router v6
+
+Zustand/Context
+
+Axios
+
+
+Backend
+
+PHP 8+
+
+MySQL
+
+JWT Authentication
+
+PHP Slim/Laravel Lumen (optional future upgrade)
+
+
+
+---
+
+🚀 SECTION 3 — User Roles & Permissions
+
+This section includes:
+
+1. Full role descriptions
+
+
+2. Responsibilities
+
+
+3. Restrictions
+
+
+4. Permission matrix
+
+
+
+
+---
+
+3.1 Role Descriptions
+
+1. Ambassador (User)
+
+This is the primary user class representing boys in the Royal Ambassadors program.
+
+Capabilities:
+
+Sign up
+
+Log in
+
+View dashboard
+
+Take exams (when approved)
+
+Upload payment receipts
+
+View exam results
+
+View notifications
+
+Register for camps
+
+View blog
+
+View gallery
+
+Update profile
+
+
+Restrictions:
+
+Cannot approve themselves for exams
+
+Cannot view admin/super admin pages
+
+Cannot manage content
+
+Cannot access finance tools
+
+
+
+---
+
+2. Association President (Admin)
+
+Represents administrators for each RA association.
+
+Capabilities:
+
+Log in with special passcode
+
+Manage ambassadors in their association
+
+Approve ambassadors for exams
+
+Upload Excel sheets for camp registration
+
+Upload payment receipts (dues, exams, camps)
+
+View all payments in their association
+
+View statistics for their association
+
+View and send notifications
+
+
+Restrictions:
+
+Cannot see data from other associations
+
+Cannot create global exams
+
+Cannot approve payments
+
+Cannot manage blog/gallery
+
+
+
+---
+
+3. Super Admin
+
+The highest-level authority with full control.
+
+Capabilities:
+
+Log in with super admin passcode
+
+Manage all users (ambassadors + admins)
+
+Create/modify/delete exams
+
+Add questions
+
+Approve exam scores
+
+Track all payments
+
+Approve/reject payments
+
+Issue PDF receipts
+
+Manage associations
+
+Manage the entire gallery
+
+Manage the entire blog
+
+View all camp registrations
+
+Assign or remove presidents
+
+Send global notifications
+
+
+Restrictions:
+None — full access.
+
+
+---
+
+3.2 Permission Matrix
+
+Feature / Action	Ambassador	Association President	Super Admin
+
+Sign Up	✔	✔ (via passcode)	✔ (via passcode)
+Login	✔	✔	✔
+View Own Dashboard	✔	✔	✔
+View Global Dashboard	❌	❌	✔
+Take Exam	✔ (if approved)	❌	❌
+Approve Ambassadors for Exam	❌	✔	✔
+Create Exams	❌	❌	✔
+Manage Questions	❌	❌	✔
+View Results	✔ (only own)	✔ (for association)	✔ (all results)
+Upload Payments	✔	✔	❌
+Approve Payments	❌	❌	✔
+Issue Receipts	❌	❌	✔
+Upload Camp Registrations	❌	✔	✔
+Modify Gallery	❌	❌	✔
+Modify Blog	❌	❌	✔
+Manage Associations	❌	❌	✔
+Assign Presidents	❌	❌	✔
+Send Notifications	❌	✔	✔
+
+
+
+---
+
+📘 SECTION 4 — User Journey Diagrams
+
+Since I cannot draw literal images here, I will represent them in professional flow-diagram text format used in documentation.
+
+
+---
+
+4.1 Ambassador User Journey
+
+[Start]
+   ↓
+Open Website
+   ↓
+Login or Register
+   ↓
+Ambassador Dashboard
+   ↓──────────────┐
+View Exams        │
+   ↓              │
+If Approved? -----┘→ No → Show "Awaiting Approval" Notice
+   ↓ Yes
+Start Exam
+   ↓
+Submit Exam
+   ↓
+Auto-Scoring
+   ↓
+View Results
+   ↓
+Upload Payment Receipts (If required)
+   ↓
+Access Notifications, Gallery, Blog
+   ↓
+[End]
+
+
+---
+
+4.2 Admin (Association President) Journey
+
+[Start]
+   ↓
+Enter Passcode → Login
+   ↓
+Admin Dashboard
+   ↓──────────────────────┬────────────────────┐
+View Association Boys     │ Upload Camp Excel  │ Upload Receipts
+   ↓                      │                    │
+Approve for Exams         │                    │
+   ↓                      │                    │
+Send Notifications        │                    │
+   ↓                      │                    │
+View Statistics           │                    │
+   ↓                      ↓                    ↓
+[End]
+
+
+---
+
+4.3 Super Admin Journey
+
+[Start]
+   ↓
+Enter Super Passcode → Login
+   ↓
+Super Admin Dashboard
+   ↓─────────────────────────────────────────────┬───────────────┬──────────────────┐
+Manage Users                                    Manage Exams     Manage Finance      Manage Content
+   ↓                                             ↓               ↓                   ↓
+Assign Presidents                                Create/Modify    Approve Payments    Blog/Gallery
+   ↓                                             Questions        Issue Receipts      Camp Data
+   ↓                                             ↓               ↓                   ↓
+View All Analytics                               ↓               ↓                   ↓
+   ↓                                             ↓               ↓                   ↓
+[End]
+
+
+---
+
+📘 SECTION 5 — Backend API Endpoint Definitions
+
+Since your backend will remain in PHP but become API-based, we define endpoints.
+
+
+---
+
+5.1 Authentication Endpoints
+
+POST /api/auth/register
+POST /api/auth/login
+POST /api/auth/verify-passcode (for admins)
+POST /api/auth/logout
+GET  /api/auth/me
+
+
+---
+
+5.2 User Management
+
+GET    /api/users
+GET    /api/users/{id}
+POST   /api/users
+PUT    /api/users/{id}
+DELETE /api/users/{id}
+
+
+---
+
+5.3 Exam System
+
+GET    /api/exams
+GET    /api/exams/{id}
+POST   /api/exams
+PUT    /api/exams/{id}
+DELETE /api/exams/{id}
+
+POST   /api/exams/{id}/questions
+GET    /api/exams/{id}/questions
+DELETE /api/questions/{id}
+
+POST   /api/exams/{id}/submit
+GET    /api/exams/results/{id}
+
+
+---
+
+5.4 Payments
+
+POST  /api/payments/upload
+GET   /api/payments
+GET   /api/payments/{id}
+POST  /api/payments/{id}/approve
+POST  /api/payments/{id}/reject
+
+
+---
+
+5.5 Gallery
+
+GET   /api/gallery
+POST  /api/gallery
+DELETE /api/gallery/{id}
+
+
+---
+
+5.6 Blog
+
+GET    /api/blog
+GET    /api/blog/{id}
+POST   /api/blog
+PUT    /api/blog/{id}
+DELETE /api/blog/{id}
+
+
+---
+
+📘 SECTION 6 — Database Schema Reconstruction
+This schema is structured for:
+
+Clean migrations
+
+Easy PHP API consumption
+
+Simple ORM mapping (future Laravel upgrade)
+
+Clear React data handling
+
+Full compliance with your permission roles
+
+
+
+---
+
+⭐ 6.1 USERS TABLE
+
+Table: users
+
+Field	Type	Description
+
+id	INT (PK, AI)	Unique user ID
+full_name	VARCHAR(255)	Full name of ambassador/admin
+email	VARCHAR(255)	Unique email
+phone	VARCHAR(15)	Phone number
+church	VARCHAR(255)	Church name
+association	VARCHAR(255)	Association name (from 25 associations list)
+role	ENUM('ambassador','president','superadmin')	Defines permission level
+age	INT	Age
+rank	VARCHAR(50)	Rank (page, squire, knight, etc.)
+user_code	VARCHAR(50)	System-generated RA ID
+password_hash	VARCHAR(255)	Hashed password
+created_at	DATETIME	Timestamp
+updated_at	DATETIME	Timestamp
+status	ENUM('active','inactive','suspended')	User status
+admin_passcode_used	BOOLEAN	True if president/superadmin passcode was used
+
+
+
+---
+
+⭐ 6.2 ASSOCIATIONS TABLE
+
+Table: associations
+
+Field	Type	Description
+
+id	INT (PK)	Unique ID
+name	VARCHAR(255)	Association name (1–25)
+president_user_id	INT	FK → users(id)
+created_at	DATETIME	Timestamp
+
+
+
+---
+
+⭐ 6.3 EXAMS TABLE
+
+Table: exams
+
+Field	Type	Description
+
+id	INT (PK)	Exam ID
+title	VARCHAR(255)	Exam name
+description	TEXT	Description
+rank_required	VARCHAR(50)	Rank required to access this exam
+duration_minutes	INT	Time limit
+pass_score	INT	Minimum to pass
+created_by	INT	FK → users(id) (super admin)
+created_at	DATETIME	Timestamp
+updated_at	DATETIME	Timestamp
+
+
+
+---
+
+⭐ 6.4 QUESTIONS TABLE
+
+Table: questions
+
+Field	Type	Description
+
+id	INT (PK)	Question ID
+exam_id	INT	FK → exams(id)
+question_text	TEXT	The question
+option_a	TEXT	Option A
+option_b	TEXT	Option B
+option_c	TEXT	Option C
+option_d	TEXT	Option D
+correct_option	CHAR(1)	A/B/C/D
+created_at	DATETIME	Timestamp
+
+
+Index: exam_id for fast lookup.
+
+
+---
+
+⭐ 6.5 EXAM APPROVAL TABLE
+
+Table: exam_approvals
+
+Field	Type	Description
+
+id	INT (PK)	Approval ID
+user_id	INT	Ambassador ID
+exam_id	INT	Exam ID
+approved_by	INT	President or Super Admin ID
+approved_at	DATETIME	Timestamp
+status	ENUM('approved','revoked')	Current state
+
+
+
+---
+
+⭐ 6.6 EXAM SUBMISSIONS TABLE
+
+Table: exam_submissions
+
+Field	Type	Description
+
+id	INT (PK)	Submission ID
+user_id	INT	Ambassador ID
+exam_id	INT	Exam ID
+submitted_at	DATETIME	Time of completion
+score	INT	Auto-scored score
+passed	BOOLEAN	True if score ≥ pass_score
+promoted	BOOLEAN	True if user rank changed
+promoted_from	VARCHAR(50)	Previous rank
+promoted_to	VARCHAR(50)	New rank
+
+
+
+---
+
+⭐ 6.7 PAYMENTS TABLE
+
+Table: payments
+
+Field	Type	Description
+
+id	INT (PK)	Payment ID
+user_id	INT	Ambassador/Admin who paid
+association	VARCHAR(255)	Association name
+type	ENUM('dues','exam','camp')	Payment type
+amount	DECIMAL(10,2)	Amount
+receipt_image	VARCHAR(255)	Uploaded receipt path
+status	ENUM('pending','approved','rejected')	Approval state
+approved_by	INT	Super Admin ID
+approved_at	DATETIME	Timestamp
+created_at	DATETIME	Upload timestamp
+
+
+
+---
+
+⭐ 6.8 CAMP REGISTRATIONS TABLE
+
+Table: camp_registrations
+
+Field	Type	Description
+
+id	INT (PK)	Registration ID
+user_id	INT	Ambassador
+association	VARCHAR(255)	Registrar’s association
+year	YEAR	Camp year
+status	ENUM('registered','confirmed')	Status
+uploaded_by	INT	President/Admin
+excel_reference	VARCHAR(255)	Excel file identifier
+created_at	DATETIME	Timestamp
+
+
+
+---
+
+⭐ 6.9 NOTIFICATIONS TABLE
+
+Table: notifications
+
+Field	Type	Description
+
+id	INT (PK)	Notification ID
+title	VARCHAR(255)	Title
+message	TEXT	Body
+target_role	ENUM('ambassador','president','superadmin','all')	Recipients
+created_by	INT	User ID
+created_at	DATETIME	Timestamp
+
+
+
+---
+
+⭐ 6.10 BLOG TABLE
+
+Table: blog_posts
+
+Field	Type	Description
+
+id	INT (PK)	Post ID
+title	VARCHAR(255)	Title
+content	TEXT	Body content
+featured_image	VARCHAR(255)	Image
+created_by	INT	Super Admin
+created_at	DATETIME	Timestamp
+updated_at	DATETIME	Timestamp
+
+
+
+---
+
+⭐ 6.11 GALLERY TABLE
+
+Table: gallery_items
+
+Field	Type	Description
+
+id	INT (PK)	Image ID
+image	VARCHAR(255)	Image URL/path
+caption	VARCHAR(255)	Optional caption
+uploaded_by	INT	Super Admin
+created_at	DATETIME	Timestamp
+
+
+
+---
+
+⭐ 6.12 LOGS TABLE (System Activity)
+
+Table: system_logs
+
+Field	Type	Description
+
+id	INT (PK)	Log ID
+user_id	INT	Actor
+action	VARCHAR(255)	What happened
+ip	VARCHAR(50)	IP Address
+created_at	DATETIME	Timestamp
+
+📘 SECTION 7 — Frontend UI Structure (React + TypeScript)
+
+Your new frontend will be a fully decoupled, component-driven, theme-locked React system.
+
+Below is the complete architecture.
+
+
+---
+
+7.1 Frontend Folder Structure
+
+src/
+  assets/
+  components/
+    layout/
+      Sidebar.tsx
+      Navbar.tsx
+      DashboardLayout.tsx
+    ui/
+      Button.tsx
+      Input.tsx
+      Card.tsx
+      StatsGrid.tsx
+      Table.tsx
+      Modal.tsx
+  pages/
+    auth/
+      Login.tsx
+      Register.tsx
+    dashboard/
+      AmbassadorDashboard.tsx
+      AdminDashboard.tsx
+      SuperAdminDashboard.tsx
+    exams/
+      ExamsList.tsx
+      TakeExam.tsx
+      ExamResult.tsx
+    payments/
+      UploadPayment.tsx
+      PaymentHistory.tsx
+    notifications/
+      Notifications.tsx
+    gallery/
+      Gallery.tsx
+    blog/
+      BlogList.tsx
+      BlogPost.tsx
+    camps/
+      CampRegister.tsx
+      CampList.tsx
+    profile/
+      Profile.tsx
+    settings/
+      Settings.tsx
+  context/
+    AuthContext.tsx
+    ThemeContext.tsx
+  hooks/
+    useAuth.ts
+    useFetch.ts
+  utils/
+    api.ts
+    helpers.ts
+  theme.ts
+  router.tsx
+  main.tsx
+  App.tsx
+
+
+---
+
+7.2 Shared UI Components
+
+Button.tsx
+
+Navy background
+
+Gold hover glow
+
+Rounded XL
+
+Consistent typography
+
+
+Card.tsx
+
+Semi-transparent navy glass
+
+Thin gold border
+
+Soft gold shadow
+
+Rounded corners
+
+
+Input.tsx
+
+Transparent with gold border
+
+Gold focus ring
+
+Light text labels
+
+
+Modal.tsx
+
+Dark overlay
+
+Gold-highlighted container
+
+
+StatsGrid.tsx
+
+Premium statistics blocks
+
+Gold iconography
+
+Smooth hover glow
+
+
+
+---
+
+7.3 Layout Components
+
+Sidebar.tsx
+
+Fixed left
+
+Navy background
+
+Gold borders
+
+Role-based links
+
+Smooth slide-in for mobile
+
+
+Navbar.tsx
+
+Gold underline
+
+Notification icon
+
+User avatar with initials
+
+Breadcrumb support
+
+
+DashboardLayout.tsx
+
+Wraps all dashboard pages
+
+Embeds background animations (Section 9)
+
+Uses React Router Outlet
+
+
+
+---
+
+📘 SECTION 8 — Page-by-Page Wireframes (Text-Based)
+
+(For Antigravity + MGX to enforce UI fidelity)
+
+These wireframes describe the final layout, not the visuals.
+
+
+---
+
+8.1 Login Page
+
+-----------------------------------------
+|   Royal Ambassadors Logo (center)     |
+|---------------------------------------|
+|             Login Card                |
+|  [ Email Input ]                      |
+|  [ Password Input ]                   |
+|  [ Login Button ]                     |
+|  [ Link: Register ]                   |
+-----------------------------------------
+Background animation: subtle floating particles.
+
+
+---
+
+8.2 Ambassador Dashboard
+
+Sidebar | Navbar on top
+
+-----------------------------------------
+| StatsGrid (4 cards):
+|   - Rank
+|   - Exams Available
+|   - Results
+|   - Notifications
+-----------------------------------------
+| Recent Notifications List
+| Upcoming Exams
+-----------------------------------------
+
+
+---
+
+8.3 Admin Dashboard
+
+Similar to ambassador but with:
+
+| Stats:
+|   Total Ambassadors
+|   Approved Exams
+|   Pending Payments
+|   Camp Registrations
+
+
+---
+
+8.4 Super Admin Dashboard
+
+----------------------------------------
+| StatsGrid (8 cards):
+|   Users
+|   Admins
+|   Exams
+|   Payments
+|   Pending Approvals
+|   Associations
+|   Gallery Items
+|   Blog Posts
+----------------------------------------
+| Quick Actions:
+|   + Create Exam
+|   + New Blog Post
+|   + Upload Gallery
+----------------------------------------
+
+
+---
+
+8.5 Exams List Page
+
+[ Exam Card ]   [ Exam Card ]   [ Exam Card ]
+Each shows:
+- Title
+- Rank Required
+- Duration
+- Button: Start / Locked
+
+
+---
+
+8.6 Take Exam Page
+
+----------------------------------------
+Timer (top-right)
+Question Number
+Question Text
+Options (A–D)
+[ Next ]
+----------------------------------------
+
+
+---
+
+8.7 Exam Result Page
+
+Score
+Pass/Fail Status
+Correct Answers Breakdown
+Rank Promotion Notice (if applicable)
+
+
+---
+
+8.8 Payments Page
+
+Upload Receipt Form
+Payment History Table
+Payment Status Indicators:
+  Pending - Yellow
+  Approved - Green
+  Rejected - Red
+
+
+---
+
+8.9 Notifications Page
+
+List of notifications
+Each card shows:
+- Title
+- Message
+- Date
+
+
+---
+
+8.10 Gallery Page
+
+Grid of images
+Lightbox on click
+
+
+---
+
+8.11 Blog Page
+
+Blog cards
+Click → Full post view
+
+
+---
+
+📘 SECTION 9 — Background Animation Specification (A + D)
+
+YOU SELECTED: A + D
+(Soft Floating Particles + Gold Glow Pulsing)
+
+These are the exact rules.
+
+
+---
+
+9.1 Animation Type A — Floating Particles
+
+Design
+
+Navy-gold glowing dots
+
+Low density
+
+Slow movement
+
+Slight random drift
+
+Opacity: 0.25–0.45
+
+Size: 2px–5px
+
+
+Behavior
+
+Particles float slowly downward/upward
+
+Continuous loop
+
+No jitter
+
+Never overlap text or distract
+
+
+Implementation
+
+Canvas or SVG layer
+
+Positioned behind all content
+
+Tailwind class: absolute inset-0 -z-10
+
+
+
+---
+
+9.2 Animation Type D — Gold Glow Pulsing
+
+Design
+
+Very subtle gold glow
+
+Pulse intensity: 0–0.15 opacity
+
+Radius: around card edges
+
+
+Behavior
+
+Slow pulse (4–6 seconds per cycle)
+
+When hovered → slightly stronger glow
+
+
+Implementation
+
+Tailwind animations + CSS keyframes
+
+Example keyframe:
+
+
+@keyframes goldPulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(212,175,55,0.1); }
+  50% { box-shadow: 0 0 18px rgba(212,175,55,0.25); }
+}
+
+
+---
+
+📘 SECTION 10 — Full Navigation Map
+
+ROOT
+ ├── /login
+ ├── /register
+ ├── /dashboard
+ │     ├── /ambassador
+ │     ├── /admin
+ │     └── /superadmin
+ ├── /exams
+ │     ├── /list
+ │     ├── /take/:examId
+ │     └── /result/:examId
+ ├── /payments
+ │     ├── /upload
+ │     └── /history
+ ├── /notifications
+ ├── /gallery
+ ├── /blog
+ │     ├── /posts
+ │     └── /post/:id
+ ├── /camp
+ │     ├── /register
+ │     └── /list
+ ├── /profile
+ └── /settings
+
+
+---
+
+📘 SECTION 11 — Non-Functional Requirements (NFRs)
+
+Performance
+
+Pages must load in under 1.5 seconds
+
+React components must be lazy-loaded
+
+Images must be optimized
+
+
+Security
+
+JWT authentication
+
+Rate limiting API endpoints
+
+Password hashing: PASSWORD_BCRYPT
+
+Role-based route protection
+
+
+Scalability
+
+Stateless React frontend
+
+Modularized components
+
+PHP API enables future mobile apps
+
+
+Consistency
+
+Colors only from Tailwind theme tokens
+
+Components never inline-style
+
+UI never modified unless PRD says so
+
+
+
+---
+
+📘 SECTION 12 — Antigravity Reinforcement Rules
+
+These rules prevent redesign or inconsistencies.
+
+1. UI must look EXACTLY like the current PHP version
+
+Same structure.
+Same spacing.
+Same alignment.
+Same layouts.
+
+2. Only code changes — not design changes.
+
+3. React + TypeScript must use the folder structure in this PRD.
+
+4. Tailwind must use navy-gold theme tokens from theme.ts.
+
+5. All animations must follow A + D rules exactly.
+
+6. No new components unless PRD specifies.
+
+7. Backend API endpoints must follow definitions in Section 5.
+
+8. No mixing backend logic into frontend components.
+
+9. All feature behavior must match legacy PHP system 1:1.
+
+
+---
+
+📘 SECTION 13 — Migration Roadmap (7–14 Days)
+
+Day 1–2: Setup
+
+Create Vite + React + TS project
+
+Setup Tailwind + theme tokens
+
+Build layout components
+
+Integrate background animations
+
+
+Day 3–5: Page Migration
+
+Auth pages
+
+Dashboards
+
+Exams list
+
+Take Exam flow
+
+Results
+
+
+Day 6–8: Remaining Pages
+
+Payments
+
+Notifications
+
+Gallery
+
+Blog
+
+Profile
+
+
+Day 9–10: State Management
+
+Setup Auth context
+
+Setup useFetch wrapper
+
+Setup protected routes
+
+
+Day 11–13: API Integration
+
+Connect to PHP backend
+
+Test endpoints
+
+Validate data flows
+
+
+Day 14: Testing & Polish
+
+Fix UI inconsistencies
+
+Finalize animations
+
+Accessibility improvements
+
+Prepare for hosting
