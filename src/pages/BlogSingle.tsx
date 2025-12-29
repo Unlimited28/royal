@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { mockBlogPosts } from '../utils/mockData';
+import { PublicNavbar } from '../components/layout/PublicNavbar';
 
 export const BlogSingle: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
@@ -21,30 +22,7 @@ export const BlogSingle: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-navy-950">
-            {/* Navigation Header */}
-            <nav className="fixed top-0 left-0 right-0 z-50 bg-navy-950/95 backdrop-blur-sm border-b border-navy-800">
-                <div className="max-w-7xl mx-auto px-6 py-4">
-                    <div className="flex items-center justify-between">
-                        <Link to="/" className="flex items-center space-x-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-gold-500 to-yellow-600 rounded-lg flex items-center justify-center">
-                                <span className="text-navy-950 font-bold text-xl">RA</span>
-                            </div>
-                            <span className="text-xl font-bold text-white">Royal Ambassadors</span>
-                        </Link>
-
-                        <div className="hidden md:flex items-center space-x-6">
-                            <Link to="/" className="text-slate-300 hover:text-white transition-colors">Home</Link>
-                            <Link to="/about" className="text-slate-300 hover:text-white transition-colors">About</Link>
-                            <Link to="/blog" className="text-gold-500 font-medium">Blog</Link>
-                            <Link to="/gallery" className="text-slate-300 hover:text-white transition-colors">Gallery</Link>
-                            <Link to="/contact" className="text-slate-300 hover:text-white transition-colors">Contact</Link>
-                            <Link to="/login" className="px-4 py-2 rounded-lg border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-navy-950 transition-all">
-                                Login
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <PublicNavbar />
 
             {/* Article Content */}
             <article className="pt-32 pb-20 px-6">

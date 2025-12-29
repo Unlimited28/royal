@@ -25,34 +25,25 @@ const roleDashboardPaths: Record<Role, string> = {
 
 
 export const Login: React.FC = () => {
-    const [isLoading, setIsLoading] = useState(false);
     const [selectedRole, setSelectedRole] = useState<Role>('ambassador');
     const navigate = useNavigate();
 
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setIsLoading(true);
 
+        // Mock user object with role
+        const user = {
+            name: 'Jules',
+            email: 'jules@example.com',
+            role: selectedRole,
+        };
 
-        // Simulate API call and user role validation
-        setTimeout(() => {
-            // Mock user object with role
-            const user = {
-                name: 'Jules',
-                email: 'jules@example.com',
-                role: selectedRole,
-            };
+        // Store user info in localStorage
+        localStorage.setItem('user', JSON.stringify(user));
 
-
-            // Store user info in localStorage
-            localStorage.setItem('user', JSON.stringify(user));
-
-
-            setIsLoading(false);
-            const path = roleDashboardPaths[selectedRole];
-            navigate(path);
-        }, 1500);
+        const path = roleDashboardPaths[selectedRole];
+        navigate(path);
     };
 
 
@@ -70,7 +61,8 @@ export const Login: React.FC = () => {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <Select
-                        label="Role"
+                        id="role-select"
+                        label="Select Role"
                         name="role"
                         options={roleOptions}
                         value={selectedRole}
@@ -99,7 +91,7 @@ export const Login: React.FC = () => {
                     />
 
 
-                    <Button type="submit" className="w-full" size="lg" isLoading={isLoading}>
+                    <Button type="submit" name="login" className="w-full" size="lg">
                         <i className="ri-login-box-line text-xl mr-2" />
                         Login
                     </Button>
