@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
-import { Navbar } from '../../components/layout/Navbar';
+import { PublicNavbar } from '../../components/layout/PublicNavbar';
 
 export const Home = () => {
     return (
         <div className="min-h-screen flex flex-col relative z-10 bg-navy-900 text-white">
-            <Navbar />
+            <PublicNavbar />
 
             {/* Hero Section */}
             <section className="flex-1 flex items-center justify-center px-6 py-20 text-center relative overflow-hidden">

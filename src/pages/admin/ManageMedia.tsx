@@ -3,7 +3,6 @@ import { Card } from '../../components/ui/Card';
 import { Input } from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
 import { Select } from '../../components/ui/Select';
-import { Navbar } from '../../components/layout/Navbar';
 
 
 // Mock user for demo purposes
@@ -30,6 +29,7 @@ export const ManageMedia: React.FC = () => {
     const [platform, setPlatform] = useState<'youtube' | 'facebook'>('youtube');
     const [isLoading, setIsLoading] = useState(false);
 
+    console.log('Rendering ManageMedia component');
 
     useEffect(() => {
         const storedBroadcast = localStorage.getItem('ra_live_broadcast');
@@ -78,9 +78,6 @@ export const ManageMedia: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-navy-900">
-            <Navbar />
-
-
             <main className="max-w-4xl mx-auto px-6 py-12">
                 <Card>
                     <h2 className="text-3xl font-bold text-white mb-2">Manage Live Broadcast</h2>

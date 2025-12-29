@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Navbar } from '../../components/layout/Navbar';
+import { PublicNavbar } from '../../components/layout/PublicNavbar';
 
 
 interface Broadcast {
@@ -43,7 +43,7 @@ export const MediaCenter = () => {
 
     return (
         <div className="min-h-screen bg-navy-900 text-white">
-            <Navbar />
+            <PublicNavbar />
 
 
             <main className="max-w-7xl mx-auto px-6 py-12">
