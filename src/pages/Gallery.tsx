@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { mockGalleryItems } from '../utils/mockData';
 import { PublicNavbar } from '../components/layout/PublicNavbar';
 

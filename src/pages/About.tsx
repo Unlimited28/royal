@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { PublicNavbar } from '../components/layout/PublicNavbar';
 
 export const About: React.FC = () => {
