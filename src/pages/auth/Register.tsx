@@ -1,55 +1,34 @@
+
 import React, { useState } from 'react';
 import { Card } from '../../components/ui/Card';
-import { generateUniqueId, PASSCODES } from '../../utils/logic';
 import { Input } from '../../components/ui/Input';
 import { Select } from '../../components/ui/Select';
 import { Button } from '../../components/ui/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { OFFICIAL_ASSOCIATIONS, OFFICIAL_RANKS } from '../../constants';
 import logo from '../../assets/logo.png';
-
+import { register, RegisterData } from '../../services/authService';
+import toast from 'react-hot-toast';
 
 export const Register: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [role, setRole] = useState('ambassador');
-    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError(null);
         setIsLoading(true);
 
         const formData = new FormData(e.target as HTMLFormElement);
-        const data = Object.fromEntries(formData.entries());
+        const data = Object.fromEntries(formData.entries()) as unknown as RegisterData;
 
-        // Simulate Validation logic
         try {
-            await new Promise(resolve => setTimeout(resolve, 800)); // Simulate network request
-
-            if (role === 'president') {
-                if (data.passcode !== PASSCODES.president) {
-                    throw new Error('Invalid President Passcode');
-                }
-            } else if (role === 'super_admin') {
-                if (data.passcode !== PASSCODES.super_admin) {
-                    throw new Error('Invalid Admin Passcode');
-                }
-            }
-
-            // Simulate ID Generation
-            const newId = generateUniqueId(role);
-            console.log('Registration Successful!', { ...data, id: newId });
-
-            // Store registration success message in history state or local storage if needed to show on login
-            // For now just redirect
+            await register(data);
+            toast.success('Registration successful! Please log in.');
             navigate('/login');
         } catch (err: unknown) {
-            if (err instanceof Error) {
-                setError(err.message);
-            } else {
-                setError('An unknown registration error occurred.');
-            }
+            const errorMessage = err instanceof Error ? err.message : 'An unknown registration error occurred.';
+            toast.error(errorMessage);
             setIsLoading(false);
         }
     };
@@ -74,12 +53,6 @@ export const Register: React.FC = () => {
                     <h2 className="text-3xl font-bold text-white mb-2">Join Royal Ambassadors</h2>
                     <p className="text-slate-400">Create your account to start your journey.</p>
                 </div>
-
-                {error && (
-                    <div className="mb-6 p-4 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-center">
-                        {error}
-                    </div>
-                )}
 
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="col-span-1 md:col-span-2">
@@ -156,7 +129,7 @@ export const Register: React.FC = () => {
                             type="password"
                             required
                         />
-                        <div className="mt-2 p-3 bg-navy-900/50 rounded-lg text-xs text-slate-400">
+                         <div className="mt-2 p-3 bg-navy-900/50 rounded-lg text-xs text-slate-400">
                             <p className="font-semibold mb-1">Password Requirements:</p>
                             <ul className="list-disc list-inside space-y-0.5 ml-1">
                                 <li>At least 8 characters long</li>
@@ -168,8 +141,12 @@ export const Register: React.FC = () => {
 
                     <div className="col-span-1 md:col-span-2 mt-4">
                         <Button type="submit" className="w-full" size="lg" variant="primary" isLoading={isLoading}>
-                            <i className="ri-user-add-line text-xl mr-2" />
-                            Register Now
+                             {isLoading ? 'Registering...' : (
+                                <>
+                                    <i className="ri-user-add-line text-xl mr-2" />
+                                    Register Now
+                                </>
+                            )}
                         </Button>
                     </div>
                 </form>
@@ -186,4 +163,3 @@ export const Register: React.FC = () => {
         </div>
     );
 };
-
