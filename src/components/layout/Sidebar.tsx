@@ -71,9 +71,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
 
 
     return (
-        <aside className="w-64 bg-navy-900 border-r border-navy-800 flex-shrink-0 relative z-20 hidden md:flex flex-col">
+        <aside className="w-64 bg-primary border-r border-primary-dark flex-shrink-0 relative z-20 hidden md:flex flex-col">
             {/* Logo */}
-            <div className="h-16 flex items-center px-6 border-b border-navy-800">
+            <div className="h-16 flex items-center px-6 border-b border-primary-dark">
                 <Link to="/" className="flex items-center space-x-3">
                     <img
                         src={logo}
@@ -93,8 +93,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
                         className={({ isActive }) => cn(
                             "flex items-center px-4 py-3 rounded-lg transition-all duration-200 group",
                             isActive
-                                ? "bg-navy-800 text-gold-500 border-l-4 border-gold-500 shadow-md"
-                                : "text-slate-400 hover:bg-navy-800/50 hover:text-white"
+                                ? "bg-primary-dark text-accent border-l-4 border-accent shadow-md"
+                                : "text-slate-400 hover:bg-primary-dark/50 hover:text-white"
                         )}
                     >
                         <i className={`${link.icon} w-5 h-5 mr-3`} />
@@ -104,8 +104,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
             </nav>
 
 
-            <div className="p-4 border-t border-navy-800">
-                <button className="flex items-center w-full px-4 py-2 text-red-400 hover:bg-navy-800 rounded-lg transition-colors">
+            <div className="p-4 border-t border-primary-dark">
+                <button className="flex items-center w-full px-4 py-2 text-red-400 hover:bg-primary-dark rounded-lg transition-colors">
                     <i className={`${iconMap.LogOut} w-5 h-5 mr-3`} />
                     <span>Logout</span>
                 </button>

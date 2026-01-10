@@ -40,10 +40,10 @@ export const AmbassadorDashboard: React.FC = () => {
                         <div className="space-y-2">
                             <div className="flex justify-between text-sm">
                                 <span className="text-slate-300">Progress to Knighthood</span>
-                                <span className="text-gold-500 font-bold">80%</span>
+                                <span className="text-accent font-bold">80%</span>
                             </div>
-                            <div className="h-2 bg-navy-900 rounded-full overflow-hidden">
-                                <div className="h-full bg-gradient-to-r from-gold-500 to-yellow-300 w-[80%] rounded-full relative">
+                            <div className="h-2 bg-primary rounded-full overflow-hidden">
+                                <div className="h-full bg-gradient-to-r from-accent to-yellow-300 w-[80%] rounded-full relative">
                                     <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
                                 </div>
                             </div>
@@ -54,7 +54,7 @@ export const AmbassadorDashboard: React.FC = () => {
                     <Card>
                         <h3 className="text-xl font-bold text-white mb-4">Recent Achievements</h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div className="flex items-center space-x-3 p-3 bg-navy-900/50 rounded-lg border border-navy-800">
+                            <div className="flex items-center space-x-3 p-3 bg-primary/50 rounded-lg border border-primary-dark">
                                 <div className="p-2 bg-green-500/20 text-green-500 rounded-lg">
                                     <i className="ri-award-line text-xl" />
                                 </div>
@@ -63,7 +63,7 @@ export const AmbassadorDashboard: React.FC = () => {
                                     <div className="text-xs text-slate-500">Earned 2 months ago</div>
                                 </div>
                             </div>
-                            <div className="flex items-center space-x-3 p-3 bg-navy-900/50 rounded-lg border border-navy-800">
+                            <div className="flex items-center space-x-3 p-3 bg-primary/50 rounded-lg border border-primary-dark">
                                 <div className="p-2 bg-blue-500/20 text-blue-500 rounded-lg">
                                     <i className="ri-book-open-line text-xl" />
                                 </div>
@@ -81,7 +81,7 @@ export const AmbassadorDashboard: React.FC = () => {
                     <Card>
                         <h3 className="text-lg font-bold text-white mb-4">Notice Board</h3>
                         <ul className="space-y-4">
-                            <li className="text-sm text-slate-300 border-l-2 border-gold-500 pl-3">
+                            <li className="text-sm text-slate-300 border-l-2 border-accent pl-3">
                                 <div className="font-medium text-white">Monthly Meeting</div>
                                 <div className="text-xs text-slate-500 mt-1">Next Sunday @ 4 PM</div>
                             </li>

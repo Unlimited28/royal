@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy-900: #0A1535;
-  --color-navy-800: #112240;
-  --color-gold-500: #D4AF37;
+  --color-primary: #0A1535;
+  --color-primary-dark: #112240;
+  --color-accent: #D4AF37;
   --color-card-bg: rgba(17, 34, 64, 0.7);
   
   --animate-gold-pulse: goldPulse 2s infinite;
@@ -22,7 +22,7 @@
 
 @layer base {
   body {
-    @apply bg-gradient-to-br from-navy-900 via-[#060d1f] to-navy-800 text-white min-h-screen relative overflow-x-hidden;
+    @apply bg-gradient-to-br from-primary via-[#060d1f] to-primary-dark text-white min-h-screen relative overflow-x-hidden;
   }
 }
 
@@ -55,10 +55,10 @@ body::before {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-navy-900;
+  @apply bg-primary;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-navy-800 rounded-full hover:bg-gold-500/50 transition-colors;
+  @apply bg-primary-dark rounded-full hover:bg-accent/50 transition-colors;
 }
 
 /* Utility to ensure content is above background particles */

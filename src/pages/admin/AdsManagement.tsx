@@ -65,7 +65,7 @@ export const AdsManagement: React.FC = () => {
         {
             header: 'Clicks',
             cell: (ad: typeof mockAds[0]) => (
-                <span className="text-gold-500 font-mono font-bold">{ad.clicks}</span>
+                <span className="text-accent font-mono font-bold">{ad.clicks}</span>
             )
         },
         {
@@ -105,7 +105,7 @@ export const AdsManagement: React.FC = () => {
                         className="p-2 hover:bg-navy-700 rounded-lg transition-colors"
                         title="Edit Ad"
                     >
-                        <i className="ri-pencil-line text-gold-500" />
+                        <i className="ri-pencil-line text-accent" />
                     </button>
                     <button
                         className="p-2 hover:bg-navy-700 rounded-lg transition-colors"

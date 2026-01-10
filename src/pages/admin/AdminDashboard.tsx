@@ -54,10 +54,10 @@ export const AdminDashboard: React.FC = () => {
                 <Card className="min-h-[400px]">
                     <div className="flex items-center justify-between mb-6">
                         <h3 className="text-xl font-bold text-white flex items-center">
-                            <i className="ri-line-chart-line text-xl mr-2 text-gold-500" />
+                            <i className="ri-line-chart-line text-xl mr-2 text-accent" />
                             Recent Activity
                         </h3>
-                        <button className="text-sm text-gold-500 hover:text-white transition-colors">View All</button>
+                        <button className="text-sm text-accent hover:text-white transition-colors">View All</button>
                     </div>
 
                     <DataTable
@@ -76,25 +76,25 @@ export const AdminDashboard: React.FC = () => {
                     </div>
 
                     <div className="space-y-4">
-                        <div className="p-4 bg-navy-900/50 border border-navy-700 rounded-lg flex items-start space-x-4">
+                        <div className="p-4 bg-primary/50 border border-navy-700 rounded-lg flex items-start space-x-4">
                             <div className="p-2 bg-yellow-500/20 text-yellow-500 rounded-lg">
                                 <i className="ri-user-follow-line text-xl" />
                             </div>
                             <div>
                                 <h4 className="text-white font-medium">Verify New Presidents</h4>
                                 <p className="text-sm text-slate-400 mt-1">3 new association presidents are awaiting verification.</p>
-                                <button className="text-xs text-gold-500 mt-2 hover:underline">Review Now</button>
+                                <button className="text-xs text-accent mt-2 hover:underline">Review Now</button>
                             </div>
                         </div>
 
-                        <div className="p-4 bg-navy-900/50 border border-navy-700 rounded-lg flex items-start space-x-4">
+                        <div className="p-4 bg-primary/50 border border-navy-700 rounded-lg flex items-start space-x-4">
                             <div className="p-2 bg-green-500/20 text-green-500 rounded-lg">
                                 <i className="ri-bank-card-line text-xl" />
                             </div>
                             <div>
                                 <h4 className="text-white font-medium">Approve Camp Payments</h4>
                                 <p className="text-sm text-slate-400 mt-1">12 bulk payments from associations need approval.</p>
-                                <button className="text-xs text-gold-500 mt-2 hover:underline">Review Now</button>
+                                <button className="text-xs text-accent mt-2 hover:underline">Review Now</button>
                             </div>
                         </div>
                     </div>

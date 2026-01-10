@@ -58,7 +58,7 @@ export const CardSkeleton: React.FC<CardSkeletonProps> = ({ count = 4 }) => {
     return (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {Array.from({ length: count }).map((_, index) => (
-                <div key={index} className="animate-pulse bg-navy-800 rounded-xl p-6 border border-navy-700">
+                <div key={index} className="animate-pulse bg-primary-dark rounded-xl p-6 border border-navy-700">
                     <div className="h-4 bg-navy-700 rounded w-1/2 mb-4"></div>
                     <div className="h-8 bg-navy-700 rounded w-3/4"></div>
                 </div>

@@ -22,7 +22,7 @@ export const EditBlogPost: React.FC = () => {
         return (
             <div className="text-center py-12">
                 <h2 className="text-2xl font-bold text-white mb-4">Post Not Found</h2>
-                <Link to="/admin/blog" className="text-gold-500 hover:text-gold-400">
+                <Link to="/admin/blog" className="text-accent hover:text-gold-400">
                     ← Back to Blog Management
                 </Link>
             </div>
@@ -44,7 +44,7 @@ export const EditBlogPost: React.FC = () => {
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <Link
                 to="/admin/blog"
-                className="inline-flex items-center text-gold-500 hover:text-gold-400 transition-colors"
+                className="inline-flex items-center text-accent hover:text-gold-400 transition-colors"
             >
                 <i className="ri-arrow-left-line mr-2" />
                 Back to Blog Management
@@ -69,7 +69,7 @@ export const EditBlogPost: React.FC = () => {
                                 name="title"
                                 value={formData.title}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                                 required
                             />
                         </div>
@@ -84,7 +84,7 @@ export const EditBlogPost: React.FC = () => {
                                 name="slug"
                                 value={formData.slug}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors font-mono text-sm"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors font-mono text-sm"
                                 required
                             />
                         </div>
@@ -98,7 +98,7 @@ export const EditBlogPost: React.FC = () => {
                                 name="category"
                                 value={formData.category}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent"
                                 required
                             >
                                 <option value="Events">Events</option>
@@ -118,7 +118,7 @@ export const EditBlogPost: React.FC = () => {
                                 value={formData.excerpt}
                                 onChange={handleChange}
                                 rows={3}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors resize-none"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors resize-none"
                                 required
                             />
                         </div>
@@ -133,7 +133,7 @@ export const EditBlogPost: React.FC = () => {
                                 value={formData.content}
                                 onChange={handleChange}
                                 rows={12}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors resize-none"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors resize-none"
                                 required
                             />
                         </div>
@@ -142,7 +142,7 @@ export const EditBlogPost: React.FC = () => {
                             <label className="block text-slate-300 font-medium mb-2">
                                 Featured Image
                             </label>
-                            <div className="border-2 border-dashed border-navy-700 rounded-lg p-8 text-center hover:border-gold-500 transition-colors cursor-pointer">
+                            <div className="border-2 border-dashed border-navy-700 rounded-lg p-8 text-center hover:border-accent transition-colors cursor-pointer">
                                 <i className="ri-image-add-line text-5xl text-slate-500 mx-auto mb-3" />
                                 <p className="text-slate-400 mb-2">Click to upload or drag and drop</p>
                                 <p className="text-xs text-slate-500">PNG, JPG up to 5MB</p>

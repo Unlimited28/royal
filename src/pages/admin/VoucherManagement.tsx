@@ -29,8 +29,8 @@ export const VoucherManagement: React.FC = () => {
             header: 'Voucher Code',
             cell: (voucher: typeof mockVouchers[0]) => (
                 <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-gold-500/20 rounded-lg flex items-center justify-center">
-                        <i className="ri-coupon-3-line text-gold-500" />
+                    <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center">
+                        <i className="ri-coupon-3-line text-accent" />
                     </div>
                     <div>
                         <div className="font-mono font-medium text-white">{voucher.code}</div>
@@ -162,14 +162,14 @@ export const VoucherManagement: React.FC = () => {
             <Card>
                 <div className="flex items-center justify-between mb-6">
                     <h3 className="text-xl font-bold text-white flex items-center">
-                        <i className="ri-coupon-3-line mr-2 text-gold-500" />
+                        <i className="ri-coupon-3-line mr-2 text-accent" />
                         All Vouchers
                     </h3>
                     <div className="flex items-center space-x-3">
                         <select
                             value={filter}
                             onChange={handleFilterChange}
-                            className="px-4 py-2 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500"
+                            className="px-4 py-2 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent"
                         >
                             <option value="all">All Status</option>
                             <option value="active">Active</option>

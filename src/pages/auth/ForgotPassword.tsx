@@ -24,12 +24,12 @@ export const ForgotPassword: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-navy-950 via-navy-900 to-navy-950 flex items-center justify-center px-6 py-12">
+        <div className="min-h-screen bg-gradient-to-br from-navy-950 via-primary to-navy-950 flex items-center justify-center px-6 py-12">
             <div className="w-full max-w-md">
-                <div className="bg-gradient-to-br from-navy-900/80 to-navy-800/60 backdrop-blur-sm border border-navy-700 rounded-2xl p-8 shadow-2xl">
+                <div className="bg-gradient-to-br from-primary/80 to-primary-dark/60 backdrop-blur-sm border border-navy-700 rounded-2xl p-8 shadow-2xl">
                     {/* Header */}
                     <div className="text-center mb-8">
-                        <div className="w-16 h-16 bg-gradient-to-br from-gold-500 to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <div className="w-16 h-16 bg-gradient-to-br from-accent to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                             <i className="ri-mail-line text-4xl text-navy-950" />
                         </div>
                         <h1 className="text-3xl font-bold text-white mb-2">Forgot Password</h1>
@@ -65,7 +65,7 @@ export const ForgotPassword: React.FC = () => {
                                     name="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-gold-500 transition-colors"
+                                    className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-accent transition-colors"
                                     placeholder="your.email@example.com"
                                     required
                                 />
@@ -81,7 +81,7 @@ export const ForgotPassword: React.FC = () => {
                     <div className="mt-6 text-center">
                         <Link
                             to="/login"
-                            className="inline-flex items-center text-gold-500 hover:text-gold-400 transition-colors font-medium"
+                            className="inline-flex items-center text-accent hover:text-gold-400 transition-colors font-medium"
                         >
                             <i className="ri-arrow-left-line mr-2" />
                             Back to Login
@@ -91,7 +91,7 @@ export const ForgotPassword: React.FC = () => {
 
                 {/* Footer Note */}
                 <p className="text-center text-slate-500 text-sm mt-6">
-                    Remember your password? <Link to="/login" className="text-gold-500 hover:text-gold-400">Sign in</Link>
+                    Remember your password? <Link to="/login" className="text-accent hover:text-gold-400">Sign in</Link>
                 </p>
             </div>
         </div>

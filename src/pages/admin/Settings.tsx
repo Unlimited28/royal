@@ -42,7 +42,7 @@ export const Settings: React.FC = () => {
                                 id="siteName"
                                 value={settings.siteName}
                                 onChange={(e) => handleChange('siteName', e.target.value)}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                             />
                         </div>
 
@@ -55,7 +55,7 @@ export const Settings: React.FC = () => {
                                 id="siteEmail"
                                 value={settings.siteEmail}
                                 onChange={(e) => handleChange('siteEmail', e.target.value)}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                             />
                         </div>
                     </div>
@@ -64,11 +64,11 @@ export const Settings: React.FC = () => {
                 {/* Notification Settings */}
                 <Card>
                     <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-                        <i className="ri-notification-3-line mr-2 text-gold-500" />
+                        <i className="ri-notification-3-line mr-2 text-accent" />
                         Notification Settings
                     </h3>
                     <div className="space-y-4">
-                        <div className="flex items-center justify-between p-4 bg-navy-900/50 rounded-lg border border-navy-800">
+                        <div className="flex items-center justify-between p-4 bg-primary/50 rounded-lg border border-primary-dark">
                             <div className="flex items-center space-x-3">
                                 <i className="ri-notification-3-line text-slate-400" />
                                 <div>
@@ -83,11 +83,11 @@ export const Settings: React.FC = () => {
                                     onChange={(e) => handleChange('enableNotifications', e.target.checked)}
                                     className="sr-only peer"
                                 />
-                                <div className="w-11 h-6 bg-navy-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gold-500"></div>
+                                <div className="w-11 h-6 bg-navy-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
                             </label>
                         </div>
 
-                        <div className="flex items-center justify-between p-4 bg-navy-900/50 rounded-lg border border-navy-800">
+                        <div className="flex items-center justify-between p-4 bg-primary/50 rounded-lg border border-primary-dark">
                             <div className="flex items-center space-x-3">
                                 <i className="ri-mail-line text-slate-400" />
                                 <div>
@@ -102,7 +102,7 @@ export const Settings: React.FC = () => {
                                     onChange={(e) => handleChange('enableEmailAlerts', e.target.checked)}
                                     className="sr-only peer"
                                 />
-                                <div className="w-11 h-6 bg-navy-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gold-500"></div>
+                                <div className="w-11 h-6 bg-navy-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
                             </label>
                         </div>
                     </div>
@@ -111,11 +111,11 @@ export const Settings: React.FC = () => {
                 {/* Security Settings */}
                 <Card>
                     <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-                        <i className="ri-lock-line mr-2 text-gold-500" />
+                        <i className="ri-lock-line mr-2 text-accent" />
                         Security Settings
                     </h3>
                     <div className="space-y-4">
-                        <div className="flex items-center justify-between p-4 bg-navy-900/50 rounded-lg border border-navy-800">
+                        <div className="flex items-center justify-between p-4 bg-primary/50 rounded-lg border border-primary-dark">
                             <div className="flex items-center space-x-3">
                                 <i className="ri-mail-check-line text-slate-400" />
                                 <div>
@@ -130,11 +130,11 @@ export const Settings: React.FC = () => {
                                     onChange={(e) => handleChange('requireEmailVerification', e.target.checked)}
                                     className="sr-only peer"
                                 />
-                                <div className="w-11 h-6 bg-navy-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gold-500"></div>
+                                <div className="w-11 h-6 bg-navy-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
                             </label>
                         </div>
 
-                        <div className="flex items-center justify-between p-4 bg-navy-900/50 rounded-lg border border-navy-800">
+                        <div className="flex items-center justify-between p-4 bg-primary/50 rounded-lg border border-primary-dark">
                             <div className="flex items-center space-x-3">
                                 <i className="ri-user-add-line text-slate-400" />
                                 <div>
@@ -149,7 +149,7 @@ export const Settings: React.FC = () => {
                                     onChange={(e) => handleChange('allowPublicRegistration', e.target.checked)}
                                     className="sr-only peer"
                                 />
-                                <div className="w-11 h-6 bg-navy-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gold-500"></div>
+                                <div className="w-11 h-6 bg-navy-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
                             </label>
                         </div>
                     </div>

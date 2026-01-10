@@ -34,7 +34,7 @@ export const ProfileSettings: React.FC = () => {
                 {/* Personal Information */}
                 <Card>
                     <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-                        <i className="ri-user-line mr-2 text-gold-500" />
+                        <i className="ri-user-line mr-2 text-accent" />
                         Personal Information
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -48,7 +48,7 @@ export const ProfileSettings: React.FC = () => {
                                 name="firstName"
                                 value={formData.firstName}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                                 required
                             />
                         </div>
@@ -63,7 +63,7 @@ export const ProfileSettings: React.FC = () => {
                                 name="lastName"
                                 value={formData.lastName}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                                 required
                             />
                         </div>
@@ -73,7 +73,7 @@ export const ProfileSettings: React.FC = () => {
                 {/* Contact Information */}
                 <Card>
                     <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-                        <i className="ri-mail-line mr-2 text-gold-500" />
+                        <i className="ri-mail-line mr-2 text-accent" />
                         Contact Information
                     </h3>
                     <div className="space-y-6">
@@ -87,7 +87,7 @@ export const ProfileSettings: React.FC = () => {
                                 name="email"
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                                 required
                             />
                         </div>
@@ -102,7 +102,7 @@ export const ProfileSettings: React.FC = () => {
                                 name="phone"
                                 value={formData.phone}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                                 required
                             />
                         </div>
@@ -117,7 +117,7 @@ export const ProfileSettings: React.FC = () => {
                                 name="address"
                                 value={formData.address}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                             />
                         </div>
                     </div>
@@ -126,7 +126,7 @@ export const ProfileSettings: React.FC = () => {
                 {/* Association & Position */}
                 <Card>
                     <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-                        <i className="ri-map-pin-line mr-2 text-gold-500" />
+                        <i className="ri-map-pin-line mr-2 text-accent" />
                         Association & Position
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -139,7 +139,7 @@ export const ProfileSettings: React.FC = () => {
                                 id="association"
                                 name="association"
                                 value={formData.association}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-slate-400 cursor-not-allowed"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-slate-400 cursor-not-allowed"
                                 disabled
                             />
                             <p className="text-xs text-slate-500 mt-1">Contact admin to change association</p>
@@ -154,7 +154,7 @@ export const ProfileSettings: React.FC = () => {
                                 id="position"
                                 name="position"
                                 value={formData.position}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-slate-400 cursor-not-allowed"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-slate-400 cursor-not-allowed"
                                 disabled
                             />
                         </div>

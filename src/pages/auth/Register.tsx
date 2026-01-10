@@ -129,7 +129,7 @@ export const Register: React.FC = () => {
                             type="password"
                             required
                         />
-                         <div className="mt-2 p-3 bg-navy-900/50 rounded-lg text-xs text-slate-400">
+                         <div className="mt-2 p-3 bg-primary/50 rounded-lg text-xs text-slate-400">
                             <p className="font-semibold mb-1">Password Requirements:</p>
                             <ul className="list-disc list-inside space-y-0.5 ml-1">
                                 <li>At least 8 characters long</li>
@@ -154,7 +154,7 @@ export const Register: React.FC = () => {
                 <div className="text-center mt-6">
                     <p className="text-slate-400 text-sm">
                         Already have an account?{' '}
-                        <Link to="/" className="text-gold-500 hover:text-white font-semibold transition-colors">
+                        <Link to="/" className="text-accent hover:text-white font-semibold transition-colors">
                             Login
                         </Link>
                     </p>

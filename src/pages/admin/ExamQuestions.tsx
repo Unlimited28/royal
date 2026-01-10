@@ -22,7 +22,7 @@ export const ExamQuestions: React.FC = () => {
         return (
             <div className="text-center py-12">
                 <h2 className="text-2xl font-bold text-white mb-4">Exam Not Found</h2>
-                <Link to="/admin/exams" className="text-gold-500 hover:text-gold-400">
+                <Link to="/admin/exams" className="text-accent hover:text-gold-400">
                     ← Back to Exam Management
                 </Link>
             </div>
@@ -87,7 +87,7 @@ export const ExamQuestions: React.FC = () => {
                         className="p-2 hover:bg-navy-700 rounded-lg transition-colors"
                         title="Edit Question"
                     >
-                        <i className="ri-pencil-line text-gold-500" />
+                        <i className="ri-pencil-line text-accent" />
                     </button>
                     <button
                         className="p-2 hover:bg-navy-700 rounded-lg transition-colors"
@@ -104,7 +104,7 @@ export const ExamQuestions: React.FC = () => {
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <Link
                 to="/admin/exams"
-                className="inline-flex items-center text-gold-500 hover:text-gold-400 transition-colors"
+                className="inline-flex items-center text-accent hover:text-gold-400 transition-colors"
             >
                 <i className="ri-arrow-left-line mr-2" />
                 Back to Exam Management

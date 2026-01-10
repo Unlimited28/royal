@@ -7,13 +7,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        navy: {
-          900: '#0A1535',
-          800: '#112240',
+        primary: {
+          DEFAULT: '#0A1535',
+          dark: '#112240',
         },
-        gold: {
-          500: '#D4AF37',
+        accent: {
+          DEFAULT: '#D4AF37',
         },
+        white: '#FFFFFF',
       },
       backgroundColor: {
         'card-bg': 'rgba(17, 34, 64, 0.7)',

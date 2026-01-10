@@ -45,7 +45,7 @@ export const UserManagement: React.FC = () => {
             header: 'Actions',
             cell: () => (
                 <div className="flex items-center space-x-2">
-                    <button className="p-1 hover:text-gold-500 transition-colors" title="Edit">
+                    <button className="p-1 hover:text-accent transition-colors" title="Edit">
                         <i className="ri-pencil-line" />
                     </button>
                     <button className="p-1 hover:text-red-500 transition-colors" title="Delete">
@@ -76,7 +76,7 @@ export const UserManagement: React.FC = () => {
                         <input
                             type="text"
                             placeholder="Search users..."
-                            className="w-full bg-navy-900/50 border border-navy-700 rounded-lg pl-10 pr-4 py-2 text-white focus:outline-none focus:border-gold-500"
+                            className="w-full bg-primary/50 border border-navy-700 rounded-lg pl-10 pr-4 py-2 text-white focus:outline-none focus:border-accent"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -85,7 +85,7 @@ export const UserManagement: React.FC = () => {
                     <div className="flex items-center space-x-3">
                         <div className="relative">
                             <select
-                                className="bg-navy-900/50 border border-navy-700 rounded-lg pl-4 pr-10 py-2 text-white appearance-none focus:outline-none focus:border-gold-500"
+                                className="bg-primary/50 border border-navy-700 rounded-lg pl-4 pr-10 py-2 text-white appearance-none focus:outline-none focus:border-accent"
                                 value={roleFilter}
                                 onChange={(e) => setRoleFilter(e.target.value)}
                             >

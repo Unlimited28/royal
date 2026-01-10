@@ -17,9 +17,9 @@ export const Button: React.FC<ButtonProps> = ({
     ...props
 }) => {
     const variants = {
-        primary: "bg-gradient-to-r from-gold-500 to-yellow-600 text-navy-900 hover:shadow-lg hover:shadow-gold-500/20 border-0",
+        primary: "bg-gradient-to-r from-accent to-yellow-600 text-primary hover:shadow-lg hover:shadow-accent/20 border-0",
         secondary: "bg-navy-700 text-white hover:bg-navy-600 border border-navy-600",
-        outline: "bg-transparent border border-gold-500 text-gold-500 hover:bg-gold-500/10",
+        outline: "bg-transparent border border-accent text-accent hover:bg-accent/10",
         ghost: "bg-transparent text-slate-300 hover:text-white hover:bg-white/5",
         danger: "bg-red-500/10 text-red-500 border border-red-500/50 hover:bg-red-500/20",
     };
@@ -33,7 +33,7 @@ export const Button: React.FC<ButtonProps> = ({
     return (
         <button
             className={cn(
-                "relative flex items-center justify-center rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gold-500/50 disabled:opacity-50 disabled:cursor-not-allowed",
+                "relative flex items-center justify-center rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent/50 disabled:opacity-50 disabled:cursor-not-allowed",
                 variants[variant],
                 sizes[size],
                 className

@@ -160,7 +160,7 @@ export const FinanceOversight: React.FC = () => {
                         <select
                             value={filter}
                             onChange={(e) => setFilter(e.target.value as 'all' | 'income' | 'expense')}
-                            className="px-4 py-2 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500"
+                            className="px-4 py-2 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent"
                         >
                             <option value="all">All Types</option>
                             <option value="income">Income Only</option>

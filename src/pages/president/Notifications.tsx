@@ -14,8 +14,8 @@ export const Notifications: React.FC = () => {
                     <p className="text-slate-400">View important updates and announcements</p>
                 </div>
                 <div className="flex items-center space-x-3">
-                    <div className="px-4 py-2 bg-gold-500/20 rounded-lg border border-gold-500/50">
-                        <span className="text-gold-500 font-bold">{unreadCount} Unread</span>
+                    <div className="px-4 py-2 bg-accent/20 rounded-lg border border-accent/50">
+                        <span className="text-accent font-bold">{unreadCount} Unread</span>
                     </div>
                     <Button variant="outline">
                         Mark All as Read
@@ -26,14 +26,14 @@ export const Notifications: React.FC = () => {
             {/* Notifications List */}
             <div className="space-y-4">
                 {mockNotifications.map((notification) => (
-                    <Card key={notification.id} className={`p-6 ${!notification.is_read ? 'border-gold-500/50' : ''}`}>
+                    <Card key={notification.id} className={`p-6 ${!notification.is_read ? 'border-accent/50' : ''}`}>
                         <div className="flex items-start space-x-4">
                             <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${!notification.is_read
-                                    ? 'bg-gold-500/20'
-                                    : 'bg-navy-800'
+                                    ? 'bg-accent/20'
+                                    : 'bg-primary-dark'
                                 }`}>
                                 {!notification.is_read ? (
-                                    <i className="ri-notification-3-line text-2xl text-gold-500" />
+                                    <i className="ri-notification-3-line text-2xl text-accent" />
                                 ) : (
                                     <i className="ri-check-line text-2xl text-green-500" />
                                 )}
@@ -57,7 +57,7 @@ export const Notifications: React.FC = () => {
                                         </p>
                                     </div>
                                     {!notification.is_read && (
-                                        <span className="px-2 py-1 rounded-full text-xs font-medium bg-gold-500/10 text-gold-500">
+                                        <span className="px-2 py-1 rounded-full text-xs font-medium bg-accent/10 text-accent">
                                             NEW
                                         </span>
                                     )}
@@ -81,7 +81,7 @@ export const Notifications: React.FC = () => {
             {/* Empty State */}
             {mockNotifications.length === 0 && (
                 <Card className="p-12 text-center">
-                    <div className="w-16 h-16 bg-navy-800 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <div className="w-16 h-16 bg-primary-dark rounded-2xl flex items-center justify-center mx-auto mb-4">
                         <i className="ri-bell-line text-4xl text-slate-500" />
                     </div>
                     <h3 className="text-xl font-bold text-white mb-2">No Notifications</h3>

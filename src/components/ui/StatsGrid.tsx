@@ -30,11 +30,11 @@ export const StatsGrid: React.FC<StatsGridProps> = ({ stats }) => {
                                 </p>
                             )}
                         </div>
-                        <div className="p-3 bg-navy-700/50 rounded-lg group-hover:bg-gold-500/20 group-hover:text-gold-500 transition-colors">
-                            <i className={`text-2xl text-slate-300 group-hover:text-gold-500 ${stat.icon}`} />
+                        <div className="p-3 bg-navy-700/50 rounded-lg group-hover:bg-accent/20 group-hover:text-accent transition-colors">
+                            <i className={`text-2xl text-slate-300 group-hover:text-accent ${stat.icon}`} />
                         </div>
                     </div>
-                    <div className="absolute bottom-0 left-0 h-1 bg-gold-500 w-0 group-hover:w-full transition-all duration-500" />
+                    <div className="absolute bottom-0 left-0 h-1 bg-accent w-0 group-hover:w-full transition-all duration-500" />
                 </Card>
             ))}
         </div>

@@ -54,7 +54,7 @@ export const NotificationManagement: React.FC = () => {
             {/* Create Notification Form */}
             <Card>
                 <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-                    <i className="ri-add-line mr-2 text-gold-500" />
+                    <i className="ri-add-line mr-2 text-accent" />
                     Create New Notification
                 </h3>
 
@@ -70,7 +70,7 @@ export const NotificationManagement: React.FC = () => {
                                 name="title"
                                 value={formData.title}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                                 placeholder="Enter notification title"
                                 required
                             />
@@ -85,7 +85,7 @@ export const NotificationManagement: React.FC = () => {
                                 name="target"
                                 value={formData.target}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent"
                                 required
                             >
                                 <option value="all">All Users</option>
@@ -105,7 +105,7 @@ export const NotificationManagement: React.FC = () => {
                             name="priority"
                             value={formData.priority}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500"
+                            className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent"
                         >
                             <option value="low">Low Priority</option>
                             <option value="normal">Normal Priority</option>
@@ -124,7 +124,7 @@ export const NotificationManagement: React.FC = () => {
                             value={formData.message}
                             onChange={handleChange}
                             rows={6}
-                            className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors resize-none"
+                            className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors resize-none"
                             placeholder="Enter notification message..."
                             required
                         />

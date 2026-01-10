@@ -77,7 +77,7 @@ export const FinanceDashboard: React.FC = () => {
                         {recentTransactions.map((transaction) => (
                             <div
                                 key={transaction.id}
-                                className="flex items-center justify-between p-4 bg-navy-900/50 rounded-lg border border-navy-800"
+                                className="flex items-center justify-between p-4 bg-primary/50 rounded-lg border border-primary-dark"
                             >
                                 <div className="flex items-center space-x-4">
                                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${transaction.type === 'income'
@@ -125,42 +125,42 @@ export const FinanceDashboard: React.FC = () => {
                 <Card>
                     <h3 className="text-xl font-bold text-white mb-6">Revenue Breakdown</h3>
                     <div className="space-y-4">
-                        <div className="p-4 bg-navy-900/50 rounded-lg border border-navy-800">
+                        <div className="p-4 bg-primary/50 rounded-lg border border-primary-dark">
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-slate-300">Exam Fees</span>
                                 <span className="text-white font-bold">₦1.2M</span>
                             </div>
-                            <div className="h-2 bg-navy-800 rounded-full overflow-hidden">
-                                <div className="h-full bg-gradient-to-r from-gold-500 to-yellow-500 w-[35%]"></div>
+                            <div className="h-2 bg-primary-dark rounded-full overflow-hidden">
+                                <div className="h-full bg-gradient-to-r from-accent to-yellow-500 w-[35%]"></div>
                             </div>
                         </div>
 
-                        <div className="p-4 bg-navy-900/50 rounded-lg border border-navy-800">
+                        <div className="p-4 bg-primary/50 rounded-lg border border-primary-dark">
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-slate-300">Camp Registration</span>
                                 <span className="text-white font-bold">₦1.8M</span>
                             </div>
-                            <div className="h-2 bg-navy-800 rounded-full overflow-hidden">
+                            <div className="h-2 bg-primary-dark rounded-full overflow-hidden">
                                 <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 w-[50%]"></div>
                             </div>
                         </div>
 
-                        <div className="p-4 bg-navy-900/50 rounded-lg border border-navy-800">
+                        <div className="p-4 bg-primary/50 rounded-lg border border-primary-dark">
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-slate-300">Membership Dues</span>
                                 <span className="text-white font-bold">₦800K</span>
                             </div>
-                            <div className="h-2 bg-navy-800 rounded-full overflow-hidden">
+                            <div className="h-2 bg-primary-dark rounded-full overflow-hidden">
                                 <div className="h-full bg-gradient-to-r from-green-500 to-emerald-500 w-[25%]"></div>
                             </div>
                         </div>
 
-                        <div className="p-4 bg-navy-900/50 rounded-lg border border-navy-800">
+                        <div className="p-4 bg-primary/50 rounded-lg border border-primary-dark">
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-slate-300">Other Income</span>
                                 <span className="text-white font-bold">₦400K</span>
                             </div>
-                            <div className="h-2 bg-navy-800 rounded-full overflow-hidden">
+                            <div className="h-2 bg-primary-dark rounded-full overflow-hidden">
                                 <div className="h-full bg-gradient-to-r from-purple-500 to-pink-500 w-[15%]"></div>
                             </div>
                         </div>

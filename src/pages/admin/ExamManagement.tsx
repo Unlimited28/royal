@@ -52,7 +52,7 @@ export const ExamManagement: React.FC = () => {
                         className="p-2 hover:bg-navy-700 rounded-lg transition-colors"
                         title="Edit Exam"
                     >
-                        <i className="ri-pencil-line text-gold-500" />
+                        <i className="ri-pencil-line text-accent" />
                     </button>
                 </div>
             )
@@ -77,7 +77,7 @@ export const ExamManagement: React.FC = () => {
             <Card>
                 <div className="flex items-center justify-between mb-6">
                     <h3 className="text-xl font-bold text-white flex items-center">
-                        <i className="ri-file-text-line mr-2 text-gold-500" />
+                        <i className="ri-file-text-line mr-2 text-accent" />
                         All Exams
                     </h3>
                     <div className="text-sm text-slate-400">

@@ -46,7 +46,7 @@ export const MyExams: React.FC = () => {
         {
             header: 'Rank Required',
             cell: (exam: typeof examsList[0]) => (
-                <span className="px-2 py-1 rounded-full text-xs font-medium bg-gold-500/10 text-gold-500">
+                <span className="px-2 py-1 rounded-full text-xs font-medium bg-accent/10 text-accent">
                     {exam.rank_required}
                 </span>
             )
@@ -114,7 +114,7 @@ export const MyExams: React.FC = () => {
                 <h1 className="text-3xl font-bold text-white">My Exams</h1>
                 <p className="text-slate-400">View and take ranking examinations</p>
                 <div className="mt-2 text-sm text-slate-500">
-                    Simulating User: <span className="text-gold-500 font-medium">{currentUser.name}</span> (Rank: {currentUser.rank})
+                    Simulating User: <span className="text-accent font-medium">{currentUser.name}</span> (Rank: {currentUser.rank})
                 </div>
             </div>
 
@@ -135,7 +135,7 @@ export const MyExams: React.FC = () => {
             <Card>
                 <div className="flex items-center justify-between mb-6">
                     <h3 className="text-xl font-bold text-white flex items-center">
-                        <i className="ri-file-text-line mr-2 text-gold-500" />
+                        <i className="ri-file-text-line mr-2 text-accent" />
                         Examination Center
                     </h3>
                 </div>

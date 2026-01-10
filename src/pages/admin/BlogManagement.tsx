@@ -19,7 +19,7 @@ export const BlogManagement: React.FC = () => {
         {
             header: 'Category',
             cell: (post: typeof mockBlogPosts[0]) => (
-                <span className="px-2 py-1 rounded-full text-xs font-medium bg-gold-500/10 text-gold-500">
+                <span className="px-2 py-1 rounded-full text-xs font-medium bg-accent/10 text-accent">
                     {post.category}
                 </span>
             )
@@ -60,7 +60,7 @@ export const BlogManagement: React.FC = () => {
                         className="p-2 hover:bg-navy-700 rounded-lg transition-colors"
                         title="Edit Post"
                     >
-                        <i className="ri-pencil-line text-gold-500" />
+                        <i className="ri-pencil-line text-accent" />
                     </Link>
                     <button
                         className="p-2 hover:bg-navy-700 rounded-lg transition-colors"

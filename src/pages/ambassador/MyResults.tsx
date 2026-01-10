@@ -120,7 +120,7 @@ export const MyResults: React.FC = () => {
             <Card>
                 <div className="flex items-center justify-between mb-6">
                     <h3 className="text-xl font-bold text-white flex items-center">
-                        <i className="ri-trophy-line mr-2 text-gold-500" />
+                        <i className="ri-trophy-line mr-2 text-accent" />
                         Exam History
                     </h3>
                 </div>

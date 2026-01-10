@@ -8,9 +8,9 @@ export const Gallery: React.FC = () => {
             <PublicNavbar />
 
             {/* Page Header */}
-            <header className="pt-32 pb-16 text-center bg-gradient-to-b from-navy-900/50 to-transparent">
+            <header className="pt-32 pb-16 text-center bg-gradient-to-b from-primary/50 to-transparent">
                 <div className="max-w-4xl mx-auto px-6">
-                    <h1 className="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-white to-gold-500 bg-clip-text text-transparent">
+                    <h1 className="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-white to-accent bg-clip-text text-transparent">
                         Our Gallery
                     </h1>
                     <p className="text-lg text-slate-400 max-w-2xl mx-auto">
@@ -26,14 +26,14 @@ export const Gallery: React.FC = () => {
                         {mockGalleryItems.map((item) => (
                             <div
                                 key={item.id}
-                                className="group relative bg-gradient-to-br from-navy-900/50 to-navy-800/30 border border-navy-700 rounded-2xl overflow-hidden hover:border-gold-500/50 hover:-translate-y-2 transition-all duration-300 shadow-lg hover:shadow-2xl"
+                                className="group relative bg-gradient-to-br from-primary/50 to-primary-dark/30 border border-navy-700 rounded-2xl overflow-hidden hover:border-accent/50 hover:-translate-y-2 transition-all duration-300 shadow-lg hover:shadow-2xl"
                             >
                                 {/* Image Placeholder */}
-                                <div className="h-64 bg-gradient-to-br from-navy-800 to-navy-700 flex items-center justify-center relative overflow-hidden">
+                                <div className="h-64 bg-gradient-to-br from-primary-dark to-navy-700 flex items-center justify-center relative overflow-hidden">
                                     <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-transparent opacity-60"></div>
                                     <div className="relative z-10 text-center">
-                                        <div className="w-16 h-16 bg-gold-500/20 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                                            <i className="ri-image-line text-3xl text-gold-500" />
+                                        <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                                            <i className="ri-image-line text-3xl text-accent" />
                                         </div>
                                         <p className="text-slate-500 text-sm">{item.category}</p>
                                     </div>
@@ -55,10 +55,10 @@ export const Gallery: React.FC = () => {
             </main>
 
             {/* Footer */}
-            <footer className="bg-gradient-to-b from-navy-950 to-navy-900 border-t border-navy-800 py-12">
+            <footer className="bg-gradient-to-b from-navy-950 to-primary border-t border-primary-dark py-12">
                 <div className="max-w-6xl mx-auto px-6 text-center">
                     <div className="flex items-center justify-center space-x-3 mb-6">
-                        <div className="w-10 h-10 bg-gradient-to-br from-gold-500 to-yellow-600 rounded-lg flex items-center justify-center">
+                        <div className="w-10 h-10 bg-gradient-to-br from-accent to-yellow-600 rounded-lg flex items-center justify-center">
                             <span className="text-navy-950 font-bold text-xl">RA</span>
                         </div>
                         <span className="text-xl font-bold text-white">Royal Ambassadors - Ogun Baptist Conference</span>
@@ -66,7 +66,7 @@ export const Gallery: React.FC = () => {
                     <p className="text-slate-400 mb-6">
                         Empowering young Christian leaders across Ogun State through faith, education, and service.
                     </p>
-                    <div className="border-t border-navy-800 pt-6">
+                    <div className="border-t border-primary-dark pt-6">
                         <p className="text-slate-500 text-sm">
                             © 2025 Royal Ambassadors Ogun Baptist Conference. All rights reserved.
                         </p>

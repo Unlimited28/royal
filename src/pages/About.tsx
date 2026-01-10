@@ -7,9 +7,9 @@ export const About: React.FC = () => {
             <PublicNavbar />
 
             {/* Page Header */}
-            <header className="pt-32 pb-16 text-center bg-gradient-to-b from-navy-900/50 to-transparent">
+            <header className="pt-32 pb-16 text-center bg-gradient-to-b from-primary/50 to-transparent">
                 <div className="max-w-4xl mx-auto px-6">
-                    <h1 className="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-white to-gold-500 bg-clip-text text-transparent">
+                    <h1 className="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-white to-accent bg-clip-text text-transparent">
                         About the Royal Ambassadors
                     </h1>
                     <p className="text-lg text-slate-400 max-w-2xl mx-auto">
@@ -22,7 +22,7 @@ export const About: React.FC = () => {
             <main className="py-20 px-6">
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-extrabold mb-6 bg-gradient-to-r from-white to-gold-500 bg-clip-text text-transparent">
+                        <h2 className="text-3xl md:text-4xl font-extrabold mb-6 bg-gradient-to-r from-white to-accent bg-clip-text text-transparent">
                             Our Foundation
                         </h2>
                         <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
@@ -32,18 +32,18 @@ export const About: React.FC = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {/* Mission Card */}
-                        <div className="bg-gradient-to-br from-navy-900/50 to-navy-800/30 border border-navy-700 rounded-2xl p-8 hover:border-gold-500/50 transition-all duration-300">
-                            <div className="w-12 h-12 bg-gold-500/20 rounded-xl flex items-center justify-center mb-6">
-                                <i className="ri-focus-3-line text-2xl text-gold-500" />
+                        <div className="bg-gradient-to-br from-primary/50 to-primary-dark/30 border border-navy-700 rounded-2xl p-8 hover:border-accent/50 transition-all duration-300">
+                            <div className="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center mb-6">
+                                <i className="ri-focus-3-line text-2xl text-accent" />
                             </div>
-                            <h4 className="text-xl font-bold text-gold-500 mb-4">Our Mission</h4>
+                            <h4 className="text-xl font-bold text-accent mb-4">Our Mission</h4>
                             <p className="text-slate-400 leading-relaxed">
                                 To train boys and young men in Christian discipleship, leadership, and service through Bible study, missions education, and practical ministry opportunities that transform lives and communities.
                             </p>
                         </div>
 
                         {/* Vision Card */}
-                        <div className="bg-gradient-to-br from-navy-900/50 to-navy-800/30 border border-navy-700 rounded-2xl p-8 hover:border-blue-500/50 transition-all duration-300">
+                        <div className="bg-gradient-to-br from-primary/50 to-primary-dark/30 border border-navy-700 rounded-2xl p-8 hover:border-blue-500/50 transition-all duration-300">
                             <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
                                 <i className="ri-eye-line text-2xl text-blue-500" />
                             </div>
@@ -54,7 +54,7 @@ export const About: React.FC = () => {
                         </div>
 
                         {/* Values Card */}
-                        <div className="bg-gradient-to-br from-navy-900/50 to-navy-800/30 border border-navy-700 rounded-2xl p-8 hover:border-green-500/50 transition-all duration-300">
+                        <div className="bg-gradient-to-br from-primary/50 to-primary-dark/30 border border-navy-700 rounded-2xl p-8 hover:border-green-500/50 transition-all duration-300">
                             <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mb-6">
                                 <i className="ri-heart-line text-2xl text-green-500" />
                             </div>
@@ -68,10 +68,10 @@ export const About: React.FC = () => {
             </main>
 
             {/* Footer */}
-            <footer className="bg-gradient-to-b from-navy-950 to-navy-900 border-t border-navy-800 py-12">
+            <footer className="bg-gradient-to-b from-navy-950 to-primary border-t border-primary-dark py-12">
                 <div className="max-w-6xl mx-auto px-6 text-center">
                     <div className="flex items-center justify-center space-x-3 mb-6">
-                        <div className="w-10 h-10 bg-gradient-to-br from-gold-500 to-yellow-600 rounded-lg flex items-center justify-center">
+                        <div className="w-10 h-10 bg-gradient-to-br from-accent to-yellow-600 rounded-lg flex items-center justify-center">
                             <span className="text-navy-950 font-bold text-xl">RA</span>
                         </div>
                         <span className="text-xl font-bold text-white">Royal Ambassadors - Ogun Baptist Conference</span>
@@ -79,7 +79,7 @@ export const About: React.FC = () => {
                     <p className="text-slate-400 mb-6">
                         Empowering young Christian leaders across Ogun State through faith, education, and service.
                     </p>
-                    <div className="border-t border-navy-800 pt-6">
+                    <div className="border-t border-primary-dark pt-6">
                         <p className="text-slate-500 text-sm">
                             © 2025 Royal Ambassadors Ogun Baptist Conference. All rights reserved.
                         </p>
