@@ -111,9 +111,9 @@ export const ExamSession: React.FC = () => {
                     </p>
 
                     {passed && (
-                        <div className="bg-gold-500/10 border border-gold-500/50 rounded-xl p-4 mb-6">
+                        <div className="bg-accent/10 border border-accent/50 rounded-xl p-4 mb-6">
                             <p className="text-sm text-slate-400 mb-1">New Rank Achieved</p>
-                            <p className="text-2xl font-bold text-gold-500">{getNextRank(exam.rank_required)}</p>
+                            <p className="text-2xl font-bold text-accent">{getNextRank(exam.rank_required)}</p>
                         </div>
                     )}
 
@@ -150,11 +150,11 @@ export const ExamSession: React.FC = () => {
             <Card className="p-4">
                 <div className="flex items-center justify-between mb-2">
                     <span className="text-sm text-slate-400">Progress</span>
-                    <span className="text-sm font-bold text-gold-500">{answeredCount}/{questions.length} answered</span>
+                    <span className="text-sm font-bold text-accent">{answeredCount}/{questions.length} answered</span>
                 </div>
-                <div className="h-2 bg-navy-800 rounded-full overflow-hidden">
+                <div className="h-2 bg-primary-dark rounded-full overflow-hidden">
                     <div
-                        className="h-full bg-gradient-to-r from-gold-500 to-yellow-500 transition-all duration-300"
+                        className="h-full bg-gradient-to-r from-accent to-yellow-500 transition-all duration-300"
                         style={{ width: `${progress}%` }}
                     />
                 </div>
@@ -168,7 +168,7 @@ export const ExamSession: React.FC = () => {
                             <span className="text-sm text-slate-400">
                                 Question {currentQuestion + 1} of {questions.length}
                             </span>
-                            <span className="px-3 py-1 rounded-full text-xs font-medium bg-gold-500/10 text-gold-500">
+                            <span className="px-3 py-1 rounded-full text-xs font-medium bg-accent/10 text-accent">
                                 {questions[currentQuestion].points} points
                             </span>
                         </div>
@@ -187,14 +187,14 @@ export const ExamSession: React.FC = () => {
                                     key={option}
                                     onClick={() => handleAnswer(questions[currentQuestion].id, option)}
                                     className={`w-full p-4 rounded-lg border-2 text-left transition-all ${isSelected
-                                        ? 'border-gold-500 bg-gold-500/10'
-                                        : 'border-navy-700 bg-navy-900/50 hover:border-navy-600'
+                                        ? 'border-accent bg-accent/10'
+                                        : 'border-navy-700 bg-primary/50 hover:border-navy-600'
                                         }`}
                                 >
                                     <div className="flex items-center space-x-3">
-                                        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${isSelected ? 'border-gold-500 bg-gold-500' : 'border-slate-500'
+                                        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${isSelected ? 'border-accent bg-accent' : 'border-slate-500'
                                             }`}>
-                                            {isSelected && <i className="ri-check-line text-navy-900" />}
+                                            {isSelected && <i className="ri-check-line text-primary" />}
                                         </div>
                                         <span className={`font-medium ${isSelected ? 'text-white' : 'text-slate-300'}`}>
                                             {option.toUpperCase()}. {optionText}

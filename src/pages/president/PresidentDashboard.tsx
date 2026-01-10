@@ -24,14 +24,14 @@ export const PresidentDashboard: React.FC = () => {
                 <Card>
                     <h3 className="text-xl font-bold text-white mb-4">Pending Approvals</h3>
                     <div className="space-y-4">
-                        <div className="p-4 bg-navy-900/50 rounded-lg border border-navy-800 flex justify-between items-center">
+                        <div className="p-4 bg-primary/50 rounded-lg border border-primary-dark flex justify-between items-center">
                             <div>
                                 <div className="text-white font-medium">Exam Registration</div>
                                 <div className="text-xs text-slate-500">5 members awaiting approval</div>
                             </div>
                             <Button size="sm" variant="outline">Review</Button>
                         </div>
-                        <div className="p-4 bg-navy-900/50 rounded-lg border border-navy-800 flex justify-between items-center">
+                        <div className="p-4 bg-primary/50 rounded-lg border border-primary-dark flex justify-between items-center">
                             <div>
                                 <div className="text-white font-medium">New Membership</div>
                                 <div className="text-xs text-slate-500">3 new signups</div>
@@ -44,12 +44,12 @@ export const PresidentDashboard: React.FC = () => {
                 <Card>
                     <h3 className="text-xl font-bold text-white mb-4">Quick Links</h3>
                     <div className="grid grid-cols-2 gap-4">
-                        <Link to="/president/members" className="p-4 bg-navy-800 hover:bg-navy-700 rounded-lg text-center transition-colors group">
-                            <i className="ri-group-line text-3xl mx-auto mb-2 text-gold-500 group-hover:scale-110 transition-transform" />
+                        <Link to="/president/members" className="p-4 bg-primary-dark hover:bg-navy-700 rounded-lg text-center transition-colors group">
+                            <i className="ri-group-line text-3xl mx-auto mb-2 text-accent group-hover:scale-110 transition-transform" />
                             <span className="text-sm font-medium text-slate-300 group-hover:text-white">Members</span>
                         </Link>
-                        <Link to="/president/payments" className="p-4 bg-navy-800 hover:bg-navy-700 rounded-lg text-center transition-colors group">
-                            <i className="ri-bank-card-line text-3xl mx-auto mb-2 text-gold-500 group-hover:scale-110 transition-transform" />
+                        <Link to="/president/payments" className="p-4 bg-primary-dark hover:bg-navy-700 rounded-lg text-center transition-colors group">
+                            <i className="ri-bank-card-line text-3xl mx-auto mb-2 text-accent group-hover:scale-110 transition-transform" />
                             <span className="text-sm font-medium text-slate-300 group-hover:text-white">Payments</span>
                         </Link>
                     </div>

@@ -33,11 +33,11 @@ export const SystemSettings: React.FC = () => {
                 {/* System Status */}
                 <Card>
                     <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-                        <i className="ri-server-line mr-2 text-gold-500" />
+                        <i className="ri-server-line mr-2 text-accent" />
                         System Status
                     </h3>
                     <div className="space-y-4">
-                        <div className="flex items-center justify-between p-4 bg-navy-900/50 rounded-lg border border-navy-800">
+                        <div className="flex items-center justify-between p-4 bg-primary/50 rounded-lg border border-primary-dark">
                             <div className="flex items-center space-x-3">
                                 <i className="ri-shield-line text-slate-400" />
                                 <div>
@@ -56,7 +56,7 @@ export const SystemSettings: React.FC = () => {
                             </label>
                         </div>
 
-                        <div className="flex items-center justify-between p-4 bg-navy-900/50 rounded-lg border border-navy-800">
+                        <div className="flex items-center justify-between p-4 bg-primary/50 rounded-lg border border-primary-dark">
                             <div className="flex items-center space-x-3">
                                 <i className="ri-flashlight-line text-slate-400" />
                                 <div>
@@ -71,11 +71,11 @@ export const SystemSettings: React.FC = () => {
                                     onChange={(e) => handleChange('debugMode', e.target.checked)}
                                     className="sr-only peer"
                                 />
-                                <div className="w-11 h-6 bg-navy-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gold-500"></div>
+                                <div className="w-11 h-6 bg-navy-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
                             </label>
                         </div>
 
-                        <div className="flex items-center justify-between p-4 bg-navy-900/50 rounded-lg border border-navy-800">
+                        <div className="flex items-center justify-between p-4 bg-primary/50 rounded-lg border border-primary-dark">
                             <div className="flex items-center space-x-3">
                                 <i className="ri-database-2-line text-slate-400" />
                                 <div>
@@ -90,7 +90,7 @@ export const SystemSettings: React.FC = () => {
                                     onChange={(e) => handleChange('cacheEnabled', e.target.checked)}
                                     className="sr-only peer"
                                 />
-                                <div className="w-11 h-6 bg-navy-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gold-500"></div>
+                                <div className="w-11 h-6 bg-navy-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
                             </label>
                         </div>
                     </div>
@@ -99,11 +99,11 @@ export const SystemSettings: React.FC = () => {
                 {/* Backup Settings */}
                 <Card>
                     <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-                        <i className="ri-database-2-line mr-2 text-gold-500" />
+                        <i className="ri-database-2-line mr-2 text-accent" />
                         Backup Settings
                     </h3>
                     <div className="space-y-6">
-                        <div className="flex items-center justify-between p-4 bg-navy-900/50 rounded-lg border border-navy-800">
+                        <div className="flex items-center justify-between p-4 bg-primary/50 rounded-lg border border-primary-dark">
                             <div className="flex items-center space-x-3">
                                 <i className="ri-database-2-line text-slate-400" />
                                 <div>
@@ -118,7 +118,7 @@ export const SystemSettings: React.FC = () => {
                                     onChange={(e) => handleChange('autoBackup', e.target.checked)}
                                     className="sr-only peer"
                                 />
-                                <div className="w-11 h-6 bg-navy-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gold-500"></div>
+                                <div className="w-11 h-6 bg-navy-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
                             </label>
                         </div>
 
@@ -130,7 +130,7 @@ export const SystemSettings: React.FC = () => {
                                 id="backupFrequency"
                                 value={settings.backupFrequency}
                                 onChange={(e) => handleChange('backupFrequency', e.target.value)}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent"
                                 disabled={!settings.autoBackup}
                             >
                                 <option value="hourly">Hourly</option>
@@ -157,7 +157,7 @@ export const SystemSettings: React.FC = () => {
                                 onChange={(e) => handleChange('maxUploadSize', e.target.value)}
                                 min="1"
                                 max="100"
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent"
                             />
                         </div>
 
@@ -172,7 +172,7 @@ export const SystemSettings: React.FC = () => {
                                 onChange={(e) => handleChange('sessionTimeout', e.target.value)}
                                 min="5"
                                 max="120"
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent"
                             />
                         </div>
                     </div>

@@ -32,7 +32,7 @@ export const CampFiles: React.FC = () => {
         {
             header: 'Registered Count',
             cell: (file: typeof mockCampFiles[0]) => (
-                <span className="text-gold-500 font-bold">{file.registered_count}</span>
+                <span className="text-accent font-bold">{file.registered_count}</span>
             )
         },
         {
@@ -124,7 +124,7 @@ export const CampFiles: React.FC = () => {
             <Card>
                 <div className="flex items-center justify-between mb-6">
                     <h3 className="text-xl font-bold text-white flex items-center">
-                        <i className="ri-file-excel-2-line mr-2 text-gold-500" />
+                        <i className="ri-file-excel-2-line mr-2 text-accent" />
                         Uploaded Files
                     </h3>
                 </div>

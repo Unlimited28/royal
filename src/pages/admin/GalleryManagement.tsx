@@ -10,8 +10,8 @@ export const GalleryManagement: React.FC = () => {
             header: 'Image',
             cell: (item: typeof mockGalleryItems[0]) => (
                 <div className="flex items-center space-x-3">
-                    <div className="w-16 h-16 bg-gradient-to-br from-navy-800 to-navy-700 rounded-lg flex items-center justify-center">
-                        <i className="ri-image-line text-2xl text-gold-500" />
+                    <div className="w-16 h-16 bg-gradient-to-br from-primary-dark to-navy-700 rounded-lg flex items-center justify-center">
+                        <i className="ri-image-line text-2xl text-accent" />
                     </div>
                     <div>
                         <div className="font-medium text-white">{item.title}</div>
@@ -56,7 +56,7 @@ export const GalleryManagement: React.FC = () => {
                         className="p-2 hover:bg-navy-700 rounded-lg transition-colors"
                         title="Edit Item"
                     >
-                        <i className="ri-pencil-line text-gold-500" />
+                        <i className="ri-pencil-line text-accent" />
                     </button>
                     <button
                         className="p-2 hover:bg-navy-700 rounded-lg transition-colors"

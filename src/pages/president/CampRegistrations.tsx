@@ -52,7 +52,7 @@ export const CampRegistrations: React.FC = () => {
         {
             header: 'Amount',
             cell: (reg: typeof mockCampRegistrations[0]) => (
-                <span className="text-gold-500 font-bold">₦{(reg.amount || 0).toLocaleString()}</span>
+                <span className="text-accent font-bold">₦{(reg.amount || 0).toLocaleString()}</span>
             )
         },
         {
@@ -103,7 +103,7 @@ export const CampRegistrations: React.FC = () => {
             <Card>
                 <div className="flex items-center justify-between mb-6">
                     <h3 className="text-xl font-bold text-white flex items-center">
-                        <i className="ri-group-line mr-2 text-gold-500" />
+                        <i className="ri-group-line mr-2 text-accent" />
                         All Registrations
                     </h3>
                 </div>

@@ -5,10 +5,10 @@ import { Button } from '../components/ui/Button';
 
 export const NotFound: React.FC = () => {
     return (
-        <div className="min-h-screen bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-gradient-to-br from-primary via-primary-dark to-primary flex items-center justify-center p-4">
             <Card className="max-w-2xl w-full p-12 text-center">
                 <div className="mb-8">
-                    <h1 className="text-9xl font-bold text-gold-500 mb-4">404</h1>
+                    <h1 className="text-9xl font-bold text-accent mb-4">404</h1>
                     <h2 className="text-3xl font-bold text-white mb-4">
                         Page Not Found
                     </h2>

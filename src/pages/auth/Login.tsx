@@ -52,7 +52,7 @@ export const Login: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 relative z-10 bg-navy-900">
+        <div className="min-h-screen flex items-center justify-center p-4 relative z-10 bg-primary">
             <Card className="w-full max-w-md">
                 <div className="text-center mb-8">
                     <div className="flex justify-center mb-4">
@@ -98,7 +98,7 @@ id="password"
                     <div className="text-center mt-6">
                         <p className="text-slate-400 text-sm">
                             Don't have an account?{' '}
-                            <Link to="/register" className="text-gold-500 hover:text-white font-semibold transition-colors">
+                            <Link to="/register" className="text-accent hover:text-white font-semibold transition-colors">
                                 Join Now
                             </Link>
                         </p>

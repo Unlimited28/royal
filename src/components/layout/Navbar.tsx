@@ -8,7 +8,7 @@ const Navbar: React.FC = () => {
   const { user, logout } = useAuth();
 
   return (
-    <nav className="bg-navy-800 p-4 text-white">
+    <nav className="bg-primary-dark p-4 text-white">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="flex items-center space-x-2">
             <img src={logo} alt="Logo" className="h-10 w-10" />
@@ -16,11 +16,11 @@ const Navbar: React.FC = () => {
         </Link>
         <div>
           {user ? (
-            <button onClick={logout} className="bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-2 px-4 rounded">
+            <button onClick={logout} className="bg-accent hover:brightness-90 text-primary font-bold py-2 px-4 rounded">
               Logout
             </button>
           ) : (
-            <Link to="/login" className="bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-2 px-4 rounded">
+            <Link to="/login" className="bg-accent hover:brightness-90 text-primary font-bold py-2 px-4 rounded">
               Login
             </Link>
           )}

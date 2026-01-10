@@ -27,13 +27,13 @@ export const ManageAmbassadors: React.FC = () => {
         {
             header: 'Code',
             cell: (user: typeof mockUsers[0]) => (
-                <span className="font-mono text-gold-500">{user.ambassador_code}</span>
+                <span className="font-mono text-accent">{user.ambassador_code}</span>
             )
         },
         {
             header: 'Rank',
             cell: (user: typeof mockUsers[0]) => (
-                <span className="px-2 py-1 rounded-full text-xs font-medium bg-gold-500/10 text-gold-500">
+                <span className="px-2 py-1 rounded-full text-xs font-medium bg-accent/10 text-accent">
                     {user.rank}
                 </span>
             )
@@ -84,7 +84,7 @@ export const ManageAmbassadors: React.FC = () => {
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div>
                 <h1 className="text-3xl font-bold text-white">Manage Ambassadors</h1>
-                <p className="text-slate-400">View and manage ambassadors in <span className="text-gold-500">{currentPresident.association}</span></p>
+                <p className="text-slate-400">View and manage ambassadors in <span className="text-accent">{currentPresident.association}</span></p>
             </div>
 
             {/* Stats Grid */}
@@ -104,7 +104,7 @@ export const ManageAmbassadors: React.FC = () => {
             <Card>
                 <div className="flex items-center justify-between mb-6">
                     <h3 className="text-xl font-bold text-white flex items-center">
-                        <i className="ri-group-line mr-2 text-gold-500" />
+                        <i className="ri-group-line mr-2 text-accent" />
                         Association Members
                     </h3>
                 </div>

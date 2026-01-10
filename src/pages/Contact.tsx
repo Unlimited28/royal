@@ -28,9 +28,9 @@ export const Contact: React.FC = () => {
             <PublicNavbar />
 
             {/* Page Header */}
-            <header className="pt-32 pb-16 text-center bg-gradient-to-b from-navy-900/50 to-transparent">
+            <header className="pt-32 pb-16 text-center bg-gradient-to-b from-primary/50 to-transparent">
                 <div className="max-w-4xl mx-auto px-6">
-                    <h1 className="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-white to-gold-500 bg-clip-text text-transparent">
+                    <h1 className="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-white to-accent bg-clip-text text-transparent">
                         Get In Touch
                     </h1>
                     <p className="text-lg text-slate-400 max-w-2xl mx-auto">
@@ -44,7 +44,7 @@ export const Contact: React.FC = () => {
                 <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
                     {/* Contact Form */}
                     <div className="lg:col-span-2">
-                        <div className="bg-gradient-to-br from-navy-900/50 to-navy-800/30 border border-navy-700 rounded-2xl p-8">
+                        <div className="bg-gradient-to-br from-primary/50 to-primary-dark/30 border border-navy-700 rounded-2xl p-8">
                             <h3 className="text-2xl font-bold text-white mb-6">Send a Message</h3>
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div>
@@ -56,7 +56,7 @@ export const Contact: React.FC = () => {
                                         id="name"
                                         value={formData.name}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                                        className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                                         required
                                     />
                                 </div>
@@ -69,7 +69,7 @@ export const Contact: React.FC = () => {
                                         id="email"
                                         value={formData.email}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                                        className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                                         required
                                     />
                                 </div>
@@ -82,7 +82,7 @@ export const Contact: React.FC = () => {
                                         id="subject"
                                         value={formData.subject}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                                        className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                                         required
                                     />
                                 </div>
@@ -95,7 +95,7 @@ export const Contact: React.FC = () => {
                                         value={formData.message}
                                         onChange={handleChange}
                                         rows={6}
-                                        className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors resize-none"
+                                        className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors resize-none"
                                         required
                                     />
                                 </div>
@@ -109,10 +109,10 @@ export const Contact: React.FC = () => {
 
                     {/* Contact Info */}
                     <div className="space-y-6">
-                        <div className="bg-gradient-to-br from-navy-900/50 to-navy-800/30 border border-navy-700 rounded-2xl p-6">
+                        <div className="bg-gradient-to-br from-primary/50 to-primary-dark/30 border border-navy-700 rounded-2xl p-6">
                             <div className="flex items-start space-x-4 mb-6">
-                                <div className="w-12 h-12 bg-gold-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <i className="ri-map-pin-line text-2xl text-gold-500" />
+                                <div className="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i className="ri-map-pin-line text-2xl text-accent" />
                                 </div>
                                 <div>
                                     <h4 className="text-white font-semibold mb-2">Address</h4>
@@ -147,7 +147,7 @@ export const Contact: React.FC = () => {
             </div>
 
             {/* Footer */}
-            <footer className="bg-gradient-to-b from-navy-950 to-navy-900 border-t border-navy-800 py-12">
+            <footer className="bg-gradient-to-b from-navy-950 to-primary border-t border-primary-dark py-12">
                 <div className="max-w-6xl mx-auto px-6 text-center">
                     <p className="text-slate-500 text-sm">
                         © 2025 Royal Ambassadors Ogun Baptist Conference. All rights reserved.

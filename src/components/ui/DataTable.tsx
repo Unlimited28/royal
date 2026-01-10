@@ -31,16 +31,16 @@ export function DataTable<T extends { id: string | number }>({
 
     if (data.length === 0) {
         return (
-            <div className="w-full h-48 flex items-center justify-center text-slate-400 bg-navy-900/30 rounded-lg border border-navy-800">
+            <div className="w-full h-48 flex items-center justify-center text-slate-400 bg-primary/30 rounded-lg border border-primary-dark">
                 No data available
             </div>
         );
     }
 
     return (
-        <div className="w-full overflow-x-auto rounded-lg border border-navy-800 bg-navy-900/30">
+        <div className="w-full overflow-x-auto rounded-lg border border-primary-dark bg-primary/30">
             <table className="w-full text-left text-sm">
-                <thead className="bg-navy-800 border-b border-navy-700">
+                <thead className="bg-primary-dark border-b border-navy-700">
                     <tr>
                         {columns.map((col, idx) => (
                             <th
@@ -55,14 +55,14 @@ export function DataTable<T extends { id: string | number }>({
                         ))}
                     </tr>
                 </thead>
-                <tbody className="divide-y divide-navy-800">
+                <tbody className="divide-y divide-primary-dark">
                     {data.map((item) => (
                         <tr
                             key={item.id}
                             onClick={() => onRowClick && onRowClick(item)}
                             className={cn(
                                 "group transition-colors",
-                                onRowClick ? "cursor-pointer hover:bg-navy-800/50" : "hover:bg-navy-800/20"
+                                onRowClick ? "cursor-pointer hover:bg-primary-dark/50" : "hover:bg-primary-dark/20"
                             )}
                         >
                             {columns.map((col, idx) => (

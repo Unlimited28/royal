@@ -35,7 +35,7 @@ export const CreateExam: React.FC = () => {
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <Link
                 to="/admin/exams"
-                className="inline-flex items-center text-gold-500 hover:text-gold-400 transition-colors"
+                className="inline-flex items-center text-accent hover:text-gold-400 transition-colors"
             >
                 <i className="ri-arrow-left-line mr-2" />
                 Back to Exam Management
@@ -58,7 +58,7 @@ export const CreateExam: React.FC = () => {
                             name="title"
                             value={formData.title}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                            className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                             placeholder="e.g., Junior Ambassador Promotion Exam"
                             required
                         />
@@ -74,7 +74,7 @@ export const CreateExam: React.FC = () => {
                             value={formData.description}
                             onChange={handleChange}
                             rows={4}
-                            className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors resize-none"
+                            className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors resize-none"
                             placeholder="Provide a brief description of this exam"
                             required
                         />
@@ -90,7 +90,7 @@ export const CreateExam: React.FC = () => {
                                 name="rank_required"
                                 value={formData.rank_required}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                                 required
                             >
                                 <option value="Page">Page</option>
@@ -113,7 +113,7 @@ export const CreateExam: React.FC = () => {
                                 onChange={handleChange}
                                 min="15"
                                 max="180"
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                                 required
                             />
                         </div>
@@ -130,7 +130,7 @@ export const CreateExam: React.FC = () => {
                                 onChange={handleChange}
                                 min="50"
                                 max="100"
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                                 required
                             />
                         </div>
@@ -147,7 +147,7 @@ export const CreateExam: React.FC = () => {
                                 onChange={handleChange}
                                 min="10"
                                 max="200"
-                                className="w-full px-4 py-3 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500 transition-colors"
+                                className="w-full px-4 py-3 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent transition-colors"
                                 required
                             />
                         </div>

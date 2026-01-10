@@ -110,13 +110,13 @@ export const ContentModeration: React.FC = () => {
             <Card>
                 <div className="flex items-center justify-between mb-6">
                     <h3 className="text-xl font-bold text-white flex items-center">
-                        <i className="ri-shield-check-line mr-2 text-gold-500" />
+                        <i className="ri-shield-check-line mr-2 text-accent" />
                         Content Items
                     </h3>
                     <select
                         value={filter}
                         onChange={(e) => setFilter(e.target.value as 'all' | 'pending' | 'approved' | 'flagged')}
-                        className="px-4 py-2 bg-navy-900/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-gold-500"
+                        className="px-4 py-2 bg-primary/50 border border-navy-700 rounded-lg text-white focus:outline-none focus:border-accent"
                     >
                         <option value="all">All Status</option>
                         <option value="pending">Pending Review</option>

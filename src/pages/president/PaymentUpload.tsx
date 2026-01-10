@@ -30,7 +30,7 @@ export const PaymentUpload: React.FC = () => {
                 <h3 className="text-xl font-bold text-white mb-6">Upload Payment File</h3>
 
                 <div className="space-y-6">
-                    <div className="border-2 border-dashed border-navy-700 rounded-lg p-12 text-center hover:border-gold-500 transition-colors">
+                    <div className="border-2 border-dashed border-navy-700 rounded-lg p-12 text-center hover:border-accent transition-colors">
                         <i className="ri-file-excel-2-line text-6xl text-slate-500 mx-auto mb-4" />
                         <p className="text-slate-300 mb-2">
                             {selectedFile ? selectedFile.name : 'Click to upload or drag and drop'}
