@@ -5,7 +5,7 @@ import { Button } from '../../components/ui/Button';
 import { DataTable } from '../../components/ui/DataTable';
 import { mockExams } from '../../utils/mockData';
 
-export const ExamManagement: React.FC = () => {
+const ExamManagement: React.FC = () => {
     const columns = [
         {
             header: 'Exam Title',
@@ -93,3 +93,4 @@ export const ExamManagement: React.FC = () => {
         </div>
     );
 };
+export default ExamManagement;

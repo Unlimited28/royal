@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { DataTable } from '../../components/ui/DataTable';
 import { mockCampRegistrations } from '../../utils/mockData';
 
-export const CampRegistrations: React.FC = () => {
+const CampRegistrations: React.FC = () => {
     const columns = [
         {
             header: 'Ambassador',
@@ -116,3 +116,4 @@ export const CampRegistrations: React.FC = () => {
         </div>
     );
 };
+export default CampRegistrations;

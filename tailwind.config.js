@@ -7,16 +7,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        navy: {
-          900: '#0A1535',
-          800: '#112240',
-        },
-        gold: {
-          500: '#D4AF37',
-        },
+        primary: '#0A1535',
+        accent: '#D4AF37',
+        light: '#FFFFFF',
       },
       backgroundColor: {
         'card-bg': 'rgba(17, 34, 64, 0.7)',
+        'default': '#0A1535',
       },
       animation: {
         'gold-pulse': 'goldPulse 2s infinite',

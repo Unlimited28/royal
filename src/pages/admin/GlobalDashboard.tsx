@@ -3,7 +3,7 @@ import { StatsGrid } from '../../components/ui/StatsGrid';
 import { DataTable } from '../../components/ui/DataTable';
 import { Card } from '../../components/ui/Card';
 
-export const AdminDashboard: React.FC = () => {
+const AdminDashboard: React.FC = () => {
     // Mock Stats Data
     const stats = [
         { label: 'Total Ambassadors', value: '1,245', icon: 'ri-group-line', change: '+12% from last month', trend: 'up' as const },
@@ -103,3 +103,4 @@ export const AdminDashboard: React.FC = () => {
         </div>
     );
 };
+export default AdminDashboard;
