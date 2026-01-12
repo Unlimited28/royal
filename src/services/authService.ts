@@ -18,7 +18,14 @@ const LoginResponseSchema = z.object({
 export type User = z.infer<typeof UserSchema>;
 export type LoginCredentials = {
     email: string;
-    role: 'ambassador' | 'president' | 'admin';
+    password: string;
+};
+
+export type RegisterData = {
+    email: string;
+    password: string;
+    role: string;
+    // add more
 };
 
 
@@ -70,5 +77,20 @@ export const getCurrentUser = (): User | null => {
     localStorage.removeItem('user');
     localStorage.removeItem('authToken');
     return null;
+  }
+};
+
+/**
+ * Registers a new user.
+ * @param data - The registration data.
+ * @returns A promise that resolves with the registration response.
+ */
+export const register = async (data: RegisterData) => {
+  try {
+    const response = await api.post('/auth/register.php', data);
+    return response.data;
+  } catch (error) {
+    console.error("Registration failed:", error);
+    throw error;
   }
 };

@@ -5,7 +5,7 @@ import { Button } from '../../components/ui/Button';
 import { mockUsers } from '../../utils/mockData';
 import { type IUser } from '../../types';
 
-export const UserManagement: React.FC = () => {
+const UserManagement: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [roleFilter, setRoleFilter] = useState<string>('all');
 
@@ -108,3 +108,5 @@ export const UserManagement: React.FC = () => {
         </div>
     );
 };
+
+export default UserManagement;

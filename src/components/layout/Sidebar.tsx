@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { cn } from '../../utils/cn';
 import logo from '../../assets/logo.png';
+import { useAuth } from '../../context/AuthContext';
 
 
 interface SidebarProps {
@@ -19,10 +20,27 @@ const iconMap = {
     Settings: 'ri-settings-3-line',
     LogOut: 'ri-logout-box-r-line',
     Live: 'ri-live-line',
+    Notification: 'ri-notification-line',
+    Support: 'ri-customer-service-line',
 };
 
 
 export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
+    const { user } = useAuth();
+
+    const getHomePath = () => {
+        if (!user) return '/';
+        switch (user.role) {
+            case 'ambassador':
+                return '/dashboard';
+            case 'president':
+                return '/president/dashboard';
+            case 'superadmin':
+                return '/admin/dashboard';
+            default:
+                return '/';
+        }
+    };
     const commonLinks = [
         { name: 'Dashboard', icon: iconMap.LayoutDashboard, path: '/dashboard' },
     ];
@@ -31,24 +49,27 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
     const ambassadorLinks = [
         { name: 'My Exams', icon: iconMap.FileText, path: '/ambassador/exams' },
         { name: 'Results', icon: iconMap.Award, path: '/ambassador/results' },
+        { name: 'Profile', icon: iconMap.Users, path: '/ambassador/profile' },
+        { name: 'Notifications', icon: iconMap.Notification, path: '/ambassador/notifications' },
+        { name: 'Support', icon: iconMap.Support, path: '/ambassador/support' },
         { name: 'Gallery', icon: iconMap.Image, path: '/gallery' },
         { name: 'Live & Media', icon: iconMap.Live, path: '/media' },
     ];
 
 
-    const adminLinks = [
-        { name: 'Ambassadors', icon: iconMap.Users, path: '/admin/ambassadors' },
-        { name: 'Approvals', icon: iconMap.FileText, path: '/admin/approvals' },
-        { name: 'Payments', icon: iconMap.CreditCard, path: '/admin/payments' },
-        { name: 'Camp Reg', icon: iconMap.Users, path: '/admin/camp-registration' },
-    ];
-
-
     const superAdminLinks = [
-        { name: 'Manage Users', icon: iconMap.Users, path: '/super/users' },
-        { name: 'Exams', icon: iconMap.FileText, path: '/super/exams' },
-        { name: 'Finance', icon: iconMap.CreditCard, path: '/super/finance' },
-        { name: 'Settings', icon: iconMap.Settings, path: '/super/settings' },
+        { name: 'Dashboard', icon: iconMap.LayoutDashboard, path: '/admin/dashboard' },
+        { name: 'User Management', icon: iconMap.Users, path: '/admin/users' },
+        { name: 'Associations', icon: iconMap.Users, path: '/admin/associations' },
+        { name: 'Exam Control', icon: iconMap.FileText, path: '/admin/exams' },
+        { name: 'Finance', icon: iconMap.CreditCard, path: '/admin/finance' },
+        { name: 'Payment Verification', icon: iconMap.CreditCard, path: '/admin/payments' },
+        { name: 'Receipts', icon: iconMap.FileText, path: '/admin/receipts' },
+        { name: 'Blog Management', icon: iconMap.FileText, path: '/admin/blog' },
+        { name: 'Gallery Management', icon: iconMap.Image, path: '/admin/gallery' },
+        { name: 'Media Management', icon: iconMap.Live, path: '/admin/media' },
+        { name: 'System Settings', icon: iconMap.Settings, path: '/admin/settings' },
+        { name: 'Audit Logs', icon: iconMap.FileText, path: '/admin/audit' },
     ];
 
 
@@ -58,14 +79,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
         { name: 'Members', icon: iconMap.Users, path: '/president/members' },
         { name: 'Approvals', icon: iconMap.FileText, path: '/president/approvals' },
         { name: 'Payments', icon: iconMap.CreditCard, path: '/president/payments' },
+        { name: 'Camp Reg', icon: iconMap.Users, path: '/president/camp-registrations' },
+        { name: 'Notifications', icon: iconMap.Notification, path: '/president/notifications' },
+        { name: 'Gallery', icon: iconMap.Image, path: '/gallery' },
+        { name: 'Live & Media', icon: iconMap.Live, path: '/media' },
     ];
 
 
     const links = [
         ...commonLinks,
         ...(role === 'ambassador' ? ambassadorLinks : []),
-        ...(role === 'admin' ? adminLinks : []),
-        ...(role === 'superadmin' ? superAdminLinks : []),
+        ...(role === 'admin' ? superAdminLinks : []),
         ...(role === 'president' ? presidentLinks : []),
     ];
 
@@ -74,7 +98,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
         <aside className="w-64 bg-navy-900 border-r border-navy-800 flex-shrink-0 relative z-20 hidden md:flex flex-col">
             {/* Logo */}
             <div className="h-16 flex items-center px-6 border-b border-navy-800">
-                <Link to="/" className="flex items-center space-x-3">
+                <Link to={getHomePath()} className="flex items-center space-x-3">
                     <img
                         src={logo}
                         alt="Royal Ambassadors"

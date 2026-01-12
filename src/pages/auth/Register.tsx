@@ -7,7 +7,7 @@ import { Button } from '../../components/ui/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { OFFICIAL_ASSOCIATIONS, OFFICIAL_RANKS } from '../../constants';
 import logo from '../../assets/logo.png';
-import { register, RegisterData } from '../../services/authService';
+import { register, type RegisterData } from '../../services/authService';
 import toast from 'react-hot-toast';
 
 export const Register: React.FC = () => {
@@ -163,3 +163,5 @@ export const Register: React.FC = () => {
         </div>
     );
 };
+
+export default Register;

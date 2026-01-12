@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 
-export const SystemSettings: React.FC = () => {
+const SystemSettings: React.FC = () => {
     const [settings, setSettings] = useState({
         maintenanceMode: false,
         debugMode: false,
@@ -192,3 +192,5 @@ export const SystemSettings: React.FC = () => {
         </div>
     );
 };
+
+export default SystemSettings;

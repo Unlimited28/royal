@@ -97,3 +97,5 @@ export const PaymentUpload: React.FC = () => {
         </div>
     );
 };
+
+export default PaymentUpload;

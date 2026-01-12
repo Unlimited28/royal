@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Sidebar } from './Sidebar';
-import { Navbar } from './Navbar';
+import Navbar from './Navbar';
 
 interface DashboardLayoutProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     role?: 'ambassador' | 'admin' | 'superadmin' | 'president';
 }
 
 export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, role = 'ambassador' }) => {
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     return (
         <div className="flex h-screen bg-transparent overflow-hidden">
@@ -17,7 +16,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, role
 
             {/* Main Content Area */}
             <div className="flex-1 flex flex-col min-w-0">
-                <Navbar onMenuClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
+                <Navbar />
 
                 <main className="flex-1 overflow-y-auto p-6 relative z-10 scroll-smooth">
                     <div className="max-w-7xl mx-auto space-y-6">

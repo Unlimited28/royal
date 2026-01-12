@@ -6,7 +6,7 @@ import { Button } from '../../components/ui/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import { useAuth } from '../../context/AuthContext';
-import { LoginCredentials } from '../../services/authService';
+import { type LoginCredentials } from '../../services/authService';
 
 const getDashboardPath = (role: string): string => {
     switch (role) {
@@ -108,3 +108,5 @@ id="password"
         </div>
     );
 };
+
+export default Login;

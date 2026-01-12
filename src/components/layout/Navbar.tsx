@@ -7,10 +7,24 @@ import logo from '../../assets/logo.png';
 const Navbar: React.FC = () => {
   const { user, logout } = useAuth();
 
+  const getHomePath = () => {
+    if (!user) return '/';
+    switch (user.role) {
+      case 'ambassador':
+        return '/dashboard';
+      case 'president':
+        return '/president/dashboard';
+      case 'superadmin':
+        return '/admin/dashboard';
+      default:
+        return '/';
+    }
+  };
+
   return (
     <nav className="bg-navy-800 p-4 text-white">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="flex items-center space-x-2">
+        <Link to={getHomePath()} className="flex items-center space-x-2">
             <img src={logo} alt="Logo" className="h-10 w-10" />
             <span className="text-xl font-bold">Royal Ambassadors</span>
         </Link>

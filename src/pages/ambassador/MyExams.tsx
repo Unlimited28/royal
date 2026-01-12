@@ -160,3 +160,5 @@ export const MyExams: React.FC = () => {
         </div>
     );
 };
+
+export default MyExams;

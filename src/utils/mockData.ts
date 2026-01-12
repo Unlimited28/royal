@@ -1,4 +1,4 @@
-import type { IAssociation, ICampRegistration, IExam, IExamResult, INotification, IPayment, IUser } from "../types";
+import type { IAssociation, ICampRegistration, IExam, IExamResult, INotification, IPayment, IUser, IBlogPost, IGalleryItem } from "../types";
 import campImg from '../assets/images/new_1.jpg';
 import ceremonyImg from '../assets/images/new_2.jpg';
 import gallery1 from '../assets/images/new_5.jpg';
@@ -168,18 +168,6 @@ export const mockNotifications: INotification[] = [
     }
 ];
 
-export interface IBlogPost {
-    id: number;
-    title: string;
-    slug: string;
-    excerpt: string;
-    content: string;
-    author: string;
-    featured_image: string;
-    created_at: string;
-    category: string;
-}
-
 export const mockBlogPosts: IBlogPost[] = [
     {
         id: 1,
@@ -204,15 +192,6 @@ export const mockBlogPosts: IBlogPost[] = [
         category: "Achievements"
     }
 ];
-
-export interface IGalleryItem {
-    id: number;
-    title: string;
-    description: string;
-    image_path: string;
-    created_at: string;
-    category: string;
-}
 
 export const mockGalleryItems: IGalleryItem[] = [
     {

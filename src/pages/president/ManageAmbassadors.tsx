@@ -117,3 +117,5 @@ export const ManageAmbassadors: React.FC = () => {
         </div>
     );
 };
+
+export default ManageAmbassadors;

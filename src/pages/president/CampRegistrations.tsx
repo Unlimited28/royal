@@ -116,3 +116,5 @@ export const CampRegistrations: React.FC = () => {
         </div>
     );
 };
+
+export default CampRegistrations;

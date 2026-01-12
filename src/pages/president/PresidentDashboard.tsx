@@ -58,3 +58,5 @@ export const PresidentDashboard: React.FC = () => {
         </div>
     );
 };
+
+export default PresidentDashboard;

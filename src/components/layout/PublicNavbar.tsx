@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import logo from '../../assets/logo.png';
 
 export const PublicNavbar: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,7 +29,7 @@ export const PublicNavbar: React.FC = () => {
                     <div className="flex-shrink-0">
                         <Link to="/" className="flex items-center space-x-3">
                              <div className="bg-white/10 p-2 rounded-full backdrop-blur-sm border border-navy-600 h-10 w-10 flex items-center justify-center">
-                                <img className="h-6 w-6 object-contain" src="/images/logo-gold.png" alt="Royal Ambassadors Logo" />
+                                <img className="h-6 w-6 object-contain" src={logo} alt="Royal Ambassadors Logo" />
                             </div>
                             <span className="font-bold text-lg text-gold-500 hidden md:block">Royal Ambassadors</span>
                         </Link>

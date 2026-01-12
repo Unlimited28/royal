@@ -141,3 +141,5 @@ export const ExamApprovals: React.FC = () => {
         </div>
     );
 };
+
+export default ExamApprovals;

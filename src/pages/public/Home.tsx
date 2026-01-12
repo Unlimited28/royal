@@ -1,12 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
-import { PublicNavbar } from '../../components/layout/PublicNavbar';
 
-export const Home = () => {
+const Home = () => {
     return (
-        <div className="min-h-screen flex flex-col relative z-10 bg-navy-900 text-white">
-            <PublicNavbar />
-
+        <>
             {/* Hero Section */}
             <section className="flex-1 flex items-center justify-center px-6 py-20 text-center relative overflow-hidden">
                 <div className="max-w-4xl mx-auto space-y-8 relative z-10">
@@ -55,9 +52,11 @@ export const Home = () => {
                     </div>
                 </div>
             </section>
-        </div>
+        </>
     );
 };
+
+export default Home;
 
 
 const QuickAccessCard = ({ icon, title, path }: { icon: string; title: string; path: string }) => (

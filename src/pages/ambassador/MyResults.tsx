@@ -156,3 +156,5 @@ export const MyResults: React.FC = () => {
         </div>
     );
 };
+
+export default MyResults;

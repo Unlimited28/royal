@@ -96,3 +96,5 @@ export const AmbassadorDashboard: React.FC = () => {
         </div>
     );
 };
+
+export default AmbassadorDashboard;

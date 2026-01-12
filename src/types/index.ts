@@ -98,3 +98,24 @@ export interface INotification {
     date: string;
     is_read: boolean;
 }
+
+export interface IBlogPost {
+    id: number;
+    title: string;
+    slug: string;
+    excerpt: string;
+    content: string;
+    author: string;
+    featured_image: string;
+    created_at: string;
+    category: string;
+}
+
+export interface IGalleryItem {
+    id: number;
+    title: string;
+    description: string;
+    image_path: string;
+    created_at: string;
+    category: string;
+}

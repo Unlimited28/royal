@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { DataTable } from '../../components/ui/DataTable';
 import { mockGalleryItems } from '../../utils/mockData';
 
-export const GalleryManagement: React.FC = () => {
+const GalleryManagement: React.FC = () => {
     const columns = [
         {
             header: 'Image',
@@ -113,3 +113,5 @@ export const GalleryManagement: React.FC = () => {
         </div>
     );
 };
+
+export default GalleryManagement;

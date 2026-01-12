@@ -2,7 +2,7 @@ import React from 'react';
 import { Card } from '../../components/ui/Card';
 import { mockFinancialSummary, mockTransactions } from '../../utils/mockData';
 
-export const FinanceDashboard: React.FC = () => {
+const FinanceDashboard: React.FC = () => {
     const summary = mockFinancialSummary;
     const netIncome = summary.total_revenue - summary.total_expenses;
     const monthlyGrowth = ((summary.this_month_revenue - summary.last_month_revenue) / summary.last_month_revenue) * 100;
@@ -170,3 +170,5 @@ export const FinanceDashboard: React.FC = () => {
         </div>
     );
 };
+
+export default FinanceDashboard;

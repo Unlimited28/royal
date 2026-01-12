@@ -5,7 +5,7 @@ import { Button } from '../../components/ui/Button';
 import { DataTable } from '../../components/ui/DataTable';
 import { mockBlogPosts } from '../../utils/mockData';
 
-export const BlogManagement: React.FC = () => {
+const BlogManagement: React.FC = () => {
     const columns = [
         {
             header: 'Title',
@@ -119,3 +119,5 @@ export const BlogManagement: React.FC = () => {
         </div>
     );
 };
+
+export default BlogManagement;

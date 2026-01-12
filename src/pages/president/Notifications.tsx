@@ -3,7 +3,7 @@ import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { mockNotifications } from '../../utils/mockData';
 
-export const Notifications: React.FC = () => {
+export const PresidentNotifications: React.FC = () => {
     const unreadCount = mockNotifications.filter(n => !n.is_read).length;
 
     return (
@@ -91,3 +91,5 @@ export const Notifications: React.FC = () => {
         </div>
     );
 };
+
+export default PresidentNotifications;
