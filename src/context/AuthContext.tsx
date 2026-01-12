@@ -1,6 +1,6 @@
 
-import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
-import { login as apiLogin, LoginCredentials } from '../services/authService';
+import React, { createContext, useState, useEffect, useContext, type ReactNode } from 'react';
+import { login as apiLogin, type LoginCredentials } from '../services/authService';
 import { jwtDecode } from "jwt-decode";
 import toast from 'react-hot-toast';
 

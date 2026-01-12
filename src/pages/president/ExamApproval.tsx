@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { DataTable } from '../../components/ui/DataTable';
 import { mockExamResults, mockUsers, mockExams } from '../../utils/mockData';
 
-export const ExamApprovals: React.FC = () => {
+const ExamApprovals: React.FC = () => {
     // Simulate pending exam approvals
     const pendingApprovals = mockExamResults.map(result => {
         const user = mockUsers.find(u => u.id === result.user_id);
@@ -141,3 +141,4 @@ export const ExamApprovals: React.FC = () => {
         </div>
     );
 };
+export default ExamApprovals;

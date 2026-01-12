@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 
-export const PaymentUpload: React.FC = () => {
+const PaymentUpload: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,3 +97,4 @@ export const PaymentUpload: React.FC = () => {
         </div>
     );
 };
+export default PaymentUpload;

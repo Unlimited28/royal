@@ -1,5 +1,17 @@
 
+import { Toaster } from 'react-hot-toast';
+import { AuthProvider } from './context/AuthContext';
+import AppRouter from './router/AppRouter';
+
 function App() {
-  return <h1>Hello, World!</h1>;
+  return (
+    <AuthProvider>
+      <div className="bg-default text-light min-h-screen">
+        <Toaster position="top-right" />
+        <AppRouter />
+      </div>
+    </AuthProvider>
+  );
 }
+
 export default App;

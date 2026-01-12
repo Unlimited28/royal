@@ -1,13 +1,1 @@
-
-import React from 'react';
-
-const About: React.FC = () => {
-  return (
-    <div>
-      <h1>About Us</h1>
-      <p>This is a placeholder page for About Us.</p>
-    </div>
-  );
-};
-
-export default About;
+export default () => <h1>About</h1>;

@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { DataTable } from '../../components/ui/DataTable';
 import { mockUsers } from '../../utils/mockData';
 
-export const ManageAmbassadors: React.FC = () => {
+const ManageAmbassadors: React.FC = () => {
     // Simulate President Logged In
     const currentPresident = mockUsers[1]; // Pastor Emmanuel Adebayo (Assoc: Ikeja Association)
 
@@ -117,3 +117,4 @@ export const ManageAmbassadors: React.FC = () => {
         </div>
     );
 };
+export default ManageAmbassadors;

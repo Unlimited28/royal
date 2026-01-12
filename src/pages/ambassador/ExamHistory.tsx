@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { DataTable } from '../../components/ui/DataTable';
 import { mockExamResults, mockExams } from '../../utils/mockData';
 
-export const MyResults: React.FC = () => {
+const MyResults: React.FC = () => {
     // Filter results for current user (simulated)
     const myResults = mockExamResults.map(result => {
         const exam = mockExams.find(e => e.id === result.exam_id);
@@ -156,3 +156,4 @@ export const MyResults: React.FC = () => {
         </div>
     );
 };
+export default MyResults;

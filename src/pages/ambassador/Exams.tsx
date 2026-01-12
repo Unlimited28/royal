@@ -6,7 +6,7 @@ import { DataTable } from '../../components/ui/DataTable';
 import { mockExams, mockUsers, mockExamResults } from '../../utils/mockData';
 import { isEligible } from '../../utils/logic';
 
-export const MyExams: React.FC = () => {
+const MyExams: React.FC = () => {
     // Check if user is logged in (simulated)
     // In a real app, this would come from AuthContext
     const currentUser = mockUsers[0]; // Simulating Ambassador: Adeboye Samuel (Rank: Page)
@@ -160,3 +160,4 @@ export const MyExams: React.FC = () => {
         </div>
     );
 };
+export default MyExams;

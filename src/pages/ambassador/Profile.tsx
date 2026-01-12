@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 
-export const ProfileSettings: React.FC = () => {
+const ProfileSettings: React.FC = () => {
     const [formData, setFormData] = useState({
         firstName: 'John',
         lastName: 'Doe',
@@ -188,3 +188,4 @@ export const ProfileSettings: React.FC = () => {
         </div>
     );
 };
+export default ProfileSettings;

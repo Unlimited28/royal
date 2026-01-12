@@ -4,7 +4,7 @@ import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Link } from 'react-router-dom';
 
-export const PresidentDashboard: React.FC = () => {
+const PresidentDashboard: React.FC = () => {
     const stats = [
         { label: 'Total Members', value: '145', icon: 'ri-group-line', change: '+5 new', trend: 'up' as const },
         { label: 'Exam Applications', value: '12', icon: 'ri-file-text-line', change: 'Pending', trend: 'neutral' as const },
@@ -58,3 +58,4 @@ export const PresidentDashboard: React.FC = () => {
         </div>
     );
 };
+export default PresidentDashboard;
