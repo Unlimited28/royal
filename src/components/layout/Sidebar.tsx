@@ -89,7 +89,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
     const links = [
         ...commonLinks,
         ...(role === 'ambassador' ? ambassadorLinks : []),
-        ...(role === 'admin' ? superAdminLinks : []),
+        ...(role === 'superadmin' ? superAdminLinks : []),
         ...(role === 'president' ? presidentLinks : []),
     ];
 

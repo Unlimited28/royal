@@ -11,6 +11,12 @@ interface DecodedToken {
   exp?: number;
 }
 
+interface User {
+  id: string;
+  role: string;
+  email: string;
+}
+
 interface AuthContextType {
   user: User | null;
   login: (credentials: LoginCredentials) => Promise<void>;
