@@ -6,7 +6,6 @@ import { mockExamResults, mockUsers } from '../../utils/mockData';
 
 export const ResultsPublishing: React.FC = () => {
     const [filter, setFilter] = useState<'all' | 'published' | 'pending'>('all');
-
     // Enhance results with user data
     const enhancedResults = mockExamResults.map(result => {
         const user = mockUsers.find(u => u.id === result.user_id);

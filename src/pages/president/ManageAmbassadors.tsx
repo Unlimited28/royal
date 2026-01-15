@@ -3,10 +3,14 @@ import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { DataTable } from '../../components/ui/DataTable';
 import { mockUsers } from '../../utils/mockData';
+import { useAuth } from '../../context/AuthContext';
 
 export const ManageAmbassadors: React.FC = () => {
     // Simulate President Logged In
-    const currentPresident = mockUsers[1]; // Pastor Emmanuel Adebayo (Assoc: Ikeja Association)
+    const { user: currentPresident } = useAuth();
+    if (!currentPresident) {
+        return <div>Loading...</div>;
+    }
 
     // Filter for ambassadors ONLY in this president's association
     const ambassadors = mockUsers.filter(u =>

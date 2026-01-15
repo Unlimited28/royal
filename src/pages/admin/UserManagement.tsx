@@ -8,7 +8,6 @@ import { type IUser } from '../../types';
 const UserManagement: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [roleFilter, setRoleFilter] = useState<string>('all');
-
     // Filter users based on search and role
     const filteredUsers = mockUsers.filter(user => {
         const matchesSearch = user.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
