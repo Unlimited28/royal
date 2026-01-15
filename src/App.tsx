@@ -59,9 +59,11 @@ const App: React.FC = () => {
                         <Route path="blog" element={<Blog />} />
                         <Route path="contact" element={<Contact />} />
                         <Route path="media" element={<MediaCenter />} />
-                        <Route path="login" element={<Login />} />
-                        <Route path="register" element={<Register />} />
                     </Route>
+
+                    {/* Auth Routes */}
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
 
                     {/* Ambassador Routes */}
                     <Route element={<ProtectedRoute allowedRoles={['ambassador']} />}>
