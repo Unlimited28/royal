@@ -63,7 +63,6 @@ export const Register: React.FC = () => {
                             options={[
                                 { label: 'Ambassador', value: 'ambassador' },
                                 { label: 'Association President', value: 'president' },
-                                { label: 'Super Admin', value: 'super_admin' },
                             ]}
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
@@ -154,7 +153,7 @@ export const Register: React.FC = () => {
                 <div className="text-center mt-6">
                     <p className="text-slate-400 text-sm">
                         Already have an account?{' '}
-                        <Link to="/" className="text-gold-500 hover:text-white font-semibold transition-colors">
+                        <Link to="/login" className="text-gold-500 hover:text-white font-semibold transition-colors">
                             Login
                         </Link>
                     </p>

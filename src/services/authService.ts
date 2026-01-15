@@ -19,6 +19,7 @@ export type User = z.infer<typeof UserSchema>;
 export type LoginCredentials = {
     email: string;
     password: string;
+    role: string;
 };
 
 export type RegisterData = {

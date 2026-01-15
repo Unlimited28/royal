@@ -2,29 +2,18 @@
 import React, { useState } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Input } from '../../components/ui/Input';
+import { Select } from '../../components/ui/Select';
 import { Button } from '../../components/ui/Button';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import { useAuth } from '../../context/AuthContext';
 import { type LoginCredentials } from '../../services/authService';
 
-const getDashboardPath = (role: string): string => {
-    switch (role) {
-        case 'ambassador':
-            return '/dashboard';
-        case 'superadmin':
-            return '/admin/dashboard';
-        default:
-            return '/';
-    }
-};
-
 export const Login: React.FC = () => {
-    const [credentials, setCredentials] = useState<LoginCredentials>({ email: '', password: '' });
+    const [credentials, setCredentials] = useState<LoginCredentials>({ email: '', password: '', role: 'ambassador' });
     const { login, loading } = useAuth();
-    const navigate = useNavigate();
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setCredentials(prev => ({ ...prev, [name]: value }));
     };
@@ -33,21 +22,11 @@ export const Login: React.FC = () => {
         e.preventDefault();
         try {
             await login(credentials);
-            // The AuthContext will update the user state. We can use a useEffect in a layout component
-            // or here to redirect based on the new user role.
-            // For simplicity, let's just navigate after login promise resolves.
-            // A more robust solution might wait for the user object to be updated.
-            const token = localStorage.getItem('ra_token');
-            if (token) {
-                // This is a bit of a hack. A better way would be for the login function to return the user.
-                const { role } = JSON.parse(atob(token.split('.')[1]));
-                navigate(getDashboardPath(role));
-            } else {
-                 navigate('/'); // fallback
-            }
+            // On successful login, AuthContext will update the user state.
+            // App-level routing logic will handle redirection.
         } catch (error) {
             console.error("Login failed:", error);
-            // Error toast is handled in AuthContext
+            // Error toast is already handled in AuthContext.
         }
     };
 
@@ -63,6 +42,20 @@ export const Login: React.FC = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
+                    <Select
+                        label="Login as"
+                        name="role"
+                        id="role"
+                        value={credentials.role}
+                        onChange={handleChange}
+                        options={[
+                            { label: 'Ambassador', value: 'ambassador' },
+                            { label: 'Association President', value: 'president' },
+                            { label: 'Super Admin', value: 'super_admin' },
+                        ]}
+                        required
+                    />
+
                     <Input
                         label="Email or Unique ID"
                         name="email"
