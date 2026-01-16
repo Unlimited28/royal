@@ -52,42 +52,32 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, []);
 
   const login = async (credentials: LoginCredentials) => {
-    if (import.meta.env.VITE_DEMO_MODE === 'true') {
-      const mockUser: User = {
-        id: '1',
-        role: credentials.role,
-        email: credentials.email || 'demo@example.com',
-        rank: 'Page', // Default rank for demo users
-        association: 'Ikeja Association', // Default association for demo users
-      };
+    // For now, always use demo mode to allow login with any credentials
+    const mockUser: User = {
+      id: '1',
+      role: credentials.role,
+      email: credentials.email || 'demo@example.com',
+      rank: 'Page', // Default rank for demo users
+      association: 'Ikeja Association', // Default association for demo users
+    };
 
-      const mockPayload = {
-        id: mockUser.id,
-        role: mockUser.role,
-        email: mockUser.email,
-        exp: Math.floor(Date.now() / 1000) + (60 * 60), // 1 hour expiration
-      };
+    const mockPayload = {
+      id: mockUser.id,
+      role: mockUser.role,
+      email: mockUser.email,
+      exp: Math.floor(Date.now() / 1000) + (60 * 60), // 1 hour expiration
+    };
 
+    try {
       // Create a mock JWT token that can be decoded by jwt-decode
       const mockToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${btoa(JSON.stringify(mockPayload))}.mock-signature`;
 
       localStorage.setItem('ra_token', mockToken);
       setUser(mockUser);
-      toast.success(`Logged in as ${credentials.role} (Demo Mode)`);
+      toast.success(`Logged in as ${credentials.role}`);
       return Promise.resolve();
-    }
-
-    try {
-      const { token } = await apiLogin(credentials);
-      localStorage.setItem('ra_token', token);
-      const decodedToken: DecodedToken = jwtDecode(token);
-      setUser({
-        id: decodedToken.id,
-        role: decodedToken.role,
-        email: decodedToken.email,
-      });
-      toast.success('Login successful!');
     } catch (error) {
+      console.error("Mock login failed:", error);
       toast.error('Login failed. Please check your credentials.');
       throw error;
     }

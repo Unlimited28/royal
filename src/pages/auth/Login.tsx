@@ -13,7 +13,6 @@ export const Login: React.FC = () => {
     const [credentials, setCredentials] = useState<LoginCredentials>({ email: '', password: '', role: '' });
     const { login, loading } = useAuth();
     const navigate = useNavigate();
-    const isDemoMode = import.meta.env.VITE_DEMO_MODE === 'true';
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -26,20 +25,19 @@ export const Login: React.FC = () => {
             await login(credentials);
             // On successful login, AuthContext will update the user state.
             // App-level routing logic will handle redirection.
-            if (isDemoMode) {
-                switch (credentials.role) {
-                    case 'ambassador':
-                        navigate('/dashboard');
-                        break;
-                    case 'president':
-                        navigate('/president/dashboard');
-                        break;
-                    case 'admin':
-                        navigate('/admin/dashboard');
-                        break;
-                    default:
-                        navigate('/');
-                }
+            switch (credentials.role) {
+                case 'ambassador':
+                    navigate('/dashboard');
+                    break;
+                case 'president':
+                    navigate('/president/dashboard');
+                    break;
+                case 'admin':
+                case 'superadmin':
+                    navigate('/admin/dashboard');
+                    break;
+                default:
+                    navigate('/');
             }
         } catch (error) {
             console.error("Login failed:", error);
@@ -47,7 +45,7 @@ export const Login: React.FC = () => {
         }
     };
 
-    const isLoginDisabled = isDemoMode && !credentials.role;
+    const isLoginDisabled = !credentials.role;
 
     return (
         <div className="min-h-screen flex items-center justify-center p-4 relative z-10 bg-navy-900">
@@ -61,22 +59,20 @@ export const Login: React.FC = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    {isDemoMode && (
-                        <Select
-                            label="Role Selector"
-                            name="role"
-                            id="role"
-                            value={credentials.role}
-                            onChange={handleChange}
-                            options={[
-                                { label: 'Select a role', value: '' },
-                                { label: 'Ambassador', value: 'ambassador' },
-                                { label: 'Association President', value: 'president' },
-                                { label: 'Super Admin', value: 'admin' },
-                            ]}
-                            required
-                        />
-                    )}
+                    <Select
+                        label="Role Selector"
+                        name="role"
+                        id="role"
+                        value={credentials.role}
+                        onChange={handleChange}
+                        options={[
+                            { label: 'Select a role', value: '' },
+                            { label: 'Ambassador', value: 'ambassador' },
+                            { label: 'Association President', value: 'president' },
+                            { label: 'Super Admin', value: 'superadmin' },
+                        ]}
+                        required
+                    />
 
                     <Input
                         label="Email or Unique ID"

@@ -90,7 +90,7 @@ const App: React.FC = () => {
                     </Route>
 
                     {/* Super Admin Routes */}
-                    <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+                    <Route element={<ProtectedRoute allowedRoles={['admin', 'superadmin']} />}>
                         <Route element={<DashboardLayout role="superadmin" />}>
                             <Route path="/admin/dashboard" element={<AdminDashboard />} />
                             <Route path="/admin/users" element={<UserManagement />} />
