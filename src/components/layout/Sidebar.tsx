@@ -26,7 +26,7 @@ const iconMap = {
 
 
 export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
 
     const getHomePath = () => {
         if (!user) return '/';
@@ -35,6 +35,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
                 return '/dashboard';
             case 'president':
                 return '/president/dashboard';
+            case 'admin':
             case 'superadmin':
                 return '/admin/dashboard';
             default:
@@ -89,7 +90,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
     const links = [
         ...commonLinks,
         ...(role === 'ambassador' ? ambassadorLinks : []),
-        ...(role === 'superadmin' ? superAdminLinks : []),
+        ...(role === 'superadmin' || role === 'admin' ? superAdminLinks : []),
         ...(role === 'president' ? presidentLinks : []),
     ];
 
@@ -129,7 +130,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
 
 
             <div className="p-4 border-t border-navy-800">
-                <button className="flex items-center w-full px-4 py-2 text-red-400 hover:bg-navy-800 rounded-lg transition-colors">
+                <button
+                    onClick={logout}
+                    className="flex items-center w-full px-4 py-2 text-red-400 hover:bg-navy-800 rounded-lg transition-colors"
+                >
                     <i className={`${iconMap.LogOut} w-5 h-5 mr-3`} />
                     <span>Logout</span>
                 </button>
