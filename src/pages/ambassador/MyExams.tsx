@@ -22,7 +22,7 @@ export const MyExams: React.FC = () => {
         const result = mockExamResults.find(r => r.exam_id === exam.id && r.user_id === Number(currentUser.id));
 
         // Check eligibility
-        const canTake = isEligible(currentUser.rank, exam.rank_required);
+        const canTake = isEligible(currentUser.rank || 'Candidate', exam.rank_required);
         const isTaken = !!result;
 
         let status: 'available' | 'taken' | 'locked' = 'locked';

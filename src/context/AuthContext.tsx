@@ -1,6 +1,6 @@
 
 import React, { createContext, useState, useEffect, useContext, type ReactNode } from 'react';
-import { login as apiLogin, type LoginCredentials } from '../services/authService';
+import { type LoginCredentials } from '../services/authService';
 import { jwtDecode } from "jwt-decode";
 import toast from 'react-hot-toast';
 
@@ -57,7 +57,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       id: '1',
       role: credentials.role,
       email: credentials.email || 'demo@example.com',
-      rank: 'Page', // Default rank for demo users
+      rank: 'Candidate', // Default rank for demo users
       association: 'Ikeja Association', // Default association for demo users
     };
 
