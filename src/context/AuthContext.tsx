@@ -15,6 +15,8 @@ interface User {
   id: string;
   role: string;
   email: string;
+  rank?: string;
+  association?: string;
 }
 
 interface AuthContextType {
@@ -50,6 +52,31 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, []);
 
   const login = async (credentials: LoginCredentials) => {
+    if (import.meta.env.VITE_DEMO_MODE === 'true') {
+      const mockUser: User = {
+        id: '1',
+        role: credentials.role,
+        email: credentials.email || 'demo@example.com',
+        rank: 'Page', // Default rank for demo users
+        association: 'Ikeja Association', // Default association for demo users
+      };
+
+      const mockPayload = {
+        id: mockUser.id,
+        role: mockUser.role,
+        email: mockUser.email,
+        exp: Math.floor(Date.now() / 1000) + (60 * 60), // 1 hour expiration
+      };
+
+      // Create a mock JWT token that can be decoded by jwt-decode
+      const mockToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${btoa(JSON.stringify(mockPayload))}.mock-signature`;
+
+      localStorage.setItem('ra_token', mockToken);
+      setUser(mockUser);
+      toast.success(`Logged in as ${credentials.role} (Demo Mode)`);
+      return Promise.resolve();
+    }
+
     try {
       const { token } = await apiLogin(credentials);
       localStorage.setItem('ra_token', token);
@@ -57,7 +84,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       setUser({
         id: decodedToken.id,
         role: decodedToken.role,
-        email: decodedToken.email
+        email: decodedToken.email,
       });
       toast.success('Login successful!');
     } catch (error) {

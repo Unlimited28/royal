@@ -3,18 +3,23 @@ import { Link } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { DataTable } from '../../components/ui/DataTable';
-import { mockExams, mockUsers, mockExamResults } from '../../utils/mockData';
+import { mockExams, mockExamResults } from '../../utils/mockData';
 import { isEligible } from '../../utils/logic';
+import { useAuth } from '../../context/AuthContext';
 
 export const MyExams: React.FC = () => {
     // Check if user is logged in (simulated)
     // In a real app, this would come from AuthContext
-    const currentUser = mockUsers[0]; // Simulating Ambassador: Adeboye Samuel (Rank: Page)
+    const { user: currentUser } = useAuth();
+
+    if (!currentUser) {
+        return <div>Loading...</div>;
+    }
 
     // Calculate dynamic properties for each exam
     const examsList = mockExams.map(exam => {
         // Check if already taken
-        const result = mockExamResults.find(r => r.exam_id === exam.id && r.user_id === currentUser.id);
+        const result = mockExamResults.find(r => r.exam_id === exam.id && r.user_id === Number(currentUser.id));
 
         // Check eligibility
         const canTake = isEligible(currentUser.rank, exam.rank_required);
@@ -114,7 +119,7 @@ export const MyExams: React.FC = () => {
                 <h1 className="text-3xl font-bold text-white">My Exams</h1>
                 <p className="text-slate-400">View and take ranking examinations</p>
                 <div className="mt-2 text-sm text-slate-500">
-                    Simulating User: <span className="text-gold-500 font-medium">{currentUser.name}</span> (Rank: {currentUser.rank})
+                Simulating User: <span className="text-gold-500 font-medium">{currentUser.email}</span> (Rank: {currentUser.rank})
                 </div>
             </div>
 
