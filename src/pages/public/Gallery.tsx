@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Card } from '../../components/ui/Card';
 import { mockGalleryItems } from '../../utils/mockData';
+import { AdsSection } from '../../components/ui/AdsSection';
 
 const Gallery: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -23,6 +24,8 @@ const Gallery: React.FC = () => {
                     Explore memorable moments and events from our Royal Ambassadors community.
                 </p>
             </section>
+
+            <AdsSection placement="Gallery" />
 
             {/* Category Filter */}
             <section>

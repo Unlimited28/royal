@@ -1,4 +1,4 @@
-import type { IAssociation, ICampRegistration, IExam, IExamResult, INotification, IPayment, IUser, IBlogPost, IGalleryItem } from "../types";
+import type { IAssociation, ICampRegistration, IExam, IExamResult, INotification, IPayment, IUser, IBlogPost, IGalleryItem, IAd, IMedia } from "../types";
 import campImg from '../assets/images/new_1.jpg';
 import ceremonyImg from '../assets/images/new_2.jpg';
 import gallery1 from '../assets/images/new_5.jpg';
@@ -60,16 +60,25 @@ export const mockExams: IExam[] = [
         id: 1,
         title: "Intern Promotion Exam",
         description: "Assessment for promotion from Assistant Intern to Intern.",
-        rank_required: "Assistant Intern",
+        target_rank: "Intern",
         duration_minutes: 45,
         pass_score: 60,
         questions_count: 50,
     },
     {
         id: 2,
+        title: "Assistant Intern Promotion Exam",
+        description: "Assessment for promotion from Candidate to Assistant Intern.",
+        target_rank: "Assistant Intern",
+        duration_minutes: 30,
+        pass_score: 60,
+        questions_count: 30,
+    },
+    {
+        id: 3,
         title: "Ambassador Extra-ordinary Qualification",
         description: "Advanced test for Ambassador Extra-ordinary candidates.",
-        rank_required: "Ambassador",
+        target_rank: "Ambassador Extraordinary",
         duration_minutes: 90,
         pass_score: 70,
         questions_count: 50,
@@ -395,6 +404,42 @@ export interface ICampFile {
     status: 'approved' | 'pending' | 'rejected';
     registered_count: number;
 }
+
+export const mockAds: IAd[] = [
+    {
+        id: 1,
+        business_name: "Glow Ventures",
+        image_url: "https://via.placeholder.com/600x200?text=Glow+Ventures+Ad",
+        placements: ['Index', 'Blog'],
+        status: 'active',
+        created_at: '2024-01-01'
+    },
+    {
+        id: 2,
+        business_name: "Royal Bakery",
+        image_url: "https://via.placeholder.com/400x400?text=Royal+Bakery+Promo",
+        placements: ['Gallery', 'Support'],
+        status: 'pending',
+        created_at: '2024-01-20'
+    }
+];
+
+export const mockMedia: IMedia[] = [
+    {
+        id: 1,
+        title: "2023 Annual Conference Highlights",
+        url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        type: 'youtube',
+        created_at: '2023-11-15'
+    },
+    {
+        id: 2,
+        title: "RA Presidential Address",
+        url: "https://www.facebook.com/watch/?v=123456789",
+        type: 'facebook',
+        created_at: '2023-12-05'
+    }
+];
 
 export const mockCampFiles: ICampFile[] = [
     {

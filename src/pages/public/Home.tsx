@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
+import { AdsSection } from '../../components/ui/AdsSection';
 
 const Home = () => {
     return (
@@ -50,6 +51,7 @@ const Home = () => {
                             path="/about"
                         />
                     </div>
+                    <AdsSection placement="Index" />
                 </div>
             </section>
         </>

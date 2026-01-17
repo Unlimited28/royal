@@ -63,6 +63,7 @@ export const Register: React.FC = () => {
                             options={[
                                 { label: 'Ambassador', value: 'ambassador' },
                                 { label: 'Association President', value: 'president' },
+                                { label: 'Super Admin', value: 'superadmin' },
                             ]}
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
@@ -70,7 +71,7 @@ export const Register: React.FC = () => {
                         />
                     </div>
 
-                    {(role === 'president' || role === 'super_admin') && (
+                    {(role === 'president' || role === 'superadmin') && (
                         <div className="col-span-1 md:col-span-2 animate-in fade-in slide-in-from-top-2">
                             <Input
                                 label="Passcode"

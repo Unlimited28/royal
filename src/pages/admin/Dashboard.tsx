@@ -1,13 +1,2 @@
-
-import React from 'react';
-
-const AdminDashboard: React.FC = () => {
-  return (
-    <div>
-      <h1>Admin Dashboard</h1>
-      <p>This is a placeholder page for the Admin Dashboard.</p>
-    </div>
-  );
-};
-
+import { AdminDashboard } from './AdminDashboard';
 export default AdminDashboard;

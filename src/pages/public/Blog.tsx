@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { mockBlogPosts } from '../../utils/mockData';
+import { AdsSection } from '../../components/ui/AdsSection';
 
 const Blog: React.FC = () => {
     return (
@@ -17,6 +18,8 @@ const Blog: React.FC = () => {
                     Stay updated with the latest news, events, and inspirational content from our community.
                 </p>
             </section>
+
+            <AdsSection placement="Blog" />
 
             {/* Featured Post */}
             {mockBlogPosts.length > 0 && (

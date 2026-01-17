@@ -24,6 +24,19 @@ export const isEligible = (userRank: string, requiredRank: string): boolean => {
     return userLevel >= requiredLevel;
 };
 
+export const getNextRank = (currentRank: string): string | null => {
+    const ranks = Object.keys(RANK_HIERARCHY);
+    const currentIndex = ranks.indexOf(currentRank);
+    if (currentIndex >= 0 && currentIndex < ranks.length - 1) {
+        return ranks[currentIndex + 1];
+    }
+    return null;
+};
+
+export const isEligibleForExam = (userRank: string, targetRank: string): boolean => {
+    return getNextRank(userRank) === targetRank;
+};
+
 export const generateUniqueId = (role: string): string => {
     const random = Math.floor(1000 + Math.random() * 9000); // 4 digit random number
 

@@ -3,6 +3,7 @@ import React, { createContext, useState, useEffect, useContext, type ReactNode }
 import { type LoginCredentials } from '../services/authService';
 import { jwtDecode } from "jwt-decode";
 import toast from 'react-hot-toast';
+import { mockUsers } from '../utils/mockData';
 
 interface DecodedToken {
   id: string;
@@ -15,6 +16,7 @@ interface User {
   id: string;
   role: string;
   email: string;
+  full_name?: string;
   rank?: string;
   association?: string;
   exam_approved?: boolean;
@@ -39,10 +41,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       try {
         const decodedToken: DecodedToken = jwtDecode(token);
         // NOTE: In a real app, you'd verify the token's expiration (decodedToken.exp * 1000 > Date.now())
+        const existingMockUser = mockUsers.find(u => u.email === decodedToken.email);
         setUser({ // eslint-disable-line react-hooks/set-state-in-effect
             id: decodedToken.id,
             role: decodedToken.role,
-            email: decodedToken.email
+            email: decodedToken.email,
+            full_name: existingMockUser?.full_name,
+            rank: existingMockUser?.rank as string,
+            association: existingMockUser?.association,
+            exam_approved: decodedToken.role !== 'ambassador',
         });
       } catch (error) {
         console.error("Invalid token:", error);
@@ -54,12 +61,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const login = async (credentials: LoginCredentials) => {
     // For now, always use demo mode to allow login with any credentials
+    const existingMockUser = mockUsers.find(u => u.email === credentials.email);
+
     const mockUser: User = {
-      id: '1',
+      id: existingMockUser ? existingMockUser.id.toString() : '1',
       role: credentials.role,
       email: credentials.email || 'demo@example.com',
-      rank: 'Candidate', // Default rank for demo users
-      association: 'Ikeja Association', // Default association for demo users
+      full_name: existingMockUser ? existingMockUser.full_name : (credentials.email ? credentials.email.split('@')[0] : 'Demo User'),
+      rank: existingMockUser ? (existingMockUser.rank as string) : 'Candidate', // Default rank for demo users
+      association: existingMockUser ? existingMockUser.association : 'Ikeja Association', // Default association for demo users
       // Ambassadors start unapproved to show locked state in demo
       exam_approved: credentials.role !== 'ambassador',
     };

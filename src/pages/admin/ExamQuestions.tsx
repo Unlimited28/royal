@@ -115,7 +115,7 @@ export const ExamQuestions: React.FC = () => {
                     <h1 className="text-3xl font-bold text-white">{exam.title}</h1>
                     <p className="text-slate-400">{exam.description}</p>
                     <div className="flex items-center space-x-4 mt-2 text-sm text-slate-500">
-                        <span>Rank: {exam.rank_required}</span>
+                        <span>Target Rank: {exam.target_rank}</span>
                         <span>•</span>
                         <span>Duration: {exam.duration_minutes} mins</span>
                         <span>•</span>

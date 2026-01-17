@@ -7,7 +7,7 @@ test.describe('RA Portal Comprehensive Verification', () => {
     await expect(page.locator('h1')).toContainText('Royal Ambassadors');
 
     await page.goto('/blog');
-    await expect(page.locator('h1')).toContainText('Ambassadors Blog');
+    await expect(page.locator('h1')).toContainText('Royal Ambassadors Blog');
 
     await page.goto('/gallery');
     await expect(page.locator('h1')).toContainText('Gallery');
@@ -26,7 +26,7 @@ test.describe('RA Portal Comprehensive Verification', () => {
 
     // Dashboard
     await expect(page).toHaveURL(/\/admin\/dashboard/);
-    await expect(page.locator('h1')).toContainText('Admin Dashboard');
+    await expect(page.locator('h1')).toContainText('Welcome back');
 
     // Check Sidebar links
     const sidebar = page.locator('aside');
@@ -52,7 +52,7 @@ test.describe('RA Portal Comprehensive Verification', () => {
 
     // Shared content in Admin Dashboard
     await page.click('text=Blog View');
-    await expect(page.locator('h1')).toContainText('Ambassadors Blog');
+    await expect(page.locator('h1')).toContainText('Royal Ambassadors Blog');
     await page.click('text=Gallery View');
     await expect(page.locator('h1')).toContainText('Gallery');
   });
@@ -76,7 +76,7 @@ test.describe('RA Portal Comprehensive Verification', () => {
 
     // Shared content in Ambassador Dashboard
     await page.click('text=Blog');
-    await expect(page.locator('h1')).toContainText('Ambassadors Blog');
+    await expect(page.locator('h1')).toContainText('Royal Ambassadors Blog');
     await page.click('text=Gallery');
     await expect(page.locator('h1')).toContainText('Gallery');
 
@@ -98,12 +98,12 @@ test.describe('RA Portal Comprehensive Verification', () => {
 
     // Shared content in President Dashboard
     await page.click('text=Blog');
-    await expect(page.locator('h1')).toContainText('Ambassadors Blog');
+    await expect(page.locator('h1')).toContainText('Royal Ambassadors Blog');
 
     // Camp Registrations (Bulk Upload)
     await page.click('text=Camp Reg');
-    await expect(page.locator('h1')).toContainText('Camp Registrations');
-    await expect(page.getByText('Bulk Excel Upload')).toBeVisible();
+    await expect(page.locator('h1')).toContainText('Camp Management');
+    await expect(page.getByText('Upload Excel')).toBeVisible();
     await expect(page.getByText('Initiate Bulk Payment')).toBeVisible();
   });
 });

@@ -3,11 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { mockExams, mockExamQuestions } from '../../utils/mockData';
-import type { Rank } from '../../types';
-
+import { getNextRank, isEligibleForExam } from '../../utils/logic';
+import { useAuth } from '../../context/AuthContext';
 import { Modal } from '../../components/ui/Modal';
 
 export const ExamSession: React.FC = () => {
+    const { user } = useAuth();
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const exam = mockExams.find(e => e.id === Number(id));
@@ -20,32 +21,17 @@ export const ExamSession: React.FC = () => {
     const [score, setScore] = useState(0);
     const [passed, setPassed] = useState(false);
 
-    const ranks: Rank[] = [
-        'Candidate',
-        'Assistant Intern',
-        'Intern',
-        'Senior Intern',
-        'Envoy',
-        'Special Envoy',
-        'Senior Envoy',
-        'Dean',
-        'Ambassador',
-        'Ambassador Extraordinary',
-        'Ambassador Plenipotentiary'
-    ];
-
-    const getNextRank = (currentRank: Rank): Rank => {
-        const index = ranks.indexOf(currentRank);
-        if (index !== -1 && index < ranks.length - 1) {
-            return ranks[index + 1];
-        }
-        return currentRank;
-    };
-
     useEffect(() => {
         if (timeRemaining > 0 && !showSuccessModal) {
             const timer = setInterval(() => {
-                setTimeRemaining(prev => prev - 1);
+                setTimeRemaining(prev => {
+                    if (prev <= 1) {
+                        clearInterval(timer);
+                        handleSubmit();
+                        return 0;
+                    }
+                    return prev - 1;
+                });
             }, 1000);
             return () => clearInterval(timer);
         }
@@ -55,6 +41,23 @@ export const ExamSession: React.FC = () => {
         return (
             <div className="text-center py-12">
                 <h2 className="text-2xl font-bold text-white mb-4">Exam Not Found</h2>
+                <Button onClick={() => navigate('/ambassador/exams')}>
+                    Back to My Exams
+                </Button>
+            </div>
+        );
+    }
+
+    const isEligible = user && isEligibleForExam(user.rank || 'Candidate', exam.target_rank);
+    const isApproved = user?.exam_approved;
+
+    if (!isEligible || !isApproved) {
+        return (
+            <div className="text-center py-12">
+                <h2 className="text-2xl font-bold text-white mb-4">Access Denied</h2>
+                <p className="text-slate-400 mb-6">
+                    {!isEligible ? "You are not eligible for this rank promotion exam." : "Your exam access has not been approved by your Association President."}
+                </p>
                 <Button onClick={() => navigate('/ambassador/exams')}>
                     Back to My Exams
                 </Button>
@@ -113,7 +116,7 @@ export const ExamSession: React.FC = () => {
                     {passed && (
                         <div className="bg-gold-500/10 border border-gold-500/50 rounded-xl p-4 mb-6">
                             <p className="text-sm text-slate-400 mb-1">New Rank Achieved</p>
-                            <p className="text-2xl font-bold text-gold-500">{getNextRank(exam.rank_required)}</p>
+                            <p className="text-2xl font-bold text-gold-500">{getNextRank(user?.rank || 'Candidate')}</p>
                         </div>
                     )}
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { AdsSection } from '../../components/ui/AdsSection';
 
 export const Support: React.FC = () => {
     const [message, setMessage] = useState('');
@@ -60,6 +61,7 @@ export const Support: React.FC = () => {
                     </div>
                 </Card>
             </div>
+            <AdsSection placement="Support" />
         </div>
     );
 };

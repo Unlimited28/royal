@@ -16,7 +16,7 @@ const ExamManagement: React.FC = () => {
                 </div>
             )
         },
-        { header: 'Rank Required', accessorKey: 'rank_required' as const },
+        { header: 'Target Rank', accessorKey: 'target_rank' as const },
         {
             header: 'Duration',
             cell: (exam: typeof mockExams[0]) => (

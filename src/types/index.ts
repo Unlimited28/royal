@@ -31,7 +31,7 @@ export interface IExam {
     id: number;
     title: string;
     description: string;
-    rank_required: Rank;
+    target_rank: Rank;
     duration_minutes: number;
     pass_score: number;
     questions_count: number;
@@ -109,6 +109,23 @@ export interface IBlogPost {
     featured_image: string;
     created_at: string;
     category: string;
+}
+
+export interface IAd {
+    id: number;
+    business_name: string;
+    image_url: string;
+    placements: ('Index' | 'Blog' | 'Gallery' | 'Support')[];
+    status: 'pending' | 'active' | 'rejected';
+    created_at: string;
+}
+
+export interface IMedia {
+    id: number;
+    title: string;
+    url: string;
+    type: 'youtube' | 'facebook';
+    created_at: string;
 }
 
 export interface IGalleryItem {

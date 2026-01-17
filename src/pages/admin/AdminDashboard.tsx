@@ -2,14 +2,16 @@ import React from 'react';
 import { StatsGrid } from '../../components/ui/StatsGrid';
 import { DataTable } from '../../components/ui/DataTable';
 import { Card } from '../../components/ui/Card';
+import { useAuth } from '../../context/AuthContext';
+import { mockUsers, mockPayments, mockAds } from '../../utils/mockData';
 
 export const AdminDashboard: React.FC = () => {
+    const { user } = useAuth();
     // Mock Stats Data
     const stats = [
-        { label: 'Total Ambassadors', value: '1,245', icon: 'ri-group-line', change: '+12% from last month', trend: 'up' as const },
-        { label: 'Pending Approvals', value: '23', icon: 'ri-user-follow-line', change: '5 urgent', trend: 'neutral' as const },
-        { label: 'Exam Completions', value: '856', icon: 'ri-file-text-line', change: '+5% this week', trend: 'up' as const },
-        { label: 'Total Revenue', value: '₦4.2M', icon: 'ri-bank-card-line', change: '+18% from last month', trend: 'up' as const },
+        { label: 'Total Users', value: mockUsers.length.toString(), icon: 'ri-group-line', trend: 'up' as const },
+        { label: 'Pending Payments', value: mockPayments.filter(p => p.status === 'pending').length.toString(), icon: 'ri-bank-card-line', trend: 'neutral' as const },
+        { label: 'Active Ads', value: mockAds.filter(a => a.status === 'active').length.toString(), icon: 'ri-advertisement-line', trend: 'up' as const },
     ];
 
     // Mock Recent Activity Data
@@ -42,8 +44,8 @@ export const AdminDashboard: React.FC = () => {
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div>
-                <h1 className="text-3xl font-bold text-white">Dashboard Overview</h1>
-                <p className="text-slate-400">Welcome back, Administrator. Here's what's happening today.</p>
+                <h1 className="text-3xl font-bold text-white">Welcome back, {user?.full_name || 'Administrator'}</h1>
+                <p className="text-slate-400 font-medium">Super Admin Dashboard Overview</p>
             </div>
 
             {/* Stats Grid */}

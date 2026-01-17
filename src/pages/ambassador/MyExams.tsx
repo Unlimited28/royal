@@ -4,7 +4,7 @@ import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { DataTable } from '../../components/ui/DataTable';
 import { mockExams, mockExamResults } from '../../utils/mockData';
-import { isEligible } from '../../utils/logic';
+import { isEligibleForExam } from '../../utils/logic';
 import { useAuth } from '../../context/AuthContext';
 
 export const MyExams: React.FC = () => {
@@ -22,7 +22,7 @@ export const MyExams: React.FC = () => {
         const result = mockExamResults.find(r => r.exam_id === exam.id && r.user_id === Number(currentUser.id));
 
         // Check eligibility
-        const isRankEligible = isEligible(currentUser.rank || 'Candidate', exam.rank_required);
+        const isRankEligible = isEligibleForExam(currentUser.rank || 'Candidate', exam.target_rank);
         const isApproved = currentUser.exam_approved;
         const canTake = isRankEligible && isApproved;
         const isTaken = !!result;
@@ -51,10 +51,10 @@ export const MyExams: React.FC = () => {
             )
         },
         {
-            header: 'Rank Required',
+            header: 'Target Rank',
             cell: (exam: typeof examsList[0]) => (
                 <span className="px-2 py-1 rounded-full text-xs font-medium bg-gold-500/10 text-gold-500">
-                    {exam.rank_required}
+                    {exam.target_rank}
                 </span>
             )
         },
@@ -82,7 +82,7 @@ export const MyExams: React.FC = () => {
                         : <span className="text-red-500 flex items-center"><i className="ri-close-circle-line mr-1" /> Failed ({exam.result?.score}%)</span>;
                 }
                 if (exam.status === 'locked') {
-                    const isRankEligible = isEligible(currentUser.rank || 'Candidate', exam.rank_required);
+                    const isRankEligible = isEligibleForExam(currentUser.rank || 'Candidate', exam.target_rank);
                     const reason = !isRankEligible ? 'Rank' : 'Pending Approval';
                     return (
                         <span className="text-slate-500 flex flex-col" title={`Locked due to: ${reason}`}>
