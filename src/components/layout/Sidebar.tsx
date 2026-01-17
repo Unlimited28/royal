@@ -42,19 +42,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
                 return '/';
         }
     };
-    const commonLinks = [
-        { name: 'Dashboard', icon: iconMap.LayoutDashboard, path: '/dashboard' },
-    ];
-
-
     const ambassadorLinks = [
+        { name: 'Dashboard', icon: iconMap.LayoutDashboard, path: '/dashboard' },
         { name: 'My Exams', icon: iconMap.FileText, path: '/ambassador/exams' },
         { name: 'Results', icon: iconMap.Award, path: '/ambassador/results' },
+        { name: 'Blog', icon: iconMap.FileText, path: '/ambassador/blog' },
+        { name: 'Gallery', icon: iconMap.Image, path: '/ambassador/gallery' },
+        { name: 'Live & Media', icon: iconMap.Live, path: '/ambassador/media' },
         { name: 'Profile', icon: iconMap.Users, path: '/ambassador/profile' },
         { name: 'Notifications', icon: iconMap.Notification, path: '/ambassador/notifications' },
         { name: 'Support', icon: iconMap.Support, path: '/ambassador/support' },
-        { name: 'Gallery', icon: iconMap.Image, path: '/gallery' },
-        { name: 'Live & Media', icon: iconMap.Live, path: '/media' },
     ];
 
 
@@ -69,6 +66,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
         { name: 'Blog Management', icon: iconMap.FileText, path: '/admin/blog' },
         { name: 'Gallery Management', icon: iconMap.Image, path: '/admin/gallery' },
         { name: 'Media Management', icon: iconMap.Live, path: '/admin/media' },
+        { name: 'Ads Management', icon: iconMap.CreditCard, path: '/admin/ads' },
+        { name: 'Blog View', icon: iconMap.FileText, path: '/admin/blog-view' },
+        { name: 'Gallery View', icon: iconMap.Image, path: '/admin/gallery-view' },
+        { name: 'Media View', icon: iconMap.Live, path: '/admin/media-view' },
         { name: 'System Settings', icon: iconMap.Settings, path: '/admin/settings' },
         { name: 'Audit Logs', icon: iconMap.FileText, path: '/admin/audit' },
     ];
@@ -77,18 +78,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
 
 
     const presidentLinks = [
+        { name: 'Dashboard', icon: iconMap.LayoutDashboard, path: '/president/dashboard' },
         { name: 'Members', icon: iconMap.Users, path: '/president/members' },
         { name: 'Approvals', icon: iconMap.FileText, path: '/president/approvals' },
         { name: 'Payments', icon: iconMap.CreditCard, path: '/president/payments' },
         { name: 'Camp Reg', icon: iconMap.Users, path: '/president/camp-registrations' },
+        { name: 'Blog', icon: iconMap.FileText, path: '/president/blog' },
+        { name: 'Gallery', icon: iconMap.Image, path: '/president/gallery' },
+        { name: 'Live & Media', icon: iconMap.Live, path: '/president/media' },
         { name: 'Notifications', icon: iconMap.Notification, path: '/president/notifications' },
-        { name: 'Gallery', icon: iconMap.Image, path: '/gallery' },
-        { name: 'Live & Media', icon: iconMap.Live, path: '/media' },
     ];
 
 
     const links = [
-        ...commonLinks,
         ...(role === 'ambassador' ? ambassadorLinks : []),
         ...(role === 'superadmin' || role === 'admin' ? superAdminLinks : []),
         ...(role === 'president' ? presidentLinks : []),

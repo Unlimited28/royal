@@ -4,7 +4,7 @@ import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { mockBlogPosts } from '../../utils/mockData';
 
-export const EditBlogPost: React.FC = () => {
+const EditBlogPost: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const post = mockBlogPosts.find(p => p.id === Number(id));
@@ -166,3 +166,5 @@ export const EditBlogPost: React.FC = () => {
         </div>
     );
 };
+
+export default EditBlogPost;

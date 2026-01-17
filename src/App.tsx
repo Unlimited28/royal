@@ -41,8 +41,13 @@ const FinanceDashboard = lazy(() => import('./pages/admin/FinanceDashboard'));
 const PaymentVerification = lazy(() => import('./pages/admin/PaymentVerification'));
 const ReceiptGeneration = lazy(() => import('./pages/admin/ReceiptGeneration'));
 const BlogManagement = lazy(() => import('./pages/admin/BlogManagement'));
+const CreateBlogPost = lazy(() => import('./pages/admin/CreateBlogPost'));
+const EditBlogPost = lazy(() => import('./pages/admin/EditBlogPost'));
 const GalleryManagement = lazy(() => import('./pages/admin/GalleryManagement'));
 const ManageMedia = lazy(() => import('./pages/admin/ManageMedia'));
+const CreateExam = lazy(() => import('./pages/admin/CreateExam'));
+const ResultsPublishing = lazy(() => import('./pages/admin/ResultsPublishing'));
+const AdsManagement = lazy(() => import('./pages/admin/AdsManagement'));
 const SystemSettings = lazy(() => import('./pages/admin/SystemSettings'));
 const AuditLogs = lazy(() => import('./pages/admin/AuditLogs'));
 
@@ -74,6 +79,9 @@ const App: React.FC = () => {
                             <Route path="/ambassador/profile" element={<ProfileSettings />} />
                             <Route path="/ambassador/notifications" element={<AmbassadorNotifications />} />
                             <Route path="/ambassador/support" element={<Support />} />
+                            <Route path="/ambassador/blog" element={<Blog />} />
+                            <Route path="/ambassador/gallery" element={<Gallery />} />
+                            <Route path="/ambassador/media" element={<MediaCenter />} />
                         </Route>
                     </Route>
 
@@ -86,6 +94,9 @@ const App: React.FC = () => {
                             <Route path="/president/camp-registrations" element={<CampRegistrations />} />
                             <Route path="/president/payments" element={<PaymentUpload />} />
                             <Route path="/president/notifications" element={<PresidentNotifications />} />
+                            <Route path="/president/blog" element={<Blog />} />
+                            <Route path="/president/gallery" element={<Gallery />} />
+                            <Route path="/president/media" element={<MediaCenter />} />
                         </Route>
                     </Route>
 
@@ -100,10 +111,19 @@ const App: React.FC = () => {
                             <Route path="/admin/payments" element={<PaymentVerification />} />
                             <Route path="/admin/receipts" element={<ReceiptGeneration />} />
                             <Route path="/admin/blog" element={<BlogManagement />} />
+                            <Route path="/admin/blog/create" element={<CreateBlogPost />} />
+                            <Route path="/admin/blog/edit/:id" element={<EditBlogPost />} />
                             <Route path="/admin/gallery" element={<GalleryManagement />} />
                             <Route path="/admin/media" element={<ManageMedia />} />
+                            <Route path="/admin/exams/create" element={<CreateExam />} />
+                            <Route path="/admin/exams/release" element={<ResultsPublishing />} />
+                            <Route path="/admin/ads" element={<AdsManagement />} />
                             <Route path="/admin/settings" element={<SystemSettings />} />
                             <Route path="/admin/audit" element={<AuditLogs />} />
+                            {/* Shared Content Views for Admin */}
+                            <Route path="/admin/blog-view" element={<Blog />} />
+                            <Route path="/admin/gallery-view" element={<Gallery />} />
+                            <Route path="/admin/media-view" element={<MediaCenter />} />
                         </Route>
                     </Route>
 

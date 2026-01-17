@@ -17,6 +17,7 @@ interface User {
   email: string;
   rank?: string;
   association?: string;
+  exam_approved?: boolean;
 }
 
 interface AuthContextType {
@@ -59,6 +60,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       email: credentials.email || 'demo@example.com',
       rank: 'Candidate', // Default rank for demo users
       association: 'Ikeja Association', // Default association for demo users
+      // Ambassadors start unapproved to show locked state in demo
+      exam_approved: credentials.role !== 'ambassador',
     };
 
     const mockPayload = {

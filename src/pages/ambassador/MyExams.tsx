@@ -22,7 +22,9 @@ export const MyExams: React.FC = () => {
         const result = mockExamResults.find(r => r.exam_id === exam.id && r.user_id === Number(currentUser.id));
 
         // Check eligibility
-        const canTake = isEligible(currentUser.rank || 'Candidate', exam.rank_required);
+        const isRankEligible = isEligible(currentUser.rank || 'Candidate', exam.rank_required);
+        const isApproved = currentUser.exam_approved;
+        const canTake = isRankEligible && isApproved;
         const isTaken = !!result;
 
         let status: 'available' | 'taken' | 'locked' = 'locked';
@@ -80,7 +82,14 @@ export const MyExams: React.FC = () => {
                         : <span className="text-red-500 flex items-center"><i className="ri-close-circle-line mr-1" /> Failed ({exam.result?.score}%)</span>;
                 }
                 if (exam.status === 'locked') {
-                    return <span className="text-slate-500 flex items-center"><i className="ri-lock-line mr-1" /> Locked</span>;
+                    const isRankEligible = isEligible(currentUser.rank || 'Candidate', exam.rank_required);
+                    const reason = !isRankEligible ? 'Rank' : 'Pending Approval';
+                    return (
+                        <span className="text-slate-500 flex flex-col" title={`Locked due to: ${reason}`}>
+                            <span className="flex items-center"><i className="ri-lock-line mr-1" /> Locked</span>
+                            <span className="text-[10px] uppercase">{reason}</span>
+                        </span>
+                    );
                 }
                 return <span className="text-blue-500 font-bold">Available</span>;
             }

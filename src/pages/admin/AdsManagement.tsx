@@ -34,7 +34,7 @@ const mockAds = [
     }
 ];
 
-export const AdsManagement: React.FC = () => {
+const AdsManagement: React.FC = () => {
     const columns = [
         {
             header: 'Ad Title',
@@ -162,3 +162,5 @@ export const AdsManagement: React.FC = () => {
         </div>
     );
 };
+
+export default AdsManagement;
