@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 
-export const CreateBlogPost: React.FC = () => {
+const CreateBlogPost: React.FC = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         title: '',
@@ -161,3 +161,5 @@ export const CreateBlogPost: React.FC = () => {
         </div>
     );
 };
+
+export default CreateBlogPost;

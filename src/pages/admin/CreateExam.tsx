@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 
-export const CreateExam: React.FC = () => {
+const CreateExam: React.FC = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         title: '',
@@ -169,3 +169,5 @@ export const CreateExam: React.FC = () => {
         </div>
     );
 };
+
+export default CreateExam;

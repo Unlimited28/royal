@@ -66,12 +66,20 @@ const ExamManagement: React.FC = () => {
                     <h1 className="text-3xl font-bold text-white">Exam Management</h1>
                     <p className="text-slate-400">Create and manage ranking examinations</p>
                 </div>
-                <Link to="/admin/exams/create">
-                    <Button>
-                        <i className="ri-add-line mr-2" />
-                        Create New Exam
-                    </Button>
-                </Link>
+                <div className="flex items-center space-x-3">
+                    <Link to="/admin/exams/release">
+                        <Button variant="outline">
+                            <i className="ri-send-plane-line mr-2" />
+                            Release Results
+                        </Button>
+                    </Link>
+                    <Link to="/admin/exams/create">
+                        <Button>
+                            <i className="ri-add-line mr-2" />
+                            Create New Exam
+                        </Button>
+                    </Link>
+                </div>
             </div>
 
             <Card>

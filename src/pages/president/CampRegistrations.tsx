@@ -81,9 +81,21 @@ export const CampRegistrations: React.FC = () => {
 
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div>
-                <h1 className="text-3xl font-bold text-white">Camp Registrations</h1>
-                <p className="text-slate-400">Manage camp registrations for your association</p>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h1 className="text-3xl font-bold text-white">Camp Registrations</h1>
+                    <p className="text-slate-400">Manage camp registrations for your association</p>
+                </div>
+                <div className="flex items-center space-x-3">
+                    <Button variant="outline">
+                        <i className="ri-file-excel-line mr-2" />
+                        Bulk Excel Upload
+                    </Button>
+                    <Button>
+                        <i className="ri-bank-card-line mr-2" />
+                        Initiate Bulk Payment
+                    </Button>
+                </div>
             </div>
 
             {/* Stats Grid */}

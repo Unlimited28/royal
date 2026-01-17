@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { DataTable } from '../../components/ui/DataTable';
 import { mockExamResults, mockUsers } from '../../utils/mockData';
 
-export const ResultsPublishing: React.FC = () => {
+const ResultsPublishing: React.FC = () => {
     const [filter, setFilter] = useState<'all' | 'published' | 'pending'>('all');
     // Enhance results with user data
     const enhancedResults = mockExamResults.map(result => {
@@ -167,3 +167,5 @@ export const ResultsPublishing: React.FC = () => {
         </div>
     );
 };
+
+export default ResultsPublishing;
