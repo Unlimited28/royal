@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 const CreateAd: React.FC = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
-    const [flyer, setFlyer] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
     const [formData, setFormData] = useState({
         title: '',
@@ -27,7 +26,6 @@ const CreateAd: React.FC = () => {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
-            setFlyer(file);
             const reader = new FileReader();
             reader.onloadend = () => {
                 setPreview(reader.result as string);
@@ -188,7 +186,7 @@ const CreateAd: React.FC = () => {
                                                     type="button"
                                                     variant="outline"
                                                     size="sm"
-                                                    onClick={() => { setFlyer(null); setPreview(null); }}
+                                                    onClick={() => { setPreview(null); }}
                                                     className="text-white border-white hover:bg-white/20"
                                                 >
                                                     Remove
