@@ -2,6 +2,7 @@ import React from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { DataTable } from '../../components/ui/DataTable';
+import { useNavigate } from 'react-router-dom';
 
 // Mock ads data
 const mockAds = [
@@ -35,6 +36,7 @@ const mockAds = [
 ];
 
 const AdsManagement: React.FC = () => {
+    const navigate = useNavigate();
     const columns = [
         {
             header: 'Ad Title',
@@ -132,7 +134,7 @@ const AdsManagement: React.FC = () => {
                     <h1 className="text-3xl font-bold text-white">Ads Management</h1>
                     <p className="text-slate-400">Manage advertisements and promotional content</p>
                 </div>
-                <Button>
+                <Button onClick={() => navigate('/admin/ads/create')}>
                     <i className="ri-add-line mr-2" />
                     Create New Ad
                 </Button>

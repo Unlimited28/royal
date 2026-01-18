@@ -2,42 +2,39 @@
 import React from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import CorporateAds from '../../components/common/CorporateAds';
 
 const MediaCenter: React.FC = () => {
-    const mediaItems = [
-        {
-            id: 1,
-            type: 'video',
-            title: 'Annual Camp 2024 Highlights',
-            description: 'A recap of our transformative annual camp experience',
-            duration: '15:30',
-            date: '2024-08-15'
-        },
-        {
-            id: 2,
-            type: 'audio',
-            title: 'Leadership Summit Recording',
-            description: 'Keynote address on developing godly leadership',
-            duration: '45:20',
-            date: '2024-07-22'
-        },
-        {
-            id: 3,
-            type: 'video',
-            title: 'Community Service Project',
-            description: 'Documentary of our recent outreach program',
-            duration: '22:15',
-            date: '2024-06-10'
-        },
-        {
-            id: 4,
-            type: 'audio',
-            title: 'Monthly Devotional',
-            description: 'June devotional on faith and perseverance',
-            duration: '28:45',
-            date: '2024-06-01'
+    const [mediaItems, setMediaItems] = React.useState<any[]>([]);
+
+    React.useEffect(() => {
+        const stored = localStorage.getItem('ogbc_media');
+        if (stored) {
+            setMediaItems(JSON.parse(stored));
+        } else {
+            // Fallback to defaults
+            setMediaItems([
+                {
+                    id: 1,
+                    type: 'video',
+                    title: 'Annual Camp 2024 Highlights',
+                    description: 'A recap of our transformative annual camp experience',
+                    duration: '15:30',
+                    date: '2024-08-15',
+                    url: 'https://youtube.com'
+                },
+                {
+                    id: 2,
+                    type: 'audio',
+                    title: 'Leadership Summit Recording',
+                    description: 'Keynote address on developing godly leadership',
+                    duration: '45:20',
+                    date: '2024-07-22',
+                    url: 'https://facebook.com'
+                }
+            ]);
         }
-    ];
+    }, []);
 
     return (
         <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -52,8 +49,9 @@ const MediaCenter: React.FC = () => {
             </section>
 
             {/* Media Grid */}
-            <section>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <section className="lg:col-span-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {mediaItems.map((item) => (
                         <Card key={item.id} className="p-6 hover:-translate-y-1 transition-transform duration-300">
                             <div className="flex items-start space-x-4">
@@ -76,7 +74,7 @@ const MediaCenter: React.FC = () => {
                                                 day: 'numeric'
                                             })}</span>
                                         </div>
-                                        <Button size="sm" variant="outline">
+                                        <Button size="sm" variant="outline" onClick={() => window.open(item.url, '_blank')}>
                                             <i className="ri-play-line mr-2" />
                                             Play
                                         </Button>
@@ -85,8 +83,14 @@ const MediaCenter: React.FC = () => {
                             </div>
                         </Card>
                     ))}
-                </div>
-            </section>
+                    </div>
+                </section>
+
+                <aside className="lg:col-span-1">
+                    <h2 className="text-xl font-bold text-white mb-6">Partner Content</h2>
+                    <CorporateAds placement="Sidebar" />
+                </aside>
+            </div>
 
             {/* Categories */}
             <section>

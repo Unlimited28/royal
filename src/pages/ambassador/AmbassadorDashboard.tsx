@@ -3,8 +3,10 @@ import { StatsGrid } from '../../components/ui/StatsGrid';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 export const AmbassadorDashboard: React.FC = () => {
+    const { user } = useAuth();
     const stats = [
         { label: 'Current Rank', value: 'Special Envoy', icon: 'ri-award-line', trend: 'neutral' as const },
         { label: 'Next Exam', value: 'Senior Envoy', icon: 'ri-book-open-line', change: '10 days left', trend: 'up' as const },
@@ -15,8 +17,8 @@ export const AmbassadorDashboard: React.FC = () => {
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div>
-                <h1 className="text-3xl font-bold text-white">My Dashboard</h1>
-                <p className="text-slate-400">Welcome back, Samuel. Continue your journey to Knighthood.</p>
+                <h1 className="text-3xl font-bold text-white">Welcome back, {user?.name || 'Ambassador'}</h1>
+                <p className="text-xl text-gold-500 font-medium mt-1">Unique ID: {user?.id || 'N/A'}</p>
             </div>
 
             <StatsGrid stats={stats} />

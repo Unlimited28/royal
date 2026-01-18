@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Card } from '../../components/ui/Card';
 import { mockGalleryItems } from '../../utils/mockData';
+import CorporateAds from '../../components/common/CorporateAds';
 
 const Gallery: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -68,6 +69,14 @@ const Gallery: React.FC = () => {
                             </div>
                         </Card>
                     ))}
+                </div>
+            </section>
+
+            {/* Ad Banner */}
+            <section className="py-10 border-y border-navy-800">
+                <div className="max-w-4xl mx-auto">
+                    <h2 className="text-center text-slate-500 uppercase tracking-widest text-xs mb-6 font-bold">Featured Sponsors</h2>
+                    <CorporateAds placement="Footer" />
                 </div>
             </section>
 

@@ -59,7 +59,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
         { name: 'Dashboard', icon: iconMap.LayoutDashboard, path: '/admin/dashboard' },
         { name: 'User Management', icon: iconMap.Users, path: '/admin/users' },
         { name: 'Associations', icon: iconMap.Users, path: '/admin/associations' },
-        { name: 'Exam Control', icon: iconMap.FileText, path: '/admin/exams' },
+        { name: 'Exam Management', icon: iconMap.FileText, path: '/admin/exams' },
         { name: 'Finance', icon: iconMap.CreditCard, path: '/admin/finance' },
         { name: 'Payment Verification', icon: iconMap.CreditCard, path: '/admin/payments' },
         { name: 'Receipts', icon: iconMap.FileText, path: '/admin/receipts' },

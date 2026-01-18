@@ -1,143 +1,183 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { DataTable } from '../../components/ui/DataTable';
-import { mockExamResults, mockUsers, mockExams } from '../../utils/mockData';
+import { RANK_HIERARCHY_LIST } from '../../utils/logic';
+
+interface EligibilityRequest {
+    id: string;
+    ambassadorName: string;
+    ambassadorId: string;
+    currentRank: string;
+    nextRank: string;
+    previousExamDate: string;
+    status: 'pending' | 'approved' | 'rejected';
+}
 
 export const ExamApprovals: React.FC = () => {
-    // Simulate pending exam approvals
-    const pendingApprovals = mockExamResults.map(result => {
-        const user = mockUsers.find(u => u.id === result.user_id);
-        const exam = mockExams.find(e => e.id === result.exam_id);
-        return {
-            ...result,
-            ambassador_name: user?.name || 'Unknown',
-            ambassador_code: user?.ambassador_code || 'N/A',
-            exam_title: exam?.title || 'Unknown Exam',
-            approval_status: 'pending' as const
-        };
-    });
+    const [requests, setRequests] = useState<EligibilityRequest[]>([]);
+
+    useEffect(() => {
+        // In a real app, this would be an API call
+        // We'll initialize with some mock data if localStorage is empty
+        const stored = localStorage.getItem('ogbc_exam_approvals');
+        if (stored) {
+            setRequests(JSON.parse(stored));
+        } else {
+            const initialRequests: EligibilityRequest[] = [
+                {
+                    id: '1',
+                    ambassadorName: 'Ajibola Olowu',
+                    ambassadorId: `ogbc//ra//${new Date().getFullYear()}//001`,
+                    currentRank: 'Candidate',
+                    nextRank: 'Assistant Intern',
+                    previousExamDate: '2023-12-15',
+                    status: 'pending'
+                },
+                {
+                    id: '2',
+                    ambassadorName: 'Jane Smith',
+                    ambassadorId: 'ogbc//ra//2024//456',
+                    currentRank: 'Assistant Intern',
+                    nextRank: 'Intern',
+                    previousExamDate: '2024-01-20',
+                    status: 'pending'
+                }
+            ];
+            setRequests(initialRequests);
+            localStorage.setItem('ogbc_exam_approvals', JSON.stringify(initialRequests));
+        }
+    }, []);
+
+    const handleAction = (id: string, newStatus: 'approved' | 'rejected') => {
+        const updatedRequests = requests.map(req =>
+            req.id === id ? { ...req, status: newStatus } : req
+        );
+        setRequests(updatedRequests);
+        localStorage.setItem('ogbc_exam_approvals', JSON.stringify(updatedRequests));
+    };
 
     const columns = [
         {
             header: 'Ambassador',
-            cell: (approval: typeof pendingApprovals[0]) => (
+            cell: (req: EligibilityRequest) => (
                 <div>
-                    <div className="font-medium text-white">{approval.ambassador_name}</div>
-                    <div className="text-xs text-slate-400 font-mono">{approval.ambassador_code}</div>
+                    <div className="font-medium text-white">{req.ambassadorName}</div>
+                    <div className="text-xs text-slate-400 font-mono">{req.ambassadorId}</div>
                 </div>
             )
         },
         {
-            header: 'Exam',
-            cell: (approval: typeof pendingApprovals[0]) => (
-                <span className="text-slate-300">{approval.exam_title}</span>
-            )
-        },
-        {
-            header: 'Score',
-            cell: (approval: typeof pendingApprovals[0]) => (
-                <span className={`text-2xl font-bold ${approval.passed ? 'text-green-500' : 'text-red-500'
-                    }`}>
-                    {approval.score}%
+            header: 'Current Rank',
+            cell: (req: EligibilityRequest) => (
+                <span className="px-2 py-1 rounded bg-navy-800 text-slate-300 text-xs">
+                    {req.currentRank}
                 </span>
             )
         },
         {
-            header: 'Result',
-            cell: (approval: typeof pendingApprovals[0]) => (
-                <div className="flex items-center space-x-2">
-                    {approval.passed ? (
-                        <>
-                            <i className="ri-checkbox-circle-line text-xl text-green-500" />
-                            <span className="text-green-500 font-medium">PASSED</span>
-                        </>
-                    ) : (
-                        <>
-                            <i className="ri-close-circle-line text-xl text-red-500" />
-                            <span className="text-red-500 font-medium">FAILED</span>
-                        </>
-                    )}
-                </div>
+            header: 'Target Exam',
+            cell: (req: EligibilityRequest) => (
+                <span className="text-gold-500 font-medium">{req.nextRank}</span>
             )
         },
         {
-            header: 'Date',
-            cell: (approval: typeof pendingApprovals[0]) => (
-                <span className="text-slate-300">
-                    {new Date(approval.date_taken).toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric'
-                    })}
+            header: 'Prev. Exam Date',
+            cell: (req: EligibilityRequest) => (
+                <span className="text-slate-400 text-sm">
+                    {new Date(req.previousExamDate).toLocaleDateString()}
                 </span>
             )
         },
         {
             header: 'Status',
-            cell: (approval: typeof pendingApprovals[0]) => (
-                <span className="px-2 py-1 rounded-full text-xs font-medium bg-yellow-500/10 text-yellow-500">
-                    {approval.approval_status.toUpperCase()}
+            cell: (req: EligibilityRequest) => (
+                <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase ${
+                    req.status === 'approved' ? 'bg-green-500/10 text-green-500' :
+                    req.status === 'rejected' ? 'bg-red-500/10 text-red-500' :
+                    'bg-yellow-500/10 text-yellow-500'
+                }`}>
+                    {req.status}
                 </span>
             )
         },
         {
             header: 'Actions',
-            cell: () => (
+            cell: (req: EligibilityRequest) => (
                 <div className="flex items-center space-x-2">
-                    <Button size="sm" variant="outline">
-                        <i className="ri-check-line mr-1" />
-                        Approve
-                    </Button>
-                    <Button size="sm" variant="outline">
-                        <i className="ri-close-line mr-1" />
-                        Reject
-                    </Button>
+                    {req.status === 'pending' && (
+                        <>
+                            <Button
+                                size="sm"
+                                className="bg-green-600 hover:bg-green-700 h-8 px-3"
+                                onClick={() => handleAction(req.id, 'approved')}
+                            >
+                                Approve
+                            </Button>
+                            <Button
+                                size="sm"
+                                variant="outline"
+                                className="border-red-500/50 text-red-500 hover:bg-red-500/10 h-8 px-3"
+                                onClick={() => handleAction(req.id, 'rejected')}
+                            >
+                                Reject
+                            </Button>
+                        </>
+                    )}
+                    {req.status !== 'pending' && (
+                        <Button
+                            size="sm"
+                            variant="outline"
+                            className="h-8 px-3"
+                            onClick={() => {
+                                const updated = requests.map(r => r.id === req.id ? {...r, status: 'pending'} : r);
+                                setRequests(updated as EligibilityRequest[]);
+                                localStorage.setItem('ogbc_exam_approvals', JSON.stringify(updated));
+                            }}
+                        >
+                            Reset
+                        </Button>
+                    )}
                 </div>
             )
         }
     ];
 
-    const stats = [
-        { label: 'Pending Approvals', value: pendingApprovals.length, color: 'yellow', icon: 'ri-time-line' },
-        { label: 'Passed', value: pendingApprovals.filter(a => a.passed).length, color: 'green', icon: 'ri-checkbox-circle-line' },
-        { label: 'Failed', value: pendingApprovals.filter(a => !a.passed).length, color: 'red', icon: 'ri-close-circle-line' }
-    ];
-
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div>
-                <h1 className="text-3xl font-bold text-white">Exam Approvals</h1>
-                <p className="text-slate-400">Review and approve exam results for your association</p>
+                <h1 className="text-3xl font-bold text-white">Exam Eligibility Approvals</h1>
+                <p className="text-slate-400">Approve ambassadors to sit for their next rank examinations</p>
             </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {stats.map((stat, index) => (
-                    <Card key={index} className="p-4">
-                        <div className="flex items-center justify-between mb-2">
-                            <i className={`${stat.icon} text-xl text-${stat.color}-500`} />
-                        </div>
-                        <p className="text-slate-400 text-sm mb-1">{stat.label}</p>
-                        <p className={`text-2xl font-bold text-${stat.color}-500`}>{stat.value}</p>
-                    </Card>
-                ))}
-            </div>
-
-            {/* Approvals Table */}
-            <Card>
-                <div className="flex items-center justify-between mb-6">
+            <Card className="p-0 overflow-hidden">
+                <div className="p-6 border-b border-navy-700 bg-navy-800/30">
                     <h3 className="text-xl font-bold text-white flex items-center">
-                        <i className="ri-time-line mr-2 text-gold-500" />
-                        Pending Approvals
+                        <i className="ri-user-follow-line mr-2 text-gold-500" />
+                        Pending Requests
                     </h3>
                 </div>
 
                 <DataTable
-                    data={pendingApprovals}
+                    data={requests}
                     columns={columns}
                 />
             </Card>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                <Card className="p-6 border-l-4 border-yellow-500">
+                    <p className="text-slate-400 text-sm uppercase tracking-wider mb-2 font-bold">Pending</p>
+                    <p className="text-3xl font-bold text-white">{requests.filter(r => r.status === 'pending').length}</p>
+                </Card>
+                <Card className="p-6 border-l-4 border-green-500">
+                    <p className="text-slate-400 text-sm uppercase tracking-wider mb-2 font-bold">Approved</p>
+                    <p className="text-3xl font-bold text-white">{requests.filter(r => r.status === 'approved').length}</p>
+                </Card>
+                <Card className="p-6 border-l-4 border-red-500">
+                    <p className="text-slate-400 text-sm uppercase tracking-wider mb-2 font-bold">Rejected</p>
+                    <p className="text-3xl font-bold text-white">{requests.filter(r => r.status === 'rejected').length}</p>
+                </Card>
+            </div>
         </div>
     );
 };
