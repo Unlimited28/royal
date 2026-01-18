@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
+import CorporateAds from '../../components/common/CorporateAds';
 
 const Home = () => {
     return (
@@ -28,6 +29,11 @@ const Home = () => {
                         </Link>
                     </div>
                 </div>
+            </section>
+
+            {/* Ad Banner */}
+            <section className="py-10 max-w-6xl mx-auto px-6">
+                <CorporateAds placement="Homepage Banner" />
             </section>
 
              {/* Quick Access Grid */}

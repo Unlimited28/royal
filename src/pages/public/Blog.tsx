@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { mockBlogPosts } from '../../utils/mockData';
+import CorporateAds from '../../components/common/CorporateAds';
 
 const Blog: React.FC = () => {
     return (
@@ -52,33 +53,42 @@ const Blog: React.FC = () => {
             )}
 
             {/* Recent Posts */}
-            <section>
-                <h2 className="text-2xl font-bold text-white mb-8">Recent Posts</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {mockBlogPosts.slice(1).map((post) => (
-                        <Card key={post.id} className="p-6 hover:-translate-y-1 transition-transform duration-300">
-                            <div className="flex items-center space-x-2 mb-4">
-                                <span className="px-2 py-1 bg-gold-500/20 text-gold-500 rounded text-xs font-medium">
-                                    {post.category}
-                                </span>
-                                <span className="text-slate-500 text-xs">
-                                    {new Date(post.created_at).toLocaleDateString('en-US', {
-                                        month: 'short',
-                                        day: 'numeric'
-                                    })}
-                                </span>
-                            </div>
-                            <h3 className="text-lg font-bold text-white mb-3 line-clamp-2">{post.title}</h3>
-                            <p className="text-slate-400 text-sm mb-4 line-clamp-3">{post.excerpt}</p>
-                            <Link to={`/blog/${post.id}`}>
-                                <Button variant="outline" size="sm" className="w-full">
-                                    Read More
-                                </Button>
-                            </Link>
-                        </Card>
-                    ))}
-                </div>
-            </section>
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <section className="lg:col-span-3">
+                    <h2 className="text-2xl font-bold text-white mb-8">Recent Posts</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {mockBlogPosts.slice(1).map((post) => (
+                            <Card key={post.id} className="p-6 hover:-translate-y-1 transition-transform duration-300">
+                                <div className="flex items-center space-x-2 mb-4">
+                                    <span className="px-2 py-1 bg-gold-500/20 text-gold-500 rounded text-xs font-medium">
+                                        {post.category}
+                                    </span>
+                                    <span className="text-slate-500 text-xs">
+                                        {new Date(post.created_at).toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: 'numeric'
+                                        })}
+                                    </span>
+                                </div>
+                                <h3 className="text-lg font-bold text-white mb-3 line-clamp-2">{post.title}</h3>
+                                <p className="text-slate-400 text-sm mb-4 line-clamp-3">{post.excerpt}</p>
+                                <Link to={`/blog/${post.id}`}>
+                                    <Button variant="outline" size="sm" className="w-full">
+                                        Read More
+                                    </Button>
+                                </Link>
+                            </Card>
+                        ))}
+                    </div>
+                </section>
+
+                <aside className="lg:col-span-1 space-y-8">
+                    <div>
+                        <h2 className="text-xl font-bold text-white mb-6">Promotions</h2>
+                        <CorporateAds placement="Sidebar" />
+                    </div>
+                </aside>
+            </div>
 
             {/* Categories */}
             <section>

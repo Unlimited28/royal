@@ -48,6 +48,7 @@ const ManageMedia = lazy(() => import('./pages/admin/ManageMedia'));
 const CreateExam = lazy(() => import('./pages/admin/CreateExam'));
 const ResultsPublishing = lazy(() => import('./pages/admin/ResultsPublishing'));
 const AdsManagement = lazy(() => import('./pages/admin/AdsManagement'));
+const CreateAd = lazy(() => import('./pages/admin/CreateAd'));
 const SystemSettings = lazy(() => import('./pages/admin/SystemSettings'));
 const AuditLogs = lazy(() => import('./pages/admin/AuditLogs'));
 
@@ -118,6 +119,7 @@ const App: React.FC = () => {
                             <Route path="/admin/exams/create" element={<CreateExam />} />
                             <Route path="/admin/exams/release" element={<ResultsPublishing />} />
                             <Route path="/admin/ads" element={<AdsManagement />} />
+                            <Route path="/admin/ads/create" element={<CreateAd />} />
                             <Route path="/admin/settings" element={<SystemSettings />} />
                             <Route path="/admin/audit" element={<AuditLogs />} />
                             {/* Shared Content Views for Admin */}

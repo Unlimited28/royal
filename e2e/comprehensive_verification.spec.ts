@@ -26,12 +26,12 @@ test.describe('RA Portal Comprehensive Verification', () => {
 
     // Dashboard
     await expect(page).toHaveURL(/\/admin\/dashboard/);
-    await expect(page.locator('h1')).toContainText('Admin Dashboard');
+    await expect(page.locator('h1')).toContainText('Welcome back, Super Admin');
 
     // Check Sidebar links
     const sidebar = page.locator('aside');
     await expect(sidebar.getByText('Blog Management')).toBeVisible();
-    await expect(sidebar.getByText('Exam Control')).toBeVisible();
+    await expect(sidebar.getByText('Exam Management')).toBeVisible();
     await expect(sidebar.getByText('Ads Management')).toBeVisible();
 
     // Blog Management -> Create Post
@@ -40,8 +40,8 @@ test.describe('RA Portal Comprehensive Verification', () => {
     await page.click('text=Create New Post');
     await expect(page.locator('h1')).toContainText('Create New Blog Post');
 
-    // Exam Control -> Create Exam & Release Results
-    await page.click('text=Exam Control');
+    // Exam Management -> Create Exam & Release Results
+    await page.click('text=Exam Management');
     await expect(page.locator('h1')).toContainText('Exam Management');
     await expect(page.getByText('Create New Exam')).toBeVisible();
     await expect(page.getByText('Release Results')).toBeVisible();

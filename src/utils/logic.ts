@@ -1,4 +1,18 @@
 
+export const RANK_HIERARCHY_LIST = [
+    'Candidate',
+    'Assistant Intern',
+    'Intern',
+    'Senior Intern',
+    'Envoy',
+    'Special Envoy',
+    'Senior Envoy',
+    'Dean',
+    'Ambassador',
+    'Ambassador Extraordinary',
+    'Ambassador Plenipotentiary'
+];
+
 export const RANK_HIERARCHY: Record<string, number> = {
     'Candidate': 1,
     'Assistant Intern': 2,
@@ -15,25 +29,31 @@ export const RANK_HIERARCHY: Record<string, number> = {
 
 export const PASSCODES = {
     president: 'pres123',
-    super_admin: 'admin123'
+    superadmin: 'admin123'
 };
 
-export const isEligible = (userRank: string, requiredRank: string): boolean => {
+/**
+ * Checks if a user is eligible to take an exam for a target rank.
+ * User is eligible if they are at the rank immediately preceding the target rank.
+ */
+export const isEligible = (userRank: string, targetRank: string): boolean => {
     const userLevel = RANK_HIERARCHY[userRank] || 0;
-    const requiredLevel = RANK_HIERARCHY[requiredRank] || 0;
-    return userLevel >= requiredLevel;
+    const targetLevel = RANK_HIERARCHY[targetRank] || 0;
+
+    // User can only take the exam for the rank immediately following their current rank
+    return targetLevel === userLevel + 1;
 };
 
-export const generateUniqueId = (role: string): string => {
-    const random = Math.floor(1000 + Math.random() * 9000); // 4 digit random number
+export const generateUniqueId = (role: string, year: number = 2024): string => {
+    const random = Math.floor(100 + Math.random() * 900); // 3 digit random number
 
     switch (role) {
-        case 'super_admin':
-            return `OGBC/RA/ADMIN/${random}`;
+        case 'superadmin':
+            return `ogbc//ra//admin//${random}`;
         case 'president':
-            return `OGBC/RA/PRES/${random}`;
+            return `ogbc//ra//pres//${random}`;
         case 'ambassador':
         default:
-            return `ogbc//ra//${random}`;
+            return `ogbc//ra//${year}//${random}`;
     }
 };

@@ -8,6 +8,7 @@ interface DecodedToken {
   id: string;
   role: string;
   email: string;
+  name?: string;
   exp?: number;
 }
 
@@ -15,6 +16,7 @@ interface User {
   id: string;
   role: string;
   email: string;
+  name?: string;
   rank?: string;
   association?: string;
   exam_approved?: boolean;
@@ -42,7 +44,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setUser({ // eslint-disable-line react-hooks/set-state-in-effect
             id: decodedToken.id,
             role: decodedToken.role,
-            email: decodedToken.email
+            email: decodedToken.email,
+            name: decodedToken.name,
+            rank: 'Candidate', // Default for mock
+            exam_approved: decodedToken.role !== 'ambassador' // Mock logic
         });
       } catch (error) {
         console.error("Invalid token:", error);
@@ -54,20 +59,39 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const login = async (credentials: LoginCredentials) => {
     // For now, always use demo mode to allow login with any credentials
-    const mockUser: User = {
-      id: '1',
-      role: credentials.role,
-      email: credentials.email || 'demo@example.com',
-      rank: 'Candidate', // Default rank for demo users
-      association: 'Ikeja Association', // Default association for demo users
-      // Ambassadors start unapproved to show locked state in demo
-      exam_approved: credentials.role !== 'ambassador',
-    };
+    let mockUser: User;
+
+    if (credentials.role === 'ambassador') {
+        mockUser = {
+          id: `ogbc//ra//${new Date().getFullYear()}//001`,
+          name: 'Ajibola Olowu',
+          email: credentials.email || 'ambassador@royalambassadors.org',
+          role: 'ambassador',
+          rank: 'Candidate',
+          association: 'Ikeja Association',
+          exam_approved: true, // Auto-approve for demo purposes as per the dashboard screenshot expectations
+        };
+    } else if (credentials.role === 'superadmin' || credentials.role === 'admin') {
+        mockUser = {
+          id: 'SA-ADMIN-001',
+          name: 'Super Admin',
+          email: credentials.email || 'admin@royalambassadors.org',
+          role: 'superadmin',
+        };
+    } else {
+        mockUser = {
+          id: 'AP-PRES-001',
+          name: 'Association President',
+          email: credentials.email || 'president@royalambassadors.org',
+          role: 'president',
+        };
+    }
 
     const mockPayload = {
       id: mockUser.id,
       role: mockUser.role,
       email: mockUser.email,
+      name: mockUser.name,
       exp: Math.floor(Date.now() / 1000) + (60 * 60), // 1 hour expiration
     };
 
