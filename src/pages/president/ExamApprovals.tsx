@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { DataTable } from '../../components/ui/DataTable';
-import { RANK_HIERARCHY_LIST } from '../../utils/logic';
 
 interface EligibilityRequest {
     id: string;
