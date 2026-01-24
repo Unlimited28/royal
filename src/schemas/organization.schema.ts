@@ -4,22 +4,58 @@ import * as mongoose from 'mongoose';
 
 export type OrganizationDocument = Organization & Document;
 
-@Schema({ timestamps: true })
+@Schema({
+  timestamps: true,
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
+})
 export class Organization {
-  @Prop({ required: true, unique: true })
-  name: string;
+  @Prop({ required: true, unique: true, trim: true })
+  name!: string;
+
+  @Prop({ required: true, unique: true, trim: true, lowercase: true })
+  code!: string; // e.g., 'OGUN-ASSOC-01'
+
+  @Prop({
+    required: true,
+    enum: ['association', 'conference', 'unit'],
+    default: 'association'
+  })
+  type!: string;
+
+  @Prop({ trim: true })
+  description?: string;
 
   @Prop()
-  description: string;
+  logoUrl?: string;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
-  users: mongoose.Types.ObjectId[];
+  @Prop({ default: '#000080' }) // Default Navy
+  primaryColor!: string;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Role' }] })
-  roles: mongoose.Types.ObjectId[];
+  @Prop({ default: '#D4AF37' }) // Default Gold
+  accentColor!: string;
+
+  @Prop()
+  address?: string;
+
+  @Prop()
+  contactEmail?: string;
+
+  @Prop()
+  contactPhone?: string;
+
+  @Prop({ default: 'active', enum: ['active', 'inactive', 'suspended'] })
+  status!: string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  president?: mongoose.Types.ObjectId; // Reference to the Association President
+
+  @Prop({ type: Object })
+  settings?: Record<string, any>; // Flexible settings for the organization
 }
 
 export const OrganizationSchema = SchemaFactory.createForClass(Organization);
 
-// Add index for name for faster lookups
-OrganizationSchema.index({ name: 1 });
+// Indexes
+OrganizationSchema.index({ code: 1 });
+OrganizationSchema.index({ status: 1 });

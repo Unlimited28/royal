@@ -4,19 +4,36 @@ import * as mongoose from 'mongoose';
 
 export type RoleDocument = Role & Document;
 
-@Schema({ timestamps: true })
+@Schema({
+  timestamps: true,
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
+})
 export class Role {
-  @Prop({ required: true, unique: true })
-  name: string;
+  @Prop({ required: true, trim: true })
+  name!: string;
 
-  @Prop({ type: [String] })
-  permissions: string[];
+  @Prop({ required: true, unique: true, trim: true, lowercase: true })
+  slug!: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Organization' })
-  organization: mongoose.Types.ObjectId;
+  @Prop({ type: [String], default: [] })
+  permissions!: string[];
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Organization', index: true })
+  organization?: mongoose.Types.ObjectId;
+
+  @Prop({ trim: true })
+  description?: string;
+
+  @Prop({ default: true })
+  isActive!: boolean;
+
+  @Prop({ default: false })
+  isSystemRole!: boolean; // Prevent deletion of core roles
 }
 
 export const RoleSchema = SchemaFactory.createForClass(Role);
 
-// Add index for name and organization for efficient queries
-RoleSchema.index({ name: 1, organization: 1 });
+// Composite index for uniqueness within an organization if needed,
+// or global uniqueness if organization is null.
+RoleSchema.index({ slug: 1, organization: 1 }, { unique: true });
