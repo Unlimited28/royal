@@ -1,10 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, UseGuards, Request } from '@nestjs/common';
+/// <reference types="multer" />
+import { Controller, Get, Post, Body, Patch, Param, UseGuards, Request, UploadedFile, UseInterceptors, BadRequestException } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { PaymentsService } from './payments.service';
-import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiBearerAuth, ApiConsumes, ApiBody } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { CreatePaymentDto, VerifyPaymentDto } from './dto/payment.dto';
+import { RECEIPT_UPLOAD_OPTIONS } from '../common/storage/storage.utils';
 
 @ApiTags('Payments')
 @Controller('payments')
@@ -15,12 +18,32 @@ export class PaymentsController {
 
   @Post('upload')
   @Roles('ambassador', 'president')
+  @UseInterceptors(FileInterceptor('receipt', RECEIPT_UPLOAD_OPTIONS))
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        type: { type: 'string', enum: ['dues', 'exam', 'camp'] },
+        amount: { type: 'string' },
+        referenceNote: { type: 'string' },
+        receipt: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @ApiOperation({ summary: 'Upload a payment receipt' })
-  create(@Body() paymentData: CreatePaymentDto, @Request() req: any) {
-    return this.paymentsService.create({
-      ...paymentData,
-      userId: req.user.userId,
-    });
+  async create(
+    @Body() paymentData: CreatePaymentDto,
+    @Request() req: any,
+    @UploadedFile() file: Express.Multer.File
+  ) {
+    if (!file) {
+      throw new BadRequestException('Receipt file is required and must be a valid JPG, PNG, or PDF under 5MB');
+    }
+    return this.paymentsService.create(paymentData, req.user.userId, file);
   }
 
   @Get('my')
@@ -31,16 +54,27 @@ export class PaymentsController {
   }
 
   @Get()
-  @Roles('superadmin')
-  @ApiOperation({ summary: 'Get all payments (Super Admin only)' })
-  findAll() {
-    return this.paymentsService.findAll();
+  @Roles('superadmin', 'president')
+  @ApiOperation({ summary: 'Get payments (Super Admin sees all, President sees association)' })
+  async findAll(@Request() req: any) {
+    if (req.user.roles.includes('superadmin')) {
+      return this.paymentsService.findAll();
+    } else {
+      return this.paymentsService.findByAssociation(req.user.associationId);
+    }
   }
 
   @Patch(':id/verify')
-  @Roles('superadmin')
-  @ApiOperation({ summary: 'Verify a payment (Super Admin only)' })
+  @Roles('superadmin', 'president')
+  @ApiOperation({ summary: 'Verify a payment (Admin/Super Admin only)' })
   verify(@Param('id') id: string, @Body() verifyDto: VerifyPaymentDto, @Request() req: any) {
-    return this.paymentsService.verifyPayment(id, req.user.userId, verifyDto.status, verifyDto.reason);
+    const role = req.user.roles.includes('superadmin') ? 'superadmin' : 'president';
+    return this.paymentsService.verifyPayment(
+      id,
+      req.user.userId,
+      role,
+      verifyDto.status,
+      verifyDto.reason
+    );
   }
 }

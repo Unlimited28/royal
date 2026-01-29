@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AssociationsService } from './associations.service';
 import { AssociationsController } from './associations.controller';
-import { Organization, OrganizationSchema } from '../schemas/organization.schema';
+import { Association, AssociationSchema } from '../schemas/association.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Organization.name, schema: OrganizationSchema }]),
+    MongooseModule.forFeature([{ name: Association.name, schema: AssociationSchema }]),
   ],
   providers: [AssociationsService],
   controllers: [AssociationsController],

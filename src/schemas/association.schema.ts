@@ -2,14 +2,14 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 
-export type OrganizationDocument = Organization & Document;
+export type AssociationDocument = Association & Document;
 
 @Schema({
   timestamps: true,
   toJSON: { virtuals: true },
   toObject: { virtuals: true }
 })
-export class Organization {
+export class Association {
   @Prop({ required: true, unique: true, trim: true })
   name!: string;
 
@@ -51,11 +51,11 @@ export class Organization {
   president?: mongoose.Types.ObjectId; // Reference to the Association President
 
   @Prop({ type: Object })
-  settings?: Record<string, any>; // Flexible settings for the organization
+  settings?: Record<string, any>; // Flexible settings for the association
 }
 
-export const OrganizationSchema = SchemaFactory.createForClass(Organization);
+export const AssociationSchema = SchemaFactory.createForClass(Association);
 
 // Indexes
-OrganizationSchema.index({ code: 1 });
-OrganizationSchema.index({ status: 1 });
+AssociationSchema.index({ code: 1 });
+AssociationSchema.index({ status: 1 });

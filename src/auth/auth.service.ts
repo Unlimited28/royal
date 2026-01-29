@@ -76,7 +76,7 @@ export class AuthService {
 
     const newUser = await this.usersService.create({
       ...userData,
-      organization: association._id,
+      association: association._id,
       rank: 'Candidate', // Initial rank
       status: 'active',
       roles: [roleDoc._id],
@@ -85,7 +85,6 @@ export class AuthService {
     // If role is president, update association
     if (role === 'president') {
         await this.associationsService.updatePresident(association._id.toString(), newUser._id.toString());
-        // Update user's role/rank? The PRD says president is a role.
     }
 
     return this.generateTokens(newUser);
@@ -99,7 +98,8 @@ export class AuthService {
       sub: user._id,
       email: user.email,
       userCode: user.userCode,
-      roles: roleSlugs
+      roles: roleSlugs,
+      associationId: user.association,
     };
 
     const accessToken = this.jwtService.sign(payload);
