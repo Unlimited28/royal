@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import type { OnModuleInit } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { ConfigService } from '@nestjs/config';
 
 import { Camp } from '../schemas/camp.schema';
@@ -24,15 +24,15 @@ import { Association } from '../schemas/association.schema';
 export class SeedService implements OnModuleInit {
   constructor(
     @InjectModel(Camp.name) private campModel: Model<CampDocument>,
-    @InjectModel(Notification.name) private notificationModel: Model<NotificationDocument>,
+    @InjectModel(Notification.name) _notificationModel: Model<NotificationDocument>,
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     @InjectModel(Blog.name) private blogModel: Model<any>,
     @InjectModel(GalleryItem.name) private galleryModel: Model<any>,
     @InjectModel(Announcement.name) private announcementModel: Model<any>,
     @InjectModel(HomepageSection.name) private sectionModel: Model<any>,
-    @InjectModel(Payment.name) private paymentModel: Model<any>,
-    @InjectModel(Exam.name) private examModel: Model<any>,
-    @InjectModel(Question.name) private questionModel: Model<any>,
+    @InjectModel(Payment.name) _paymentModel: Model<any>,
+    @InjectModel(Exam.name) _examModel: Model<any>,
+    @InjectModel(Question.name) _questionModel: Model<any>,
     @InjectModel(Role.name) private roleModel: Model<any>,
     @InjectModel(Association.name) private associationModel: Model<any>,
     private configService: ConfigService,
@@ -41,7 +41,6 @@ export class SeedService implements OnModuleInit {
   async onModuleInit() {
     if (this.configService.get('DISABLE_SEEDING') === 'true') return;
 
-    // Only seed if Users is empty (indicating a fresh DB)
     const userCount = await this.userModel.countDocuments();
     if (userCount > 0) return;
 
@@ -97,17 +96,14 @@ export class SeedService implements OnModuleInit {
   }
 
   private async seedContent() {
-    // We need at least one user (admin) to be the author
-    // Assuming Roles and Associations are already seeded by their respective OnModuleInit or we seed them here
     let admin = await this.userModel.findOne({ email: 'admin@ogbcra.org' });
     if (!admin) {
-        // Create a mock admin if not exists
         const superadminRole = await this.roleModel.findOne({ slug: 'superadmin' });
         const assoc = await this.associationModel.findOne();
         if (superadminRole && assoc) {
             admin = await this.userModel.create({
                 email: 'admin@ogbcra.org',
-                password: 'password123', // Will be hashed by hook
+                password: 'password123',
                 firstName: 'System',
                 lastName: 'Admin',
                 userCode: 'RA/ADMIN/0001',

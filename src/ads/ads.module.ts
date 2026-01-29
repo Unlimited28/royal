@@ -12,5 +12,6 @@ import { AuditLogModule } from '../audit-log/audit-log.module';
   ],
   providers: [AdsService],
   controllers: [AdsController],
+  exports: [AdsService],
 })
 export class AdsModule {}

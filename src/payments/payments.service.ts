@@ -4,34 +4,95 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Payment } from '../schemas/payment.schema';
 import type { PaymentDocument } from '../schemas/payment.schema';
-import type { CreatePaymentDto } from './dto/payment.dto';
+import { CreatePaymentDto } from './dto/payment.dto';
 import { StorageService } from '../common/storage/storage.service';
 import { AuditLogService } from '../audit-log/audit-log.service';
 import { NotificationsService } from '../notifications/notifications.service';
+import { SystemSettingsService } from '../system-settings/system-settings.service';
+import { ReceiptManualProvider } from './providers/receipt-manual.provider';
+import { MockGatewayProvider } from './providers/mock-gateway.provider';
+import type { PaymentProvider } from './providers/payment-provider.interface';
 
 @Injectable()
 export class PaymentsService {
+  private providers: Record<string, PaymentProvider>;
+
   constructor(
     @InjectModel(Payment.name) private paymentModel: Model<PaymentDocument>,
     private readonly storageService: StorageService,
     private readonly auditLogService: AuditLogService,
     private readonly notificationsService: NotificationsService,
-  ) {}
+    private readonly settingsService: SystemSettingsService,
+  ) {
+    this.providers = {
+      manual: new ReceiptManualProvider(),
+      mock: new MockGatewayProvider(),
+    };
+  }
 
-  async create(paymentData: CreatePaymentDto, userId: string, file: Express.Multer.File) {
-    const fileMetadata = await this.storageService.saveFile(file, 'receipts');
+  async create(paymentData: CreatePaymentDto, userId: string, file?: Express.Multer.File) {
+    const providerKey = paymentData.provider || 'manual';
+
+    if (providerKey === 'mock') {
+      const gatewayEnabled = await this.settingsService.getSetting('gatewayPaymentEnabled');
+      if (gatewayEnabled === false) {
+        throw new BadRequestException('Gateway payments are currently disabled');
+      }
+    }
+
+    const provider = this.providers[providerKey];
+    if (!provider) throw new BadRequestException(`Unsupported payment provider: ${providerKey}`);
+
+    let processData: any = {};
+    if (providerKey === 'manual') {
+      if (!file) throw new BadRequestException('Receipt file is required for manual payment');
+      const fileMetadata = await this.storageService.saveFile(file, 'receipts' as any);
+      processData = { receiptUrl: fileMetadata.url, fileMetadata };
+    } else {
+      processData = { amount: Number(paymentData.amount), email: 'user@example.com' };
+    }
+
+    const result = await provider.processPayment(processData);
 
     const newPayment = new this.paymentModel({
       userId: new Types.ObjectId(userId),
       type: paymentData.type,
       amount: Number(paymentData.amount),
       referenceNote: paymentData.referenceNote,
-      receiptUrl: fileMetadata.url,
-      fileMetadata: fileMetadata,
-      status: 'pending',
+      receiptUrl: result.receiptUrl,
+      transactionId: result.transactionId,
+      paymentUrl: result.paymentUrl,
+      fileMetadata: result.metadata,
+      status: result.status,
+      provider: providerKey,
     });
 
     return newPayment.save();
+  }
+
+  async verifyGatewayPayment(transactionId: string) {
+    const payment = await this.paymentModel.findOne({ transactionId });
+    if (!payment) throw new NotFoundException('Payment not found');
+
+    const provider = this.providers[payment.provider];
+    if (!provider) throw new BadRequestException('Invalid provider for this payment');
+
+    const result = await provider.verifyPayment(transactionId);
+    if (result.status === 'approved') {
+      payment.status = 'approved';
+      payment.verifiedAt = new Date();
+      await payment.save();
+
+      await this.notificationsService.create({
+        userId: payment.userId,
+        type: 'payment_status',
+        title: 'Payment Confirmed',
+        message: `Your payment of ${payment.amount} for ${payment.type} has been successfully verified.`,
+        metadata: { paymentId: payment._id, status: 'approved' },
+      });
+    }
+
+    return payment;
   }
 
   async findAll() {
@@ -94,7 +155,6 @@ export class PaymentsService {
 
     const savedPayment = await payment.save();
 
-    // Audit log
     await this.auditLogService.recordAction({
       action: status === 'approved' ? 'PAYMENT_APPROVED' : 'PAYMENT_REJECTED',
       actorId: adminId,
@@ -109,7 +169,6 @@ export class PaymentsService {
       },
     });
 
-    // Notification
     await this.notificationsService.create({
       userId: payment.userId,
       type: 'payment_status',
@@ -121,6 +180,26 @@ export class PaymentsService {
     });
 
     return savedPayment;
+  }
+
+  async softDelete(paymentId: string, adminId: string, adminRole: string) {
+    const payment = await this.paymentModel.findById(paymentId);
+    if (!payment) throw new NotFoundException('Payment not found');
+
+    (payment as any).isDeleted = true;
+    (payment as any).deletedAt = new Date();
+    (payment as any).deletedBy = new Types.ObjectId(adminId);
+    await payment.save();
+
+    await this.auditLogService.recordAction({
+      action: 'PAYMENT_SOFT_DELETE',
+      actorId: adminId,
+      actorRole: adminRole,
+      targetType: 'Payment',
+      targetId: paymentId,
+      metadata: { amount: payment.amount, type: payment.type },
+    });
+    return { message: 'Payment soft-deleted' };
   }
 
   async getStats() {

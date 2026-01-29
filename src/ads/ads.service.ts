@@ -42,7 +42,7 @@ export class AdsService {
   }
 
   async remove(id: string, adminId: string, adminRole: string) {
-    const ad = await this.adModel.findById(id);
+    const ad = await this.adModel.findById(id).exec();
     if (!ad) throw new NotFoundException('Ad not found');
 
     const result = await this.adModel.findByIdAndDelete(id).exec();
@@ -52,7 +52,7 @@ export class AdsService {
       actorRole: adminRole,
       targetType: 'CorporateAd',
       targetId: id,
-      metadata: { title: ad.title },
+      metadata: { title: (ad as any).title },
     });
     return result;
   }

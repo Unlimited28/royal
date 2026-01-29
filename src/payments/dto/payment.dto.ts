@@ -9,11 +9,16 @@ export class CreatePaymentDto {
 
   @ApiProperty()
   @IsString()
-  amount!: string; // Using string because multipart/form-data often sends numbers as strings
+  amount!: string;
 
   @ApiProperty()
   @IsString()
   referenceNote!: string;
+
+  @ApiProperty({ required: false, default: 'manual' })
+  @IsString()
+  @IsOptional()
+  provider?: string;
 }
 
 export class VerifyPaymentDto {

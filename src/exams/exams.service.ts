@@ -10,6 +10,8 @@ import type { ExamAttemptDocument } from '../schemas/exam-attempt.schema';
 import { ExamResult } from '../schemas/exam-result.schema';
 import type { ExamResultDocument } from '../schemas/exam-result.schema';
 import { CreateExamDto } from './dto/create-exam.dto';
+import { SystemSettingsService } from '../system-settings/system-settings.service';
+import { AuditLogService } from '../audit-log/audit-log.service';
 
 @Injectable()
 export class ExamsService {
@@ -18,6 +20,8 @@ export class ExamsService {
     @InjectModel(Question.name) private questionModel: Model<QuestionDocument>,
     @InjectModel(ExamAttempt.name) private attemptModel: Model<ExamAttemptDocument>,
     @InjectModel(ExamResult.name) private resultModel: Model<ExamResultDocument>,
+    private readonly settingsService: SystemSettingsService,
+    private readonly auditLogService: AuditLogService,
   ) {}
 
   async create(createExamDto: CreateExamDto, userId: string) {
@@ -50,9 +54,13 @@ export class ExamsService {
   }
 
   async startAttempt(examId: string, userId: string) {
+    const examEnabled = await this.settingsService.getSetting('examEnabled');
+    if (examEnabled === false) {
+      throw new BadRequestException('Examinations are currently disabled by system administrator');
+    }
+
     await this.findOne(examId);
 
-    // Check if there is already an active attempt
     const activeAttempt = await this.attemptModel.findOne({
       userId: new Types.ObjectId(userId),
       examId: new Types.ObjectId(examId),
@@ -106,7 +114,6 @@ export class ExamsService {
     attempt.status = 'graded';
     await attempt.save();
 
-    // Create a result (unpublished by default)
     const result = new this.resultModel({
       attemptId: attempt._id,
       userId: attempt.userId,
@@ -120,14 +127,61 @@ export class ExamsService {
     return { score, passed, resultId: result._id };
   }
 
-  async publishResult(resultId: string, adminId: string) {
+  async publishResult(resultId: string, adminId: string, adminRole: string) {
     const result = await this.resultModel.findById(resultId);
     if (!result) throw new NotFoundException('Result not found');
 
     result.isPublished = true;
     result.publishedBy = new Types.ObjectId(adminId);
     result.publishedAt = new Date();
-    return result.save();
+    const saved = await result.save();
+
+    await this.auditLogService.recordAction({
+      action: 'EXAM_RESULT_PUBLISH',
+      actorId: adminId,
+      actorRole: adminRole,
+      targetType: 'ExamResult',
+      targetId: resultId,
+    });
+    return saved;
+  }
+
+  async unpublishResult(resultId: string, adminId: string, adminRole: string) {
+    const result = await this.resultModel.findById(resultId);
+    if (!result) throw new NotFoundException('Result not found');
+
+    result.isPublished = false;
+    const saved = await result.save();
+
+    await this.auditLogService.recordAction({
+      action: 'EXAM_RESULT_UNPUBLISH',
+      actorId: adminId,
+      actorRole: adminRole,
+      targetType: 'ExamResult',
+      targetId: resultId,
+    });
+    return saved;
+  }
+
+  async removeExam(id: string, adminId: string, adminRole: string) {
+    const exam = await this.examModel.findById(id);
+    if (!exam) throw new NotFoundException('Exam not found');
+
+    const attempts = await this.attemptModel.countDocuments({ examId: exam._id });
+    if (attempts > 0) {
+      throw new BadRequestException('Cannot delete exam with existing attempts. Disable it instead.');
+    }
+
+    await this.examModel.findByIdAndDelete(id);
+    await this.auditLogService.recordAction({
+      action: 'EXAM_DELETE',
+      actorId: adminId,
+      actorRole: adminRole,
+      targetType: 'Exam',
+      targetId: id,
+      metadata: { title: exam.title },
+    });
+    return { message: 'Exam deleted' };
   }
 
   async getResults(userId?: string) {

@@ -15,6 +15,34 @@ export const RECEIPT_UPLOAD_OPTIONS: MulterOptions = {
   },
 };
 
+export const BLOG_COVER_UPLOAD_OPTIONS: MulterOptions = {
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB
+  },
+  fileFilter: (_req, file, callback) => {
+    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    if (allowedMimeTypes.includes(file.mimetype)) {
+      callback(null, true);
+    } else {
+      callback(new BadRequestException('Invalid file type. Only JPG, PNG, and WEBP are allowed for blog covers.'), false);
+    }
+  },
+};
+
+export const GALLERY_UPLOAD_OPTIONS: MulterOptions = {
+  limits: {
+    fileSize: 10 * 1024 * 1024, // 10MB
+  },
+  fileFilter: (_req, file, callback) => {
+    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    if (allowedMimeTypes.includes(file.mimetype)) {
+      callback(null, true);
+    } else {
+      callback(new BadRequestException('Invalid file type. Only JPG, PNG, and WEBP are allowed for gallery images.'), false);
+    }
+  },
+};
+
 export const EXCEL_UPLOAD_OPTIONS: MulterOptions = {
   limits: {
     fileSize: 10 * 1024 * 1024, // 10MB
