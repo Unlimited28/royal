@@ -1,18 +1,19 @@
-import { IsString, IsEnum, IsNumber, IsUrl, IsOptional } from 'class-validator';
+import { IsString, IsEnum, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreatePaymentDto {
   @ApiProperty({ enum: ['dues', 'exam', 'camp'] })
   @IsEnum(['dues', 'exam', 'camp'])
+  @IsString()
   type!: string;
 
   @ApiProperty()
-  @IsNumber()
-  amount!: number;
+  @IsString()
+  amount!: string; // Using string because multipart/form-data often sends numbers as strings
 
   @ApiProperty()
-  @IsUrl()
-  receiptUrl!: string;
+  @IsString()
+  referenceNote!: string;
 }
 
 export class VerifyPaymentDto {

@@ -17,6 +17,9 @@ export class Payment {
   @Prop({ required: true })
   receiptUrl!: string; // Cloud storage URL
 
+  @Prop({ required: true })
+  referenceNote!: string;
+
   @Prop({ default: 'pending', enum: ['pending', 'approved', 'rejected'] })
   status!: string;
 
@@ -28,6 +31,9 @@ export class Payment {
 
   @Prop()
   rejectionReason?: string;
+
+  @Prop({ type: Object })
+  fileMetadata?: Record<string, any>;
 }
 
 export const PaymentSchema = SchemaFactory.createForClass(Payment);

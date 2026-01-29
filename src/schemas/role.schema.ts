@@ -19,8 +19,8 @@ export class Role {
   @Prop({ type: [String], default: [] })
   permissions!: string[];
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Organization', index: true })
-  organization?: mongoose.Types.ObjectId;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Association', index: true })
+  association?: mongoose.Types.ObjectId;
 
   @Prop({ trim: true })
   description?: string;
@@ -34,6 +34,6 @@ export class Role {
 
 export const RoleSchema = SchemaFactory.createForClass(Role);
 
-// Composite index for uniqueness within an organization if needed,
-// or global uniqueness if organization is null.
-RoleSchema.index({ slug: 1, organization: 1 }, { unique: true });
+// Composite index for uniqueness within an association if needed,
+// or global uniqueness if association is null.
+RoleSchema.index({ slug: 1, association: 1 }, { unique: true });

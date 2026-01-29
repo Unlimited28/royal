@@ -64,8 +64,8 @@ export class User {
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Role' }] })
   roles!: Types.ObjectId[];
 
-  @Prop({ type: Types.ObjectId, ref: 'Organization', index: true })
-  organization!: Types.ObjectId;
+  @Prop({ type: Types.ObjectId, ref: 'Association', index: true })
+  association!: Types.ObjectId;
 
   @Prop({ default: false })
   adminPasscodeUsed!: boolean;
@@ -145,4 +145,4 @@ UserSchema.methods.createPasswordResetToken = function(this: UserDocument): stri
 UserSchema.index({ email: 1 });
 UserSchema.index({ userCode: 1 });
 UserSchema.index({ status: 1 });
-UserSchema.index({ organization: 1, rank: 1 });
+UserSchema.index({ association: 1, rank: 1 });

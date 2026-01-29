@@ -44,7 +44,7 @@ export class UsersService {
   }
 
   async findById(id: string): Promise<UserDocument | null> {
-    return this.userModel.findById(id).populate('organization').exec();
+    return this.userModel.findById(id).populate('association').exec();
   }
 
   async update(id: string, updateData: any): Promise<UserDocument | null> {
@@ -52,6 +52,6 @@ export class UsersService {
   }
 
   async findAll() {
-    return this.userModel.find().populate('organization').exec();
+    return this.userModel.find().populate('association').exec();
   }
 }

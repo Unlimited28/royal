@@ -11,6 +11,12 @@ import { ExamsModule } from './exams/exams.module';
 import { AdsModule } from './ads/ads.module';
 import { MediaModule } from './media/media.module';
 import { PaymentsModule } from './payments/payments.module';
+import { AuditLogModule } from './audit-log/audit-log.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { StorageModule } from './common/storage/storage.module';
+import { CampsModule } from './camps/camps.module';
+import { DashboardsModule } from './dashboards/dashboards.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -37,6 +43,12 @@ import { PaymentsModule } from './payments/payments.module';
     AdsModule,
     MediaModule,
     PaymentsModule,
+    AuditLogModule,
+    NotificationsModule,
+    StorageModule,
+    CampsModule,
+    DashboardsModule,
+    SeedModule,
   ],
   controllers: [],
   providers: [
