@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { AdsService } from './ads.service';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -49,7 +49,7 @@ export class AdsController {
   @Roles('superadmin')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete an ad (Super Admin only)' })
-  remove(@Param('id') id: string) {
-    return this.adsService.remove(id);
+  remove(@Param('id') id: string, @Req() req: any) {
+    return this.adsService.remove(id, req.user.userId, req.user.roles[0]);
   }
 }
