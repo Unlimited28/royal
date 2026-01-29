@@ -43,7 +43,7 @@ export class User {
     trim: true,
     index: true
   })
-  userCode!: string; // System-generated RA ID (e.g., OGBC//RA//2024//001)
+  userCode!: string; // System-generated RA ID (e.g., RA/OGBC/0001)
 
   @Prop({ type: Number })
   age?: number;
@@ -85,6 +85,9 @@ export class User {
 
   @Prop()
   lastLogin?: Date;
+
+  @Prop({ type: [String], default: [] })
+  refreshTokens?: string[];
 
   @Prop({ default: false })
   isEmailVerified!: boolean;

@@ -44,16 +44,16 @@ export const isEligible = (userRank: string, targetRank: string): boolean => {
     return targetLevel === userLevel + 1;
 };
 
-export const generateUniqueId = (role: string, year: number = 2024): string => {
-    const random = Math.floor(100 + Math.random() * 900); // 3 digit random number
+export const generateUniqueId = (role: string): string => {
+    const random = Math.floor(1000 + Math.random() * 9000); // 4 digit random number for mock
 
     switch (role) {
         case 'superadmin':
-            return `ogbc//ra//admin//${random}`;
+            return `RA/OGBC/ADMIN/${random}`;
         case 'president':
-            return `ogbc//ra//pres//${random}`;
+            return `RA/OGBC/PRES/${random}`;
         case 'ambassador':
         default:
-            return `ogbc//ra//${year}//${random}`;
+            return `RA/OGBC/${random}`;
     }
 };
