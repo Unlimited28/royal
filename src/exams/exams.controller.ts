@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Request } from '@nestjs/common';
 import { ExamsService } from './exams.service';
 import { CreateExamDto } from './dto/create-exam.dto';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
@@ -50,7 +50,21 @@ export class ExamsController {
   @Roles('superadmin')
   @ApiOperation({ summary: 'Publish exam result (Super Admin only)' })
   publishResult(@Param('id') id: string, @Request() req: any) {
-    return this.examsService.publishResult(id, req.user.userId);
+    return this.examsService.publishResult(id, req.user.userId, req.user.roles[0]);
+  }
+
+  @Post('results/:id/unpublish')
+  @Roles('superadmin')
+  @ApiOperation({ summary: 'Unpublish exam result (Super Admin only)' })
+  unpublishResult(@Param('id') id: string, @Request() req: any) {
+    return this.examsService.unpublishResult(id, req.user.userId, req.user.roles[0]);
+  }
+
+  @Delete(':id')
+  @Roles('superadmin')
+  @ApiOperation({ summary: 'Delete an exam (Super Admin only)' })
+  remove(@Param('id') id: string, @Request() req: any) {
+    return this.examsService.removeExam(id, req.user.userId, req.user.roles[0]);
   }
 
   @Get('results/my')

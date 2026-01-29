@@ -1,8 +1,8 @@
 /// <reference types="multer" />
-import { Controller, Get, Post, Body, Patch, Param, UseGuards, Request, UploadedFile, UseInterceptors, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request, UploadedFile, UseInterceptors, BadRequestException } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PaymentsService } from './payments.service';
-import { ApiTags, ApiOperation, ApiBearerAuth, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiBearerAuth, ApiConsumes } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
@@ -16,33 +16,16 @@ import { RECEIPT_UPLOAD_OPTIONS } from '../common/storage/storage.utils';
 export class PaymentsController {
   constructor(private readonly paymentsService: PaymentsService) {}
 
-  @Post('upload')
+  @Post('initiate')
   @Roles('ambassador', 'president')
   @UseInterceptors(FileInterceptor('receipt', RECEIPT_UPLOAD_OPTIONS))
-  @ApiConsumes('multipart/form-data')
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        type: { type: 'string', enum: ['dues', 'exam', 'camp'] },
-        amount: { type: 'string' },
-        referenceNote: { type: 'string' },
-        receipt: {
-          type: 'string',
-          format: 'binary',
-        },
-      },
-    },
-  })
-  @ApiOperation({ summary: 'Upload a payment receipt' })
-  async create(
+  @ApiConsumes('multipart/form-data', 'application/json')
+  @ApiOperation({ summary: 'Initiate a payment (Manual receipt or Gateway)' })
+  async initiate(
     @Body() paymentData: CreatePaymentDto,
     @Request() req: any,
-    @UploadedFile() file: Express.Multer.File
+    @UploadedFile() file?: Express.Multer.File
   ) {
-    if (!file) {
-      throw new BadRequestException('Receipt file is required and must be a valid JPG, PNG, or PDF under 5MB');
-    }
     return this.paymentsService.create(paymentData, req.user.userId, file);
   }
 
@@ -51,6 +34,13 @@ export class PaymentsController {
   @ApiOperation({ summary: 'Get my payment history' })
   getMyPayments(@Request() req: any) {
     return this.paymentsService.findByUserId(req.user.userId);
+  }
+
+  @Post('verify-gateway/:transactionId')
+  @Roles('ambassador', 'president')
+  @ApiOperation({ summary: 'Verify a gateway payment' })
+  verifyGateway(@Param('transactionId') transactionId: string) {
+    return this.paymentsService.verifyGatewayPayment(transactionId);
   }
 
   @Get()
@@ -76,5 +66,12 @@ export class PaymentsController {
       verifyDto.status,
       verifyDto.reason
     );
+  }
+
+  @Delete(':id')
+  @Roles('superadmin')
+  @ApiOperation({ summary: 'Soft-delete a payment (Super Admin only)' })
+  remove(@Param('id') id: string, @Request() req: any) {
+    return this.paymentsService.softDelete(id, req.user.userId, req.user.roles[0]);
   }
 }
