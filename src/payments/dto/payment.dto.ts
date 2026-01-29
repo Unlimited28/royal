@@ -10,9 +10,10 @@ export class CreatePaymentDto {
   @IsNumber()
   amount!: number;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
+  @IsOptional()
   @IsUrl()
-  receiptUrl!: string;
+  receiptUrl?: string;
 }
 
 export class VerifyPaymentDto {

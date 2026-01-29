@@ -11,13 +11,19 @@ export class PaymentsService {
     @InjectModel(Payment.name) private paymentModel: Model<PaymentDocument>,
   ) {}
 
-  async create(paymentData: CreatePaymentDto & { userId: string }) {
+  async create(paymentData: CreatePaymentDto & { userId: string, receiptUrl: string }) {
     const newPayment = new this.paymentModel(paymentData);
     return newPayment.save();
   }
 
   async findAll() {
     return this.paymentModel.find().populate('userId', 'firstName lastName email userCode').exec();
+  }
+
+  async findOne(id: string) {
+    const payment = await this.paymentModel.findById(id).exec();
+    if (!payment) throw new NotFoundException('Payment not found');
+    return payment;
   }
 
   async findByUserId(userId: string) {

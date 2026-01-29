@@ -3,6 +3,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { AssociationsModule } from './associations/associations.module';
@@ -11,6 +13,9 @@ import { ExamsModule } from './exams/exams.module';
 import { AdsModule } from './ads/ads.module';
 import { MediaModule } from './media/media.module';
 import { PaymentsModule } from './payments/payments.module';
+import { FilesModule } from './files/files.module';
+import { CampsModule } from './camps/camps.module';
+import { CampRegistrationsModule } from './camp-registrations/camp-registrations.module';
 
 @Module({
   imports: [
@@ -28,6 +33,10 @@ import { PaymentsModule } from './payments/payments.module';
       ttl: 60000,
       limit: 100,
     }]),
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), 'uploads'),
+      serveRoot: '/uploads',
+    }),
     // Modules will be added here
     AuthModule,
     UsersModule,
@@ -37,6 +46,9 @@ import { PaymentsModule } from './payments/payments.module';
     AdsModule,
     MediaModule,
     PaymentsModule,
+    FilesModule,
+    CampsModule,
+    CampRegistrationsModule,
   ],
   controllers: [],
   providers: [
