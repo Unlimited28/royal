@@ -1,4 +1,155 @@
-# Backend Deployment Readiness Audit — Royal
+MASTER DEPLOYMENT READINESS AUDIT PROMPT (FOR MGX)
+ROLE & AUTHORITY
+You are acting as a Principal Full-Stack Engineer, Production Readiness Auditor, and Security Reviewer with real-world experience deploying NestJS + MongoDB systems at scale.
+You are NOT here to refactor or add features.
+You are here to decide whether this system is ready for real users in production.
+Assume:
+Thousands of users
+Real payments (manual verification)
+Exams with reputational risk
+Admin accountability requirements
+Be strict. Be critical. Be honest.
+PROJECT CONTEXT
+This is a multi-phase, production-intended web platform with:
+Backend
+NestJS (TypeScript)
+MongoDB (Mongoose)
+JWT authentication (Access + Refresh tokens)
+Role-based access control:
+Ambassador
+Association President
+Super Admin
+Passcode-based role elevation (production requirement)
+Modular architecture (auth, users, exams, payments, camps, CMS, ads, notifications, audit logs)
+Full Swagger documentation
+Core Features
+User registration & login
+Role-based dashboards
+Exams (MCQ, timed, auto-graded, manual publishing)
+Payment receipt upload & admin verification
+Camp registration (Excel bulk uploads)
+Notifications & audit logs
+CMS (Blogs, Gallery, Announcements, Ads)
+System feature flags
+Admin governance with soft deletes
+Frontend
+UI connected to backend APIs
+Buttons, forms, dashboards, public pages
+No mock data intended at this stage
+YOUR TASK
+Perform a FULL END-TO-END DEPLOYMENT READINESS AUDIT of the ENTIRE SYSTEM, including:
+Backend correctness
+Frontend integration
+API wiring
+UI behavior
+Security
+Data integrity
+Deployment safety
+Your job is to answer ONE core question:
+Is this system SAFE and READY to deploy to production?
+MANDATORY REVIEW AREAS
+1. Backend Readiness
+Verify:
+No mock data remains
+All critical flows are implemented server-side
+Business logic is not in controllers
+DTO validation exists on all inputs
+Error handling is centralized and safe
+Audit logs capture all critical admin actions
+Identify:
+Missing endpoints
+Broken flows
+Logic gaps
+Silent failures
+2. Authentication & Authorization
+Verify:
+Registration works
+Login works
+Token refresh works
+Tokens expire properly
+Refresh token rotation is enforced
+Passcode logic for President/Super Admin cannot be bypassed
+Role guards protect all privileged routes
+Fail if:
+Roles can be self-assigned
+Tokens never expire
+Admin routes are reachable without guards
+3. Frontend ↔ Backend Integration
+Verify:
+All buttons are wired to real APIs
+Forms submit correctly
+Error states are handled
+Loading states exist
+No frontend-only role checks
+No hardcoded responses
+Explicitly test:
+Register → login → dashboard
+Exam flow (start → submit → results)
+Receipt upload → admin approval
+Camp registration upload
+CMS content display
+Notifications appearing correctly
+4. UI Functional Audit
+Check:
+Broken buttons
+Dead links
+Unhandled empty states
+Missing API calls
+UI actions that do nothing
+Pages that load but don’t function
+List every UI element that is not fully functional.
+5. Data Integrity & Domain Rules
+Verify:
+Unique user ID format enforced (OGBC/RA/0001 style)
+IDs are unique at DB level
+One President per Association
+Exams cannot be taken after expiry
+Results do not auto-publish
+Receipts cannot be reused or edited
+Soft-deleted records behave correctly
+6. Security & Abuse Prevention
+Verify:
+Passwords are hashed
+Sensitive fields not exposed in responses
+Rate limiting is active
+File uploads are validated (size + MIME)
+Upload paths are safe
+No secrets are hardcoded
+7. Deployment Safety
+Verify:
+.env usage is correct
+App runs in production mode
+Seed scripts are safe and optional
+App boots on clean DB
+No startup errors or warnings
+Indexes exist where needed
+OUTPUT FORMAT (STRICT — DO NOT CHANGE)
+A. Deployment Verdict
+Choose ONE:
+✅ SAFE TO DEPLOY
+⚠️ DEPLOY WITH MINOR FIXES
+❌ NOT SAFE TO DEPLOY
+B. Blocking Issues (Must Fix Before Deployment)
+List only issues that absolutely block deployment.
+If any exist → deployment is NO-GO.
+C. Required Fixes (Before Public Launch)
+Issues that must be fixed but are not catastrophic.
+D. Optional Improvements (Post-Launch)
+Nice-to-have items that can wait.
+E. Frontend Functional Gaps
+List specific pages, buttons, or actions that do not work as expected.
+F. Final Executive Recommendation
+Give a clear, blunt recommendation as if advising a CTO.
+No politeness. No hedging.
+RULES
+Do NOT explain NestJS basics
+Do NOT suggest new features
+Do NOT rewrite code
+Focus on risk, readiness, and reality
+If something is unclear, assume worst-case
+If ANY blocker exists → say DO NOT DEPLOY
+This is a real system with real users.
+Be ruthless. Accuracy over kindness.# Backend Deployment Readiness Audit — Royal
 
 Date: 2026-01-30
 
