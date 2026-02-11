@@ -1,0 +1,8 @@
+{
+  "name": "ra-portal-database",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "seed": "echo 'Run seed from backend context'"
+  }
+}
