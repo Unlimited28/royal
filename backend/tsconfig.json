@@ -18,12 +18,12 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@schemas/*": ["../database/schemas/*"],
-      "@seed/*": ["../database/seed/*"],
-      "@constants": ["../database/constants"],
+      "@schemas/*": ["src/database/schemas/*"],
+      "@seed/*": ["src/database/seed/*"],
+      "@constants": ["src/database/constants"],
       "@common/*": ["src/common/*"]
     }
   },
-  "include": ["src/**/*.ts", "../database/**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

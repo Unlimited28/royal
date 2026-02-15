@@ -11,7 +11,7 @@ async function bootstrap() {
 
   // Mandatory Environment Variable Validation
   const requiredEnvVars = [
-    'MONGODB_URI',
+    'MONGO_URL',
     'JWT_SECRET',
     'PRESIDENT_PASSCODE',
     'SUPERADMIN_PASSCODE'
@@ -69,7 +69,7 @@ async function bootstrap() {
     SwaggerModule.setup('api/docs', app, document);
   }
 
-  const port = process.env.PORT || 8000;
+  const port = process.env.PORT || 3000;
   await app.listen(port);
   logger.log(`Application is running on: http://localhost:${port}/api`);
   if (!isProduction) {

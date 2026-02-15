@@ -29,7 +29,7 @@ import { LoggerMiddleware } from './common/logger.middleware';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGODB_URI') || 'mongodb://localhost:27017/ogbc_ra',
+        uri: configService.get<string>('MONGO_URL') || 'mongodb://localhost:27017/ogbc_ra',
       }),
       inject: [ConfigService],
     }),
