@@ -11,7 +11,6 @@ async function bootstrap() {
 
   // Mandatory Environment Variable Validation
   const requiredEnvVars = [
-    'MONGODB_URI',
     'JWT_SECRET',
     'PRESIDENT_PASSCODE',
     'SUPERADMIN_PASSCODE'
@@ -20,6 +19,11 @@ async function bootstrap() {
   const missingVars = requiredEnvVars.filter(v => !process.env[v]);
   if (missingVars.length > 0) {
     logger.error(`CRITICAL ERROR: Missing required environment variables: ${missingVars.join(', ')}`);
+    process.exit(1);
+  }
+
+  if (!process.env.MONGO_URL && !process.env.MONGODB_URI) {
+    logger.error('CRITICAL ERROR: Neither MONGO_URL nor MONGODB_URI is defined.');
     process.exit(1);
   }
 
@@ -69,7 +73,7 @@ async function bootstrap() {
     SwaggerModule.setup('api/docs', app, document);
   }
 
-  const port = process.env.PORT || 8000;
+  const port = process.env.PORT || 3000;
   await app.listen(port);
   logger.log(`Application is running on: http://localhost:${port}/api`);
   if (!isProduction) {

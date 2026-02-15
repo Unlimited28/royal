@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@constants': path.resolve(__dirname, '../database/constants/index.ts'),
+      '@constants': path.resolve(__dirname, '../backend/src/database/constants/index.ts'),
     },
   },
 })
