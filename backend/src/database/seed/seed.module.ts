@@ -18,16 +18,6 @@ import { CorporateAd, CorporateAdSchema } from '@schemas/corporate-ad.schema';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGO_URL') || 'mongodb://localhost:27017/ogbc_ra',
-      }),
-      inject: [ConfigService],
-    }),
     MongooseModule.forFeature([
       { name: Camp.name, schema: CampSchema },
       { name: Notification.name, schema: NotificationSchema },
@@ -45,5 +35,6 @@ import { CorporateAd, CorporateAdSchema } from '@schemas/corporate-ad.schema';
     ]),
   ],
   providers: [SeedService],
+  exports: [SeedService],
 })
 export class SeedModule {}
