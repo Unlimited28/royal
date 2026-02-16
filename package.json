@@ -1,11 +1,6 @@
 {
   "name": "ra-portal-root",
   "private": true,
-  "workspaces": [
-    "frontend",
-    "backend",
-    "database"
-  ],
   "scripts": {
     "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
     "dev:backend": "cd backend && npm run start:dev",
