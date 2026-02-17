@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SeedService } from './seed.service';
 import { Camp, CampSchema } from '@schemas/camp.schema';
 import { Notification, NotificationSchema } from '@schemas/notification.schema';
@@ -18,16 +17,6 @@ import { CorporateAd, CorporateAdSchema } from '@schemas/corporate-ad.schema';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGO_URL') || 'mongodb://localhost:27017/ogbc_ra',
-      }),
-      inject: [ConfigService],
-    }),
     MongooseModule.forFeature([
       { name: Camp.name, schema: CampSchema },
       { name: Notification.name, schema: NotificationSchema },

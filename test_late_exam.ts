@@ -26,7 +26,7 @@ async function testLateSubmission() {
 
   // 4. Manually manipulate DB to make attempt old
   console.log('Manipulating DB to make attempt expired...');
-  await mongoose.connect(process.env.MONGODB_URI!);
+  await mongoose.connect(process.env.MONGO_URL!);
   await mongoose.connection.db.collection('examattempts').updateOne(
     { _id: new mongoose.Types.ObjectId(attemptId) },
     { $set: { startedAt: new Date(Date.now() - 3600 * 1000) } } // 1 hour ago
