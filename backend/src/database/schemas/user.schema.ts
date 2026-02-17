@@ -145,8 +145,6 @@ UserSchema.methods.createPasswordResetToken = function(this: UserDocument): stri
 };
 
 // Indexes for common queries
-UserSchema.index({ email: 1 });
-UserSchema.index({ userCode: 1 });
 UserSchema.index({ status: 1 });
 UserSchema.index({ association: 1, rank: 1 });
 

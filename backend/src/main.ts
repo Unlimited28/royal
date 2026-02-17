@@ -70,10 +70,29 @@ async function bootstrap() {
   }
 
   const port = process.env.PORT || 3000;
-  await app.listen(port);
-  logger.log(`Application is running on: http://localhost:${port}/api`);
-  if (!isProduction) {
-    logger.log(`Swagger documentation: http://localhost:${port}/api/docs`);
+  logger.log(`Attempting to bind to port ${port}...`);
+
+  try {
+    await app.listen(port);
+    logger.log(`Application successfully started and listening on port ${port}`);
+    logger.log(`API URL: http://localhost:${port}/api`);
+    if (!isProduction) {
+      logger.log(`Swagger documentation: http://localhost:${port}/api/docs`);
+    }
+  } catch (error) {
+    logger.error(`Failed to start application: ${error}`);
+    process.exit(1);
   }
 }
+
+// Global error handlers to catch unhandled rejections/exceptions
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error);
+  process.exit(1);
+});
+
 bootstrap();
