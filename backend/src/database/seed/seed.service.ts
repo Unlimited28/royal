@@ -1,9 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import type { OnModuleInit } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { ConfigService } from '@nestjs/config';
-import * as bcrypt from 'bcrypt';
 
 import { Camp } from '@schemas/camp.schema';
 import type { CampDocument } from '@schemas/camp.schema';
@@ -25,6 +24,8 @@ import { OFFICIAL_ASSOCIATIONS } from '../constants';
 
 @Injectable()
 export class SeedService implements OnModuleInit {
+  private readonly logger = new Logger(SeedService.name);
+
   constructor(
     @InjectModel(Camp.name) private campModel: Model<CampDocument>,
     @InjectModel(Notification.name) private notificationModel: Model<NotificationDocument>,
@@ -44,44 +45,56 @@ export class SeedService implements OnModuleInit {
 
   async onModuleInit() {
     if (this.configService.get('DISABLE_SEEDING') === 'true') return;
-    await this.seed();
+
+    // Run seeding in a way that doesn't block startup if it takes too long,
+    // but we still want it to finish.
+    this.seed().catch(err => {
+      this.logger.error('Critical failure during seeding process:', err.stack);
+    });
   }
 
   async seed() {
-    console.log('Starting Seeding process...');
+    this.logger.log('Starting Seeding process...');
 
-    if (this.configService.get('CLEAR_DB') === 'true') {
-        console.log('CLEAR_DB is true. Wiping collections...');
-        await this.userModel.deleteMany({});
-        await this.campModel.deleteMany({});
-        await this.blogModel.deleteMany({});
-        await this.galleryModel.deleteMany({});
-        await this.announcementModel.deleteMany({});
-        await this.paymentModel.deleteMany({});
-        await this.examModel.deleteMany({});
-        await this.questionModel.deleteMany({});
-        await this.adModel.deleteMany({});
-        await this.sectionModel.deleteMany({});
-        await this.associationModel.deleteMany({});
-    } else {
-        // If not clearing, check if data already exists to avoid duplicates
-        const userCount = await this.userModel.countDocuments();
-        if (userCount > 0) {
-            console.log('Database not empty. Skipping seed to prevent data corruption.');
-            return;
-        }
+    try {
+      if (this.configService.get('CLEAR_DB') === 'true') {
+          this.logger.warn('CLEAR_DB is true. Wiping collections...');
+          await Promise.all([
+            this.userModel.deleteMany({}),
+            this.campModel.deleteMany({}),
+            this.blogModel.deleteMany({}),
+            this.galleryModel.deleteMany({}),
+            this.announcementModel.deleteMany({}),
+            this.paymentModel.deleteMany({}),
+            this.examModel.deleteMany({}),
+            this.questionModel.deleteMany({}),
+            this.adModel.deleteMany({}),
+            this.sectionModel.deleteMany({}),
+            this.associationModel.deleteMany({}),
+          ]);
+      } else {
+          // If not clearing, check if data already exists to avoid duplicates
+          const userCount = await this.userModel.countDocuments();
+          if (userCount > 0) {
+              this.logger.log('Database already contains users. Skipping seed to prevent data corruption.');
+              return;
+          }
+      }
+
+      await this.seedRolesAndAssociations();
+      await this.seedUsers();
+      await this.seedCamps();
+      await this.seedContent();
+      await this.seedHomepage();
+      await this.seedExams();
+      await this.seedPayments();
+      await this.seedAds();
+
+      this.logger.log('Platform seeding complete.');
+    } catch (error) {
+      this.logger.error('Error during seeding:', error);
+      throw error;
     }
-
-    await this.seedRolesAndAssociations();
-    await this.seedUsers();
-    await this.seedCamps();
-    await this.seedContent();
-    await this.seedHomepage();
-    await this.seedExams();
-    await this.seedPayments();
-    await this.seedAds();
-
-    console.log('Platform seeding complete.');
   }
 
   private async seedRolesAndAssociations() {
@@ -98,17 +111,16 @@ export class SeedService implements OnModuleInit {
 
     // Seed all official associations
     for (const name of OFFICIAL_ASSOCIATIONS) {
-        await this.associationModel.findOneAndUpdate(
-            { name },
-            {
-              name,
-              code: name.substring(0, 3).toUpperCase() + '-' + Math.floor(Math.random() * 1000),
-              type: 'association',
-              status: 'active',
-              location: 'Ogun, Nigeria'
-            },
-            { upsert: true }
-        );
+        const existing = await this.associationModel.findOne({ name });
+        if (!existing) {
+          await this.associationModel.create({
+            name,
+            code: name.substring(0, 3).toUpperCase() + '-' + Math.floor(1000 + Math.random() * 9000),
+            type: 'association',
+            status: 'active',
+            location: 'Ogun, Nigeria'
+          });
+        }
     }
 
     const assoc = await this.associationModel.findOneAndUpdate(
@@ -123,7 +135,7 @@ export class SeedService implements OnModuleInit {
       { upsert: true, new: true }
     );
 
-    console.log('Seeded Roles and Primary Association.');
+    this.logger.log('Seeded Roles and Primary Association.');
     return assoc;
   }
 
@@ -216,8 +228,11 @@ export class SeedService implements OnModuleInit {
         description: 'Leadership training for Senior Ambassadors.',
       },
     ];
-    await this.campModel.insertMany(camps);
-    console.log(`Seeded ${camps.length} camps.`);
+
+    for (const camp of camps) {
+      await this.campModel.findOneAndUpdate({ name: camp.name }, camp, { upsert: true });
+    }
+    this.logger.log(`Seeded ${camps.length} camps.`);
   }
 
   private async seedHomepage() {
@@ -235,8 +250,11 @@ export class SeedService implements OnModuleInit {
         isActive: true,
       }
     ];
-    await this.sectionModel.insertMany(sections);
-    console.log(`Seeded ${sections.length} homepage sections.`);
+
+    for (const section of sections) {
+      await this.sectionModel.findOneAndUpdate({ key: section.key }, section, { upsert: true });
+    }
+    this.logger.log(`Seeded ${sections.length} homepage sections.`);
   }
 
   private async seedContent() {
@@ -261,7 +279,10 @@ export class SeedService implements OnModuleInit {
             publishedAt: new Date(),
         }
     ];
-    await this.blogModel.insertMany(blogs);
+
+    for (const blog of blogs) {
+      await this.blogModel.findOneAndUpdate({ slug: blog.slug }, blog, { upsert: true });
+    }
 
     const gallery = [
         {
@@ -271,7 +292,10 @@ export class SeedService implements OnModuleInit {
             imageUrl: 'https://placehold.co/600x400?text=Convention+2024',
         }
     ];
-    await this.galleryModel.insertMany(gallery);
+
+    for (const item of gallery) {
+      await this.galleryModel.findOneAndUpdate({ title: item.title }, item, { upsert: true });
+    }
 
     const announcements = [
         {
@@ -281,9 +305,12 @@ export class SeedService implements OnModuleInit {
             createdBy: admin._id,
         }
     ];
-    await this.announcementModel.insertMany(announcements);
 
-    console.log('Seeded Blogs, Gallery, and Announcements.');
+    for (const ann of announcements) {
+      await this.announcementModel.findOneAndUpdate({ title: ann.title }, ann, { upsert: true });
+    }
+
+    this.logger.log('Seeded Blogs, Gallery, and Announcements.');
   }
 
   private async seedExams() {
@@ -300,7 +327,10 @@ export class SeedService implements OnModuleInit {
       isActive: true,
     };
 
-    const exam = await this.examModel.create(examData);
+    let exam = await this.examModel.findOne({ title: examData.title });
+    if (!exam) {
+      exam = await this.examModel.create(examData);
+    }
 
     const questions = [
       {
@@ -329,11 +359,19 @@ export class SeedService implements OnModuleInit {
       }
     ];
 
-    const seededQuestions = await this.questionModel.insertMany(questions);
+    const seededQuestions = [];
+    for (const q of questions) {
+      let question = await this.questionModel.findOne({ examId: q.examId, text: q.text });
+      if (!question) {
+        question = await this.questionModel.create(q);
+      }
+      seededQuestions.push(question);
+    }
+
     exam.questions = seededQuestions.map((q: any) => q._id);
     await exam.save();
 
-    console.log('Seeded Exam with Questions.');
+    this.logger.log('Seeded Exam with Questions.');
   }
 
   private async seedAds() {
@@ -348,8 +386,11 @@ export class SeedService implements OnModuleInit {
         isActive: true,
       }
     ];
-    await this.adModel.insertMany(ads);
-    console.log('Seeded Ads.');
+
+    for (const ad of ads) {
+      await this.adModel.findOneAndUpdate({ title: ad.title }, ad, { upsert: true });
+    }
+    this.logger.log('Seeded Ads.');
   }
 
   private async seedPayments() {
@@ -376,7 +417,16 @@ export class SeedService implements OnModuleInit {
       }
     ];
 
-    await this.paymentModel.insertMany(payments);
-    console.log('Seeded Payments.');
+    for (const p of payments) {
+      const exists = await this.paymentModel.findOne({
+        userId: p.userId,
+        type: p.type,
+        referenceNote: p.referenceNote
+      });
+      if (!exists) {
+        await this.paymentModel.create(p);
+      }
+    }
+    this.logger.log('Seeded Payments.');
   }
 }

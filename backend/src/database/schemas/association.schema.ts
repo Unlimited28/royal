@@ -57,5 +57,4 @@ export class Association {
 export const AssociationSchema = SchemaFactory.createForClass(Association);
 
 // Indexes
-AssociationSchema.index({ code: 1 });
 AssociationSchema.index({ status: 1 });
