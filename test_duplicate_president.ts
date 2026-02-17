@@ -8,7 +8,7 @@ async function testDuplicatePresident() {
   const assocName = 'Ogun State Baptist Conference';
 
   // 1. Get original president
-  await mongoose.connect(process.env.MONGODB_URI!);
+  await mongoose.connect(process.env.MONGO_URL!);
   const association = await mongoose.connection.db.collection('associations').findOne({ name: assocName });
   const originalPresId = association?.president;
   console.log('Original President ID:', originalPresId);
