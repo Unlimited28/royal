@@ -1,19 +1,34 @@
 import axios from 'axios';
 
+// Resolve and normalize VITE_API_URL
+const rawBaseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+const normalizedBaseURL = rawBaseURL.endsWith('/') ? rawBaseURL.slice(0, -1) : rawBaseURL;
+
+console.log('[API] Resolved Base URL:', normalizedBaseURL);
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api',
+  baseURL: normalizedBaseURL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Request interceptor to add the auth token header to requests
+// Request interceptor to add the auth token header to requests and normalize URL
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('ra_access_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
+    // Normalize request URL: remove leading slash if present to avoid Axios baseURL pitfall
+    if (config.url && config.url.startsWith('/')) {
+      config.url = config.url.substring(1);
+    }
+
+    // Log the constructed URL components for debugging (critical for mobile testing)
+    console.log(`[API] Request: ${config.method?.toUpperCase()} ${config.baseURL}/${config.url}`);
+
     return config;
   },
   (error) => {
@@ -44,7 +59,10 @@ api.interceptors.response.use(
         try {
           // Attempt to refresh the token
           // Note: Use axios directly to avoid interceptor loop if refresh fails
-          const response = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api'}/auth/refresh`, {
+          const refreshUrl = `${normalizedBaseURL}/auth/refresh`;
+          console.log(`[API] Refreshing token at: ${refreshUrl}`);
+
+          const response = await axios.post(refreshUrl, {
             refreshToken
           });
 
