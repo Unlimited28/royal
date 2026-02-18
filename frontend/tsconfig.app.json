@@ -26,8 +26,8 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "paths": {
-      "@constants": ["../database/constants/index.ts"]
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "../database/**/*.ts"]
+  "include": ["src"]
 }

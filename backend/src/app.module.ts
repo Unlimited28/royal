@@ -11,6 +11,7 @@ import { ExamsModule } from './exams/exams.module';
 import { AdsModule } from './ads/ads.module';
 import { MediaModule } from './media/media.module';
 import { PaymentsModule } from './payments/payments.module';
+import { RanksModule } from './ranks/ranks.module';
 import { AuditLogModule } from './audit-log/audit-log.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { StorageModule } from './common/storage/storage.module';
@@ -46,6 +47,7 @@ import { LoggerMiddleware } from './common/logger.middleware';
     AdsModule,
     MediaModule,
     PaymentsModule,
+    RanksModule,
     AuditLogModule,
     NotificationsModule,
     StorageModule,
