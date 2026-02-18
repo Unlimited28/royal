@@ -5,7 +5,7 @@ import { Input } from '../../components/ui/Input';
 import { Select } from '../../components/ui/Select';
 import { Button } from '../../components/ui/Button';
 import { Link, useNavigate } from 'react-router-dom';
-import { OFFICIAL_ASSOCIATIONS, OFFICIAL_RANKS } from '@constants';
+import { getRanks, getAssociations } from '../../services/configService';
 import logo from '../../assets/logo.png';
 import { register, type RegisterData } from '../../services/authService';
 import { useAuth } from '../../context/AuthContext';
@@ -14,6 +14,8 @@ import toast from 'react-hot-toast';
 export const Register: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [role, setRole] = useState('ambassador');
+    const [availableRanks, setAvailableRanks] = useState<string[]>([]);
+    const [availableAssociations, setAvailableAssociations] = useState<{ id: string; name: string }[]>([]);
     const navigate = useNavigate();
     const { user } = useAuth();
 
@@ -21,6 +23,22 @@ export const Register: React.FC = () => {
         if (user) {
             navigate('/dashboard');
         }
+
+        const fetchData = async () => {
+            try {
+                const [ranks, associations] = await Promise.all([
+                    getRanks(),
+                    getAssociations()
+                ]);
+                setAvailableRanks(ranks);
+                setAvailableAssociations(associations);
+            } catch (error) {
+                console.error('Failed to fetch registration metadata:', error);
+                toast.error('Failed to load association and rank data. Please refresh.');
+            }
+        };
+
+        fetchData();
     }, [user, navigate]);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -63,12 +81,12 @@ export const Register: React.FC = () => {
 
     const associationOptions = [
         { label: '-- Select Association --', value: '' },
-        ...OFFICIAL_ASSOCIATIONS.map(a => ({ label: a, value: a }))
+        ...availableAssociations.map(a => ({ label: a.name, value: a.name }))
     ];
 
     const rankOptions = [
         { label: '-- Select Rank --', value: '' },
-        ...OFFICIAL_RANKS.map(r => ({ label: r, value: r }))
+        ...availableRanks.map(r => ({ label: r, value: r }))
     ];
 
     return (
